@@ -1,0 +1,51 @@
+:toc: left
+
+= Masterly
+
+== 1. Introducción
+
+Este trabajo está elaborado por los alumnos de segundo año de DAW del instituto Nicolau Copèrnic Xavier Carné, Oscar Alonso y Samuel García. 
+
+== 2. Seguimiento semanal
+
+=== Semana 1
+
+
+
+== 3. Diseño de Base de Datos
+
+== 4. Guia de estilos
+
+=== 4.1 Paleta de colores
+
+
+
+=== 4.2 Logotipo
+
+=== 4.3 Tipografía
+
+=== 4.4 Iconografía
+
+=== 4.5 Botones
+
+=== 4.6 Contraste de colores
+
+== 5. Diseño de pantallas
+
+=== 5.1 Sketchings
+
+=== 5.2 Wireframes
+
+=== 5.3 Mockups
+
+== 6. Manual de instalación/distribución
+
+== 7. Manual de usuario
+
+== 8. Conclusiones
+
+== 9. Líneas futuras
+
+ - Realizar un Register dónde se le pida al usuario los mínimos datos posibles (únicamente nombre de usuario) y implementar en nuestra página una función para pedirle más datos (correo electrónico y contraseña)
+
+== 10. Glosario
