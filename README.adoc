@@ -1,4 +1,13 @@
-:toc: left
+== Masterly
 
-= Masterly
+=== Miembros del equipo
 
+* Samuel Garcia Dominguez
+* Oscar Alonso Camenforte
+* Xavi Carné Plandolit
+
+=== Enlaces de interés
+
+* https://git.copernic.cat/carne.plandolit.xavier/masterly[Repositorio Gitlab]
+* https://trello.com/b/mLQuniN4/marketplace[Kanban Trello]
+* [Guia de estilos Figma]
