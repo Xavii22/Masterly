@@ -18,4 +18,4 @@ Route::get('/', function () {
     return 'Hola';
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
