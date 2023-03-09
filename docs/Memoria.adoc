@@ -6,29 +6,22 @@
 
 Este trabajo está elaborado por los alumnos de segundo año de DAW del instituto Nicolau Copèrnic Xavier Carné, Oscar Alonso y Samuel García. 
 
+Nuestra aplicación se llama "Masterly" será elaborada en lo que queda del curso de DAW2T. El propósito central de nuestro proyecto es la creación de una página web que sirva para comprar productos artesanales.
+
+Para una buena navegación por la página web, se intentará crear un diseño cómodo, agradable y fácil de entender para todos usuarios que se conecten mediante una pantalla de ordenador convencional o un dispositivo móvil.
+
+
 == 2. Seguimiento semanal
 
 === Semana 1
 
+A lo largo de esta primera semana, hemos creado el trello y el gitlab, además de elaborar la guía de estilos donde hemos establecido la paleta de colores que usaremos, la tipografía e iconografía, el diseño del logo de nuestra aplicación web y el diseño de los botones. También hemos diseñado las tarjetas de los productos que se mostrarán en la web.
 
+Hemos hecho el diseño inicial de la base de datos y el diseño de los sketchings, wireframes y mockups de las pantallas home y descripción producto tanto en smartphone como en pc.
 
 == 3. Diseño de Base de Datos
 
 == 4. Guia de estilos
-
-=== 4.1 Paleta de colores
-
-
-
-=== 4.2 Logotipo
-
-=== 4.3 Tipografía
-
-=== 4.4 Iconografía
-
-=== 4.5 Botones
-
-=== 4.6 Contraste de colores
 
 == 5. Diseño de pantallas
 
