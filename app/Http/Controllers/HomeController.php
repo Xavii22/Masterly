@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function home() {
-        return view('pages.home');
+    public function home()
+    {
+        $products = Product::all();
+        return view('pages.home', compact('products'));
     }
 }

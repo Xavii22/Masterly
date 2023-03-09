@@ -21,11 +21,9 @@ html {
    * Basic styles for links
    */
 a {
-  color: rgb(229, 0, 80);
   text-decoration: none;
 }
 a:hover, a:active, a:focus, a:focus-within {
-  color: rgb(34, 34, 34);
   text-decoration: underline;
 }
 
@@ -393,8 +391,59 @@ template {
 }
 
 body {
-  color: rgb(34, 34, 34);
   font: normal 125%/1.4 "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-/*# sourceMappingURL=index.css.map */
+.header {
+  height: 70px;
+  box-shadow: 0 4px 10px -4px rgba(30, 30, 30, 0.5);
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: auto;
+  height: 80%;
+  display: block;
+  margin-left: 10px;
+}
+
+.footer {
+  height: 150px;
+  background-color: #2D3339;
+}
+
+.containerf {
+  display: flex;
+}
+
+.containerh {
+  width: 350px;
+  background-color: #EEEEEE;
+}
+
+.containerg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerq {
+  width: 200px;
+}
+
+.flex-cont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-product {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+/*# sourceMappingURL=styles.css.map */

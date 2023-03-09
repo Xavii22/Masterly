@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -13,12 +14,7 @@ class Product extends Model
 
     public function getProduct()
     {
-        return;
-    }
-
-    public function getAllProducts()
-    {
-        return;
+        //return DB::select('select * from users where id = ?', [1]);
     }
 
     public function categories()
