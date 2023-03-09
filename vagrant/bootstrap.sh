@@ -5,7 +5,7 @@ apt-get update
 apt-get install -y mariadb-server mariadb-client
 
 # Crear la base de dades
-
+CREATE DATABASE masterly charset='utf8mb4' collate='utf8mb4_unicode_ci';
 
 # Configuració de MariaDB:
 # - Permet connexions des de qualsevol host
