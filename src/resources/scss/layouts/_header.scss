@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
+
+.header {
+    height: 70px;
+    box-shadow: 0 4px 10px -4px rgba(30, 30, 30, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__logo {
+        width: auto;
+        height: 80%;
+        margin-left: 10px;
+    }
+}
+
+.items {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.item {
+    height: 50%;
+    margin: 0 20px;
+}
+
+.search-bar {
+    background-color: $elements3-color;
+    border: none;
+    border-radius: 25px;
+    height: 40px;
+    padding: 20px;
+    // background-image: url("/images/search.png");
+    // background-repeat: no-repeat;
+    // background-size: 5%;
+}
+
+.login-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}

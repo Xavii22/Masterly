@@ -1,0 +1,59 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Font family
+/// @type List
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+$text-font-stack: "Poppins", Arial, sans-serif !default;
+
+
+
+/// Main
+/// @type Color
+$main-color: #FFFFFF !default;
+
+/// Prueba
+/// @type Color
+$prueba: #EEEEEE !default;
+
+/// Elements
+/// @type Color
+$elements-color: #2596BE !default;
+
+/// Elements 2???
+/// @type Color
+$elements2-color: #828282 !default;
+
+/// Elements 2???
+/// @type Color
+$elements3-color: #F0F0F0 !default;
+
+/// Footer
+/// @type Color
+$footer-color: #2D3339 !default;
+
+
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+    "small": 320px,
+    "medium": 768px,
+    "large": 1024px,
+) !default;
+
+
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'https://cdn.example.com/assets/';
+$base-url: "/assets/" !default;

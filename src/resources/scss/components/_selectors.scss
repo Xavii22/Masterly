@@ -1,0 +1,26 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the selector components.
+// -----------------------------------------------------------------------------
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    height: 55px;
+    margin-bottom: 20px;
+
+    &__number {
+        margin: 0 10px;
+        padding: 0 20px;
+        border-radius: 5px;
+        color: $elements2-color;
+        border: 2px solid $elements2-color;
+        display: flex;
+        align-items: center;
+
+        &--active {
+            color: $main-color;
+            background-color: $elements-color;
+            border: 0px;
+        }
+    }
+}
