@@ -5,6 +5,8 @@
 /public/storage
 /storage/*.key
 /src/vendor
+\src\vendor
+src\vendor
 /src/storage
 /src/bootstrap
 .env
