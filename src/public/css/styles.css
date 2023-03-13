@@ -539,4 +539,15 @@ h1, h2, h3 {
   flex: 1;
 }
 
+.price {
+  font-weight: bold;
+  color: #2596BE;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
 /*# sourceMappingURL=styles.css.map */
