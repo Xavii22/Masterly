@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Login')
 
 @section('content')
-    @include('layouts.header')
-    <h1>Login</h1>
-    @include('layouts.footer')
+    <form class="formulario">
+        <h1>Login</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <input type="text" placeholder="Correo electrónico">
+            </div>
+            <div class="input-contenedor">
+                <input type="text" placeholder="Contraseña">
+            </div>
+        </div>
+    </form>
 @endsection

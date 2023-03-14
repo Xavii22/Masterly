@@ -23,4 +23,6 @@ Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
 
 Route::get('/login', [LoginController::class, 'login'])->name('pages.login');
 
+Route::get('/register', [LoginController::class, 'register'])->name('pages.register');
+
 Route::get('/search', [HomeController::class, 'search'])->name('search');
