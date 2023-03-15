@@ -1,5 +1,7 @@
 <header class="header">
-    <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
+    <a href="{{ route('pages.home') }}">
+        <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
+    </a>
     <div class="items">
         <form method="GET" action="{{ route('search') }}">
             @csrf
