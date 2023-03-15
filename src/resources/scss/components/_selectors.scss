@@ -24,3 +24,14 @@
         }
     }
 }
+
+.sort {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 30px;
+
+    &__link {
+        color: red;
+    }
+
+}
