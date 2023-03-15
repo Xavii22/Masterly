@@ -35,4 +35,10 @@ class HomeController extends Controller
         $products = Product::where('name', 'like', '%' . $query . '%')->paginate(40);
         return view('pages.home', compact('products', 'query'));
     }
+
+    public function showProduct($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('pages.product', compact('product'));
+    }
 }

@@ -17,17 +17,19 @@
                 </div>
                 <div class="products">
                     @foreach ($products as $product)
-                        <article class="product-element">
-                            <img class="product-element__image" src="{{ $product->image }}">
-                            <div class="product-element__info">
-                                <div>
-                                    <h3>{{ $product->name }}</h3>
+                        <a href="{{route('pages.product', [$product->id])}}">
+                            <article class="product-element">
+                                <img class="product-element__image" src="{{ $product->image }}">
+                                <div class="product-element__info">
+                                    <div>
+                                        <h3>{{ $product->name }}</h3>
+                                    </div>
+                                    <div>
+                                        <p>{{ $product->price }}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p>{{ $product->price }}</p>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        </a>
                     @endforeach
                 </div>
                 {{ $products->appends(['query' => $query])->links('vendor.pagination.default') }}
