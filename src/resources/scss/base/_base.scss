@@ -38,3 +38,9 @@ a {
 a:visited {
     color: inherit;
 }
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}

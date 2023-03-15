@@ -28,4 +28,10 @@ class HomeController extends Controller
         $products = Product::where('name', 'like', '%' . $query . '%')->orderBy('name', $sort)->paginate(40);
         return view('pages.home', compact('products', 'query', 'sort'));
     }
+
+    public function showProduct($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('pages.product', compact('product'));
+    }
 }

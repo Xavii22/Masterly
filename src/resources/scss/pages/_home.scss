@@ -2,13 +2,14 @@
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
 
-.parent {
+.home {
     display: flex;
+    flex: 1;
 }
 
 .categories {
     width: 350px;
-    background-color: $prueba;
+    background-color: $complementary-color;
 
     &__title {
         display: flex;
@@ -40,7 +41,7 @@
     align-items: center;
 }
 
-.product {
+.product-element {
     width: 200px;
     cursor: pointer;
 

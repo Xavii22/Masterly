@@ -1,6 +1,8 @@
 <header class="header">
-    <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
-    <img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
+    <a href="{{ route('pages.home') }}">
+        <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
+    </a>
+	<img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
     <div class="items">
         <form method="GET" action="{{ route('search') }}">
             @csrf
