@@ -16,14 +16,12 @@
                     <h1>Artículos</h1>
                 </div>
 				<div class="sort">
-                <div class="sort__content">
-                    <a class="sort__link" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Más reciente</a>
-                    <a class="sort__link" href="{{ route('search', ['query' => $query, 'sort' => 'asc']) }}">Nombre (A-Z)</a>
-                    <a class="sort__link" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Nombre (Z-A)</a>
-                    <a class="sort__link" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Precio más alto</a>
-                    <a class="sort__link" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Precio más bajo</a>
+                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'asc']) }}">Más reciente</a>
+                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'asc']) }}">Nombre (A-Z)</a>
+                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Nombre (Z-A)</a>
+                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Precio más alto</a>
+                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Precio más bajo</a>
                 </div>
-            </div>
                 <div class="products">
                     @foreach ($products as $product)
                         <a href="{{route('pages.product', [$product->id])}}">
@@ -41,7 +39,7 @@
                         </a>
                     @endforeach
                 </div>
-                {{ $products->appends(['query' => $query])->links('vendor.pagination.default') }}
+                {{ $products->appends(['query' => $query, 'sort' => $sort])->links('vendor.pagination.default') }}
             </section>
         </div>
         @include('layouts.footer')

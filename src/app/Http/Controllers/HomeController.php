@@ -12,8 +12,9 @@ class HomeController extends Controller
     {
         $query = $request->input('query', '');
         $products = Product::paginate(40);
+        $sort = '';
 
-        return view('pages.home', compact('products', 'query'));
+        return view('pages.home', compact('products', 'query', 'sort'));
     }
 
     public function search(Request $request, $sort = 'asc')

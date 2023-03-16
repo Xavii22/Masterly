@@ -27,11 +27,10 @@
 
 .sort {
     display: flex;
-    justify-content: end;
+    justify-content: space-evenly;
     margin-bottom: 30px;
 
     &__link {
         color: red;
     }
-
 }
