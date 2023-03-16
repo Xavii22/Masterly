@@ -15,7 +15,7 @@
                 <h3 class="content__price">{{ $product->price }}€</h3>
                 <h3 class="content__seller"><b>Vendedor: </b>Oscar Alonso</h3>
                 <div class="buttons">
-                    <button class="content__add-cart button button--transparent">
+                    <button class="content__add-cart button button--transparent" onclick="storeProduct({{ $product->id }})">
                         <img src="{{ asset('images/cart.png') }}" alt="Cart"><span>Añadir al carrito</span>
                     </button>
                     <button class="content__buy button button--blue">Comprar</button>
