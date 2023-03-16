@@ -15,9 +15,31 @@ Para una buena navegación por la página web, se intentará crear un diseño c�
 
 === Semana 1
 
-A lo largo de esta primera semana, hemos creado el trello y el gitlab, además de elaborar la guía de estilos donde hemos establecido la paleta de colores que usaremos, la tipografía e iconografía, el diseño del logo de nuestra aplicación web y el diseño de los botones. También hemos diseñado las tarjetas de los productos que se mostrarán en la web.
+A lo largo de la primera semana, nos hemos encargado de realizar las tareas introductiorias del proyecto como son las siguientes:
 
-Hemos hecho el diseño inicial de la base de datos y el diseño de los sketchings, wireframes y mockups de las pantallas home y descripción producto tanto en smartphone como en pc.
+* Creación del repositorio Gitlab y Kanban Trello (Samuel, Oscar y Xavi - 4h)
+* Realización de la primera versión de la guia de estilos (Samuel, Oscar y Xavi - 6h)
+* Diseño de la base de datos a partir de las tablas de "product" y "category" (Oscar y Xavi - 2h)
+* Realización de scketchings, wireframe y mockups de la pantalla "home" en vista ordenador y mobil (Samuel y Oscar - 6h)
+
+=== Semana 2
+
+La segunda semana del proyecto es en la que hemos empezado a desarrollar la aplicación en Laravel. Las tareas más importantes de las que nos hemos encargado son las siguientes:
+
+* Realización de scketchings, wireframe y mockups de la pantalla "home" en vista ordenador y mobil (Oscar y Xavi - 6h)
+* Realizar los "seeders", "migrations" y "factories" de los modelos "Product" y "Category" (Xavi - 2h)
+* Mostrar todos los datos de los productos en la página "home" (Xavi - 3h)
+* Realización de la vista de la pantalla de producto (Oscar - 4h)
+
+=== Semana 3
+
+En la tercera semana, sobretodo hemos continuado implementando las funcionalidades de las pantallas de "home" y producto.
+
+* Paginación del total de productos en la página home (Xavi - 3h)
+* Filtración de productos a partir del nombre en una barra de búsqueda(Xavi - 4h)
+* La página web redirige a la página de producto cuando se clica a un producto y se muestran los datos pertinentes (Oscar - 2h)
+* Realización del logger (Samuel - 2h)
+* Adición y eliminación de la id de los productos en el local storage y mostrarlos en el contador (Oscar - 4h)
 
 == 3. Diseño de Base de Datos
 
