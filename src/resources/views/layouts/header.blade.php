@@ -9,7 +9,7 @@
         </form>
         <a class="item-link" href="{{ route('pages.cart') }}">
             <img class="item" src="{{ asset('images/cart.png') }}" alt="Cart">
-            <div class="stored-products"><span>3</span></div>
+            <div class="stored-products"><span></span></div>
         </a>
         <a class="item-link" href="{{ route('pages.login') }}">
             <img class="item" src="{{ asset('images/user.png') }}" alt="User">
