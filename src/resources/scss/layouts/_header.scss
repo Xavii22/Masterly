@@ -11,7 +11,7 @@
 
     &__logo {
         width: auto;
-        height: 60px;
+        height: 80%;
         margin-left: 10px;
     }
 }
@@ -39,8 +39,18 @@
     // background-size: 5%;
 }
 
-.login-link {
+.item-link {
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+.stored-products {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $secondary-color;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
 }

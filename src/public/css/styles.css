@@ -419,7 +419,7 @@ h1, h2, h3 {
 }
 .header__logo {
   width: auto;
-  height: 60px;
+  height: 80%;
   margin-left: 10px;
 }
 
@@ -443,10 +443,20 @@ h1, h2, h3 {
   padding: 20px;
 }
 
-.login-link {
+.item-link {
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.stored-products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2596BE;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
 }
 
 .footer {
@@ -548,6 +558,14 @@ h1, h2, h3 {
   max-width: 100%;
   max-height: 100%;
   display: block;
+}
+.product-element__cart {
+  visibility: hidden;
+  width: 25px;
+  height: 25px;
+}
+.product-element:hover .product-element__cart {
+  visibility: visible;
 }
 
 .buttons {

@@ -51,4 +51,15 @@
         max-height: 100%;
         display: block;
     }
+    
+    
+    &__cart {
+        visibility: hidden;
+        width: 25px;
+        height: 25px;        
+    }
+    
+    &:hover &__cart{
+        visibility: visible;
+    }
 }

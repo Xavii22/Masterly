@@ -28,4 +28,5 @@
         </div>
         @include('layouts.footer')
     </div>
+    <script src="{{ asset('js/ProductStorage.js') }}"></script>
 @endsection
