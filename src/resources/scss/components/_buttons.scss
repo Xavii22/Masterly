@@ -19,7 +19,7 @@
         }
     }
 
-    &--transparent {
+    &--grey {
         color: $tertiary-color;
         background-color: transparent;
         border-color: $tertiary-color;
@@ -27,6 +27,11 @@
         &:hover {
             filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg)brightness(91%) contrast(91%);
         }
+    }
+
+    &--transparent {
+        background-color: transparent;
+        border-color: transparent;
     }
 
     &:hover {

@@ -59,4 +59,15 @@
             
         }
     }
+    
+    
+    &__cart {
+        visibility: hidden;
+        width: 25px;
+        height: 25px;        
+    }
+    
+    &:hover &__cart{
+        visibility: visible;
+    }
 }
