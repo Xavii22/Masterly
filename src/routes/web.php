@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,6 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/login', [LoginController::class, 'login'])->name('pages.login');
 
 Route::get('/cart', [CartController::class, 'cart'])->name('pages.cart');
+
+Route::post('/cart', [CartController::class, 'queryProducts'])->name('pages.cart');
+
