@@ -17,19 +17,21 @@
                 </div>
                 <div class="products">
                     @foreach ($products as $product)
-                        <a href="{{route('pages.product', [$product->id])}}">
-                            <article class="product-element">
+                        <article class="product-element">
+                            <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $product->image }}">
-                                <div class="product-element__info">
-                                    <div>
-                                        <h3>{{ $product->name }}</h3>
-                                    </div>
-                                    <div>
-                                        <p>{{ $product->price }}</p>
-                                    </div>
+                            </a>
+                            <img class="product-element__cart" src="{{ asset('images/cart.png') }}"
+                                onclick="toggleProductInCart({{ $product->id }})">
+                            <div class="product-element__info">
+                                <div>
+                                    <h3>{{ $product->name }}</h3>
                                 </div>
-                            </article>
-                        </a>
+                                <div>
+                                    <p>{{ $product->price }}</p>
+                                </div>
+                            </div>
+                        </article>
                     @endforeach
                 </div>
                 {{ $products->appends(['query' => $query])->links('vendor.pagination.default') }}
@@ -37,4 +39,5 @@
         </div>
         @include('layouts.footer')
     </div>
+    <script src="{{ asset('js/storageListener.js') }}"></script>
 @endsection
