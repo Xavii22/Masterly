@@ -27,3 +27,6 @@ Route::get('/product/{id}', [HomeController::class, 'showProduct'])->name('pages
 Route::get('/login', [LoginController::class, 'login'])->name('pages.login');
 
 Route::get('/search', [HomeController::class, 'search'])->name('search');
+
+//Se accede como /admin/logs
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
