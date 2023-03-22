@@ -7,27 +7,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 $text-font-stack: "Poppins", Arial, sans-serif !default;
 
-
-
-/// Main
+/// Primary
 /// @type Color
-$main-color: #FFFFFF !default;
+$primary-color: #FFFFFF !default;
 
-/// Prueba
+/// Complementary
 /// @type Color
-$prueba: #EEEEEE !default;
+$complementary-color: #F0F0F0 !default;
 
-/// Elements
+/// Secondary
 /// @type Color
-$elements-color: #2596BE !default;
+$secondary-color: #2596BE !default;
 
-/// Elements 2???
+/// Tertiary
 /// @type Color
-$elements2-color: #828282 !default;
+$tertiary-color: #828282 !default;
 
-/// Elements 2???
+/// Border
 /// @type Color
-$elements3-color: #F0F0F0 !default;
+$border-color: #b5b5b5 !default;
+
+/// Tertiary
+/// @type Color
+$hover-color: #0a6c8f !default;
 
 /// Footer
 /// @type Color

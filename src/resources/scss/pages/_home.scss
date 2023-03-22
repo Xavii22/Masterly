@@ -2,17 +2,22 @@
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
 
-.parent {
+.home {
     display: flex;
+    flex: 1;
 }
 
 .categories {
     width: 350px;
-    background-color: $prueba;
+    background-color: $complementary-color;
 
     &__title {
         display: flex;
         justify-content: center;
+    }
+
+    @media screen and (max-width: 800px) {
+        display: none;
     }
 }
 
@@ -36,7 +41,7 @@
     align-items: center;
 }
 
-.product {
+.product-element {
     width: 200px;
     cursor: pointer;
 
@@ -44,10 +49,25 @@
         display: flex;
         justify-content: space-between;
     }
-    
+
     &__image {
         max-width: 100%;
         max-height: 100%;
         display: block;
+
+        @media screen and (max-width: 800px) {
+            
+        }
+    }
+    
+    
+    &__cart {
+        visibility: hidden;
+        width: 25px;
+        height: 25px;        
+    }
+    
+    &:hover &__cart{
+        visibility: visible;
     }
 }

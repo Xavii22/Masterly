@@ -13,6 +13,19 @@
         width: auto;
         height: 80%;
         margin-left: 10px;
+
+        @media screen and (max-width: 800px) {
+            display: none;
+        }
+
+        &--mobile {
+            display: none;
+            height: 70%;
+
+            @media screen and (max-width: 800px) {
+                display: block;
+            }
+        }
     }
 }
 
@@ -29,7 +42,7 @@
 }
 
 .search-bar {
-    background-color: $elements3-color;
+    background-color: $complementary-color;
     border: none;
     border-radius: 25px;
     height: 40px;
@@ -39,8 +52,18 @@
     // background-size: 5%;
 }
 
-.login-link {
+.item-link {
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+.stored-products {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $secondary-color;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
 }

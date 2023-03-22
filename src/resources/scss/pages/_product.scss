@@ -1,3 +1,64 @@
 // -----------------------------------------------------------------------------
 // This file contains styles that are specific to the product page.
-// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------´
+
+.buttons {
+    display: flex;
+    gap: 30px;
+}
+
+.content {
+    &__category,
+    &__seller {
+        font-size: 20px;
+        color: $tertiary-color;
+    }
+    
+    &__price {
+        font-size: 70px;
+        font-weight: bold;
+        color: $secondary-color;
+    }
+
+    &__add-cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transition: 0.2s;
+        
+        img {
+            width: 25px;
+            height: 25px;
+        }
+    }
+}
+
+.details {
+    &__description {
+        font-size: 15px;
+        color: $tertiary-color;
+    }
+}
+
+.image {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+    img {
+        max-width: 100%;
+        height: auto;
+        z-index: -1;
+        transition: 0.2s;
+    }
+}
+
+.product {
+    display: grid;
+    grid-template-columns: repeat(2, max(1fr));
+    grid-template-rows: repeat(2, auto-fit);
+    flex: 1;
+    grid-gap: 20px;
+    padding: 0 10%;
+}

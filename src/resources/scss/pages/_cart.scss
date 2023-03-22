@@ -1,0 +1,75 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the cart page.
+// -----------------------------------------------------------------------------
+
+.cart {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr auto auto;
+    grid-gap: 40px;
+
+    padding: 0 10%;
+
+    &__header {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+
+        &-products {
+            color: $tertiary-color;
+        }
+    }
+
+    &__product-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__summary {
+        display: flex;
+        flex-direction: column;
+
+        height: 300px;
+        padding: 20px;
+        position: sticky;
+        top: 50px;
+
+        border: 1px solid $border-color;
+        border-radius: 3px;
+
+        &-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-top: 1px solid $border-color;
+        }
+    }
+}
+
+.product-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    border: 1px solid $border-color;
+    border-radius: 3px;
+
+    &__image {
+        display: block;
+        height: 200px;
+        width: 200px;
+        &-link {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+        }
+    }
+
+    &__name-link {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    &__price {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
