@@ -16,7 +16,7 @@ class CategoryProductSeeder extends Seeder
     {
         DB::table('category_product')->delete();
         $productList = Product::all();
-        $categoryList = Category::all();
+        $categoryList = Category::where('type', 'C')->get();
 
         foreach ($productList as $product) {
             $product->categories()->attach($categoryList->random());
