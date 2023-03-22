@@ -8,10 +8,19 @@
         <div class="home">
             <aside class="categories">
                 <div>
-                    @if ($category != null)
+                    @if ($category != null && $childCategoryName == '')
                         <a href="{{ route('pages.home') }}">hola</a>
                         <span>/</span>
-                        <a>{{ $categoryName }}</a>
+                        <a
+                            href="{{ route('pages.home', ['query' => $query, 'category' => $category]) }}">{{ $parentCategoryName }}</a>
+                    @elseif ($childCategoryName != '')
+                        <a href="{{ route('pages.home') }}">hola</a>
+                        <span>/</span>
+                        <a
+                            href="{{ route('pages.home', ['query' => $query, 'category' => $parentCategory]) }}">{{ $parentCategoryName }}</a>
+                        <span>/</span>
+                        <a
+                            href="{{ route('pages.home', ['query' => $query, 'category' => $category]) }}">{{ $childCategoryName }}</a>
                     @endif
                 </div>
                 <div class="categories__content">
@@ -19,38 +28,44 @@
                         <h2>Categorias</h2>
                     </div>
                     <div class="categories__list">
-                        {{-- @if ($category != null) --}}
-                        @foreach ($parentCategories as $parentCategory)
-                            <a
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category]) }}">{{ $parentCategory->name }}</a>
-                        @endforeach
-                        {{-- @else --}}
-
-                        {{-- @endif --}}
-
+                        @if ($childCategories != '')
+                            @foreach ($childCategories as $childCategory)
+                                <a
+                                    href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $childCategory]) }}">{{ $childCategory->name }}</a>
+                            @endforeach
+                        @else
+                            @foreach ($parentCategories as $parentCategory)
+                                <a
+                                    href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $parentCategory]) }}">{{ $parentCategory->name }}</a>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
-
             </aside>
             <section class="products-parent">
                 <div class="products-title">
                     @if ($category != null)
-                        <h1>{{ $categoryName }}</h1>
+                        <h1>{{ $parentCategoryName }}</h1>
                     @else
                         <h1>Artículos</h1>
                     @endif
                 </div>
                 <div class="sort">
                     <a class="sort__link button button--transparent"
-                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent']) }}">Más reciente</a>
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category]) }}">Más
+                        reciente</a>
                     <a class="sort__link button button--transparent"
-                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc']) }}">Nombre (A-Z)</a>
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc', 'category' => $category]) }}">Nombre
+                        (A-Z)</a>
                     <a class="sort__link button button--transparent"
-                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc']) }}">Nombre (Z-A)</a>
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc', 'category' => $category]) }}">Nombre
+                        (Z-A)</a>
                     <a class="sort__link button button--transparent"
-                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc']) }}">Precio más alto</a>
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc', 'category' => $category]) }}">Precio
+                        más alto</a>
                     <a class="sort__link button button--transparent"
-                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc']) }}">Precio más bajo</a>
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category]) }}">Precio
+                        más bajo</a>
                     <p>{{ $productAmount }}</p>
                 </div>
                 <div class="products">
