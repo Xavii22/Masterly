@@ -44,7 +44,9 @@
             </aside>
             <section class="products-parent">
                 <div class="products-title">
-                    @if ($category != null)
+                    @if ($childCategoryName != null)
+                        <h1>{{ $childCategoryName }}</h1>
+                    @elseif ($parentCategoryName != null)
                         <h1>{{ $parentCategoryName }}</h1>
                     @else
                         <h1>Artículos</h1>
