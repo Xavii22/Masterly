@@ -3,8 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="parent">
-        @include('layouts.header')
+    @include('layouts.header')
+    <main>
         <div class="home">
             <section class="categories">
                 <div class="categories__title">
@@ -37,7 +37,8 @@
                 {{ $products->appends(['query' => $query])->links('vendor.pagination.default') }}
             </section>
         </div>
-        @include('layouts.footer')
+    </main>
+    @include('layouts.footer')
     </div>
     <script src="{{ asset('js/storageListener.js') }}"></script>
 @endsection

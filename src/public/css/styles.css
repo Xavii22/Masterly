@@ -33,10 +33,13 @@ a:visited {
   color: inherit;
 }
 
-.parent {
+body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+}
+
+main {
+  flex: 1;
 }
 
 /**
@@ -459,7 +462,8 @@ h1, h2, h3 {
   height: 20px;
 }
 
-.footer {
+footer {
+  width: 100%;
   height: 150px;
   background-color: #2D3339;
 }
