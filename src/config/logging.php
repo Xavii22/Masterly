@@ -51,6 +51,13 @@ return [
     */
 
     'channels' => [
+        'desarrollo' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/desarrollologs.log'),
+            'level' => 'info',
+            'ignore_exceptions' => false,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
