@@ -11,19 +11,23 @@ use GuzzleHttp\Client;
 class ProductFactory extends Factory
 {
 
-    public function getDataFromUnsplashApi() {
-        $description = null;
+    public function getDataFromUnsplashApi()
+    {
+        $name = null;
 
-        while($description == null || $description > 30) {
-            $client = new Client();
-            $response = $client->get('https://api.unsplash.com/photos/random?client_id=T1QPdcgkjhmCWibl_FZfkj4JhrmmK6qwNdrLHEShMGc&query=product');
-            $json = (string) $response->getBody();
-            $data = json_decode($json, true);
-            $description = $data['description'];
+        $client = new Client();
+        $response = $client->get('https://api.unsplash.com/photos/random?client_id=T1QPdcgkjhmCWibl_FZfkj4JhrmmK6qwNdrLHEShMGc&query=product');
+        $json = (string) $response->getBody();
+        $data = json_decode($json, true);
+
+        $name = $data['description'];
+        $image = $data['urls']['regular'];
+
+        if ($name >= 30 || $name == null) {
+            $name = fake()->word();
         }
 
-        $image = $data['urls']['regular'];
-        $productData = array($description, $image);
+        $productData = array($name, $image);
 
         return $productData;
     }
@@ -39,10 +43,12 @@ class ProductFactory extends Factory
 
         return [
             'name' => $productData[0],
+            // 'name' => fake()->word(),
             'description' => fake()->paragraph(10),
             'price' => fake()->numberBetween(10, 100),
             'category' => fake()->word(),
             'image' => $productData[1]
+            // 'image' => fake()->imageUrl(rand(480, 640), rand(480, 640), 'product')
         ];
     }
 }
