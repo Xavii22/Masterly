@@ -31,11 +31,17 @@
     margin-bottom: 30px;
     border-top: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
+    margin-left: 20px;
+    margin-right: 20px;
 
     &__link {
         border: 1px solid $border-color;
         padding: 5px;
         margin: 15px 20px;
+
+        &--active {
+            border-color: $secondary-color;
+        }
 
         &:hover {
             text-decoration: none;
