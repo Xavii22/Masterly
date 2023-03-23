@@ -12,17 +12,6 @@ use app\Models\Product;
 class CategoryProductFactory extends Factory
 {
 
-    public function getEveryCategoryProductRegister()
-    {
-        $productList = array(Product::all());
-        $categoryList = array();
-        for ($i=0; $i < count($productList); $i++) { 
-            array_push($categoryList, );
-        }
-
-        return $categoryList;
-    }
-
     /**
      * Define the model's default state.
      *

@@ -41,6 +41,18 @@ En la tercera semana, sobretodo hemos continuado implementando las funcionalidad
 * Realización del logger (Samuel - 2h)
 * Adición y eliminación de la id de los productos en el local storage y mostrarlos en el contador (Oscar - 4h)
 
+=== Semana 4
+
+La cuarta semana ha sido dedicada a terminar las funcionalidades de home y carrito. A la vez, se ha empezado la realización de las pantallas de login y registro.
+
+* Realización de la vista de la pantalla de carrito (Oscar - 6h)
+* Mostrar productos añadidos al carrito en la pantalla del carrito (Oscar - 8h)
+* Refactorización del código storage listener y product fetcher (Oscar - 2h)
+* Implementación categorias y subcategorias (Xavi - 12h)
+* Adición de imágenes reales de la API unsplash (Xavi - 2h)
+* Continuación de la implementación del logger (Samuel - 4h)
+* Realización de la vista y la funcionalidad del login y registro (Samuel - 7h)
+
 == 3. Diseño de Base de Datos
 
 == 4. Guia de estilos
