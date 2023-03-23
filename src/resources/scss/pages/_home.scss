@@ -11,6 +11,10 @@
     width: 350px;
     background-color: $complementary-color;
 
+    &__path {
+        margin: 10px 0px 0px 10px;
+    }
+
     &__content {
         position: sticky;
         top: 0;
@@ -85,18 +89,16 @@
         display: block;
 
         @media screen and (max-width: 800px) {
-            
         }
     }
-    
-    
+
     &__cart {
         visibility: hidden;
         width: 25px;
-        height: 25px;        
+        height: 25px;
     }
-    
-    &:hover &__cart{
+
+    &:hover &__cart {
         visibility: visible;
     }
 }
