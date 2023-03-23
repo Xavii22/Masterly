@@ -6,21 +6,79 @@
     <div class="parent">
         @include('layouts.header')
         <div class="home">
-            <section class="categories">
-                <div class="categories__title">
-                    <h2>Categoria</h2>
+            <aside class="categories">
+                <div>
+                    @if ($category != null && $childCategoryName == '')
+                        <a href="{{ route('pages.home') }}">hola</a>
+                        <span>/</span>
+                        <a
+                            href="{{ route('pages.home', ['query' => $query, 'category' => $category]) }}">{{ $parentCategoryName }}</a>
+                    @elseif ($childCategoryName != '')
+                        <a href="{{ route('pages.home') }}">hola</a>
+                        <span>/</span>
+                        <a
+                            href="{{ route('pages.home', ['query' => $query, 'category' => $parentCategory]) }}">{{ $parentCategoryName }}</a>
+                        <span>/</span>
+                        <a
+                            href="{{ route('pages.home', ['query' => $query, 'category' => $category]) }}">{{ $childCategoryName }}</a>
+                    @endif
                 </div>
-            </section>
+                <div class="categories__content">
+                    <div class="categories__title">
+                        @if ($childCategories != '')
+                            <h2>Subcategorias</h2>
+                        @else
+                            <h2>Categorias</h2>
+                        @endif
+                    </div>
+                    <div class="categories__list">
+                        @if ($childCategories != '')
+                            @foreach ($childCategories as $childCategory)
+                                <div class="category">
+                                    <a class="category__content category__text"
+                                         href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $childCategory]) }}">{{ $childCategory->name }}</a>
+                                    <img class="categories__icon category__content" src="{{ asset('images/right-arrow.png') }}">
+                                </div>
+                            @endforeach
+                        @else
+                            @foreach ($parentCategories as $parentCategory)
+                                <div class="category">
+                                    <a class="category__content category__text"
+                                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $parentCategory]) }}">{{ $parentCategory->name }}</a>
+                                    <img class="categories__icon category__content" src="{{ asset('images/right-arrow.png') }}">
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </aside>
             <section class="products-parent">
                 <div class="products-title">
-                    <h1>Artículos</h1>
+                    @if ($childCategoryName != null)
+                        <h1>{{ $childCategoryName }}</h1>
+                    @elseif ($parentCategoryName != null)
+                        <h1>{{ $parentCategoryName }}</h1>
+                    @else
+                        <h1>Artículos</h1>
+                    @endif
                 </div>
-				<div class="sort">
-                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'asc']) }}">Más reciente</a>
-                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'asc']) }}">Nombre (A-Z)</a>
-                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Nombre (Z-A)</a>
-                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Precio más alto</a>
-                    <a class="sort__link button button--transparent" href="{{ route('search', ['query' => $query, 'sort' => 'desc']) }}">Precio más bajo</a>
+                <div class="sort">
+                    <a class="sort__link button button--transparent"
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category]) }}">Más
+                        reciente</a>
+                    <a class="sort__link button button--transparent"
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc', 'category' => $category]) }}">Nombre
+                        (A-Z)</a>
+                    <a class="sort__link button button--transparent"
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc', 'category' => $category]) }}">Nombre
+                        (Z-A)</a>
+                    <a class="sort__link button button--transparent"
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc', 'category' => $category]) }}">Precio
+                        más alto</a>
+                    <a class="sort__link button button--transparent"
+                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category]) }}">Precio
+                        más bajo</a>
+                    <p>{{ $productAmount }}</p>
                 </div>
                 <div class="products">
                     @foreach ($products as $product)

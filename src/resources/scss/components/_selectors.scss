@@ -29,8 +29,16 @@
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 30px;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
 
     &__link {
-        color: red;
+        border: 1px solid $border-color;
+        padding: 5px;
+        margin: 15px 20px;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
