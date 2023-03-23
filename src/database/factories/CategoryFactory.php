@@ -9,15 +9,34 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CategoryFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Category::class;
+
+    public function definition()
     {
         return [
-            'name'=>fake()->word()
+            'name' => $this->faker->word(),
+            // Other attributes
+            'type' => $this->faker->randomElement(['P', 'C']),
         ];
+    }
+
+    // Define a state for creating P categories
+    public function pCategory()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type' => 'P',
+            ];
+        });
+    }
+
+    // Define a state for creating C categories
+    public function cCategory()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type' => 'C',
+            ];
+        });
     }
 }
