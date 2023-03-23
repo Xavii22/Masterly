@@ -4,7 +4,7 @@
     </a>
 	<img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
     <div class="items">
-        <form method="GET" action="{{ route('pages.home', ['query' => $query]) }}">
+        <form method="GET" action="{{ route('pages.home') }}">
             @csrf
             <input class="search-bar" type="text" name="query">
         </form>

@@ -107,6 +107,7 @@ class HomeController extends Controller
     public function showProduct($id)
     {
         $product = Product::findOrFail($id);
+        $query = '';
         return view('pages.product', compact('product'));
     }
 }

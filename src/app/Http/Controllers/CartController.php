@@ -9,8 +9,7 @@ class CartController extends Controller
 {
     public function cart(Request $request)
     {
-        $query = '';
-        return view('pages.cart', compact('request', 'query'));
+        return view('pages.cart', compact('request'));
     }
 
     public function queryProducts(Request $request)
