@@ -11,13 +11,42 @@
     width: 350px;
     background-color: $complementary-color;
 
+    &__content {
+        position: sticky;
+        top: 0;
+    }
+
     &__title {
         display: flex;
         justify-content: center;
     }
 
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__icon {
+        height: 25%;
+    }
+
     @media screen and (max-width: 800px) {
         display: none;
+    }
+}
+
+.category {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    height: 70px;
+
+    &__content {
+        align-self: center;
+    }
+
+    &__text {
+        min-width: 100px;
     }
 }
 

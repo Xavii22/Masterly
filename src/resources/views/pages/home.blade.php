@@ -25,18 +25,28 @@
                 </div>
                 <div class="categories__content">
                     <div class="categories__title">
-                        <h2>Categorias</h2>
+                        @if ($childCategories != '')
+                            <h2>Subcategorias</h2>
+                        @else
+                            <h2>Categorias</h2>
+                        @endif
                     </div>
                     <div class="categories__list">
                         @if ($childCategories != '')
                             @foreach ($childCategories as $childCategory)
-                                <a
-                                    href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $childCategory]) }}">{{ $childCategory->name }}</a>
+                                <div class="category">
+                                    <a class="category__content category__text"
+                                         href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $childCategory]) }}">{{ $childCategory->name }}</a>
+                                    <img class="categories__icon category__content" src="{{ asset('images/right-arrow.png') }}">
+                                </div>
                             @endforeach
                         @else
                             @foreach ($parentCategories as $parentCategory)
-                                <a
-                                    href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $parentCategory]) }}">{{ $parentCategory->name }}</a>
+                                <div class="category">
+                                    <a class="category__content category__text"
+                                        href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $parentCategory]) }}">{{ $parentCategory->name }}</a>
+                                    <img class="categories__icon category__content" src="{{ asset('images/right-arrow.png') }}">
+                                </div>
                             @endforeach
                         @endif
                     </div>
