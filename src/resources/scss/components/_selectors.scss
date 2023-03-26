@@ -16,6 +16,8 @@
         border: 2px solid $tertiary-color;
         display: flex;
         align-items: center;
+        min-width: 55px;
+        justify-content: center;
 
         &--active {
             color: $primary-color;
@@ -38,6 +40,8 @@
         border: 1px solid $border-color;
         padding: 5px;
         margin: 15px 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &--active {
             border-color: $secondary-color;
@@ -45,6 +49,7 @@
 
         &:hover {
             text-decoration: none;
+            background-color: $hover2-color;
         }
     }
 }
