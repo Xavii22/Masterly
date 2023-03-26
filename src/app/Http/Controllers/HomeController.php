@@ -26,20 +26,10 @@ class HomeController extends Controller
         if ($category != null) {
             $categoryType = Category::where('id', $category)->value('type');
             if ($categoryType === 'P') {
-                $products = Product::whereHas('categories', function ($query) use ($category) {
-                    $query->where('categories.parent_id', $category);
-                })
-                    ->orderBy($sortBy, $sortOrder)
-                    ->paginate(40)
-                    ->withQueryString();
+                $products = Product::getProductListOfSpecificCategory($category, 'categories.parent_id', $sortBy, $sortOrder);
                 $childCategories = Category::where('type', 'C')->where('parent_id', $category)->get();
             } else {
-                $products = Product::whereHas('categories', function ($query) use ($category) {
-                    $query->where('categories.id', $category);
-                })
-                    ->orderBy($sortBy, $sortOrder)
-                    ->paginate(40)
-                    ->withQueryString();
+                $products = Product::getProductListOfSpecificCategory($category, 'categories.id', $sortBy, $sortOrder);
 
                 $auxiliar = Category::where('id', $category)->value('parent_id');
                 $childCategoryName = Category::where('id', $category)->value('name');
@@ -48,23 +38,17 @@ class HomeController extends Controller
                 $childCategories = Category::where('type', 'C')->where('parent_id', $auxiliar)->get();
             }
         } else {
-            $products = Product::orderBy($sortBy, $sortOrder)
-                ->paginate(env('PAGINATE_NUMBER'))
-                ->withQueryString();
+            $products = Product::getOrderedProductList($sortBy, $sortOrder);
         }
 
         if (($query !== '' || $query != null) && $category === null) {
-            $products = Product::where('name', 'like', '%' . $query . '%')
-            ->orderBy($sortBy, $sortOrder)
-            ->paginate(env('PAGINATE_NUMBER'));
+            $products = Product::getProductList($query, $sortBy, $sortOrder);
         }
-
-        $productAmount = $products->total();
-
-        return view('pages.home', compact('products', 'productAmount', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort'));
+        
+        return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort'));
     }
 
-    public function setSortProducts($sort, $order)
+    public function setSortProducts($sort, $order): string
     {
         $sortBy = '';
         $sortOrder = '';
@@ -90,18 +74,12 @@ class HomeController extends Controller
                 $sortBy = 'price';
                 $sortOrder = 'asc';
                 break;
-            default:
-                echo "mal";
         }
         if ($order) {
             return $sortOrder;
         }
 
         return $sortBy;
-    }
-
-    private function getSubcategoriesNames()
-    {
     }
 
     public function showProduct($id)

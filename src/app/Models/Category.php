@@ -15,11 +15,6 @@ class Category extends Model
         return;
     }
 
-    public function getAllCategories()
-    {
-        return;
-    }
-
     public function products()
     {
         return $this->belongsToMany(Product::class);
