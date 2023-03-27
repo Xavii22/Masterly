@@ -30,7 +30,7 @@
             @endif
         </p>
 
-        <p><input class="input-login-register type="password" name="password_confirmation" required value="" placeholder="Confirmar contraseña"></p>
+        <p><input class="input-login-register" type="password" name="password_confirmation" required value="" placeholder="Confirmar contraseña"></p>
 
         <p><input class="button button--blue" type="submit" value="Register!"></p>
 

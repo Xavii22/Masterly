@@ -3,9 +3,9 @@
 @section('title', 'Login page')
 
 @section('content')     
-    <form class="form" action="{{ route('login') }}" method="post">
+    <form class="form-login-register" action="{{ route('login') }}" method="post">
         @csrf
-        <h1 class="title">Inicia sesión</h1>
+        <h1 class="title-login-register">Inicia sesión</h1>
 
         <p><input class="input-login-register {{ $errors->has('email') ? 'w3-border-red' : '' }}" type="text" name="email" placeholder="Correo electrónico"
                 required autofocus value="{{ old('email') }}">
@@ -26,6 +26,7 @@
         </p>
         -->
         <p><input class="button button--blue" type="submit" value="Login!"></p>
+        <a class="register-link" href="{{ route('pages.register') }}">¿Has olvidado la contraseña?</a>
         <p>¿Aún no te has registrado en nuestra página?  <a class="register-link" href="{{ route('pages.register') }}">¡Regístrate!</a></p>
     </form>
     
