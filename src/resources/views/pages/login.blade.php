@@ -26,8 +26,8 @@
         </p>
         -->
         <p><input class="button button--blue" type="submit" value="Login!"></p>
-        <a class="register-link" href="{{ route('pages.register') }}">¿Has olvidado la contraseña?</a>
-        <p>¿Aún no te has registrado en nuestra página?  <a class="register-link" href="{{ route('pages.register') }}">¡Regístrate!</a></p>
+        <a class="forgot-password-link" href="{{ route('pages.register') }}">¿Has olvidado la contraseña?</a>
+        <p>¿Aún no te has registrado en nuestra página?  <a class="login-register-link" href="{{ route('pages.register') }}">¡Regístrate!</a></p>
     </form>
     
 @endsection

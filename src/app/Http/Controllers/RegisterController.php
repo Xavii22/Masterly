@@ -72,6 +72,6 @@ class RegisterController extends Controller
                 $message = "Your e-mail is already verified. You can now login.";
             }
         }
-        return redirect()->route('login')->with('message', $message);
+        return redirect()->route('pages.login')->with('message', $message);
     }
 }

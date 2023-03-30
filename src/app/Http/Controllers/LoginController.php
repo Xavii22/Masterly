@@ -36,13 +36,13 @@ class LoginController extends Controller
 
         session()->flash('status','Incorrect username or password!');
 
-        return redirect(route('login'));
+        return redirect(route('pages.login'));
     }
 
     public function logout(Request $request) {
         session()->flush(); 
         Auth::logout(); 
 
-        return redirect('login');
+        return redirect('pages.login');
     }
 }

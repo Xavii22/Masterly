@@ -2,7 +2,6 @@
 // This file contains styles that are specific to the login page.
 // -----------------------------------------------------------------------------
 .form-login-register{
-    background: $primary-color;
     margin-top: 150px;
 }
 
@@ -12,9 +11,12 @@
     font-size: 40px;
 }
 
-.input-login-register{
-    font-size: 20px;
-    width: 82%;
-    padding: 10px;
-    border: none;
+p{
+    text-align: center;
+}
+
+.login-register-link{
+    text-decoration: none;
+    color: $secondary-color;
+    font-weight: 600;
 }
