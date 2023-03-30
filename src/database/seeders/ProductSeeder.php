@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        //DB::table('products')->delete();
-        Product::factory(45)->create();
+        DB::table('products')->delete();
+        Product::factory(50)->create();
     }
 }
