@@ -102,6 +102,19 @@
                             "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                         }
                     ]
+                },
+                {
+                    "name": "Chanclas",
+                    "products": [
+                        {
+                            "name": "Crocs Rayo McQueen",
+                            "image": "https://images.stockx.com/images/Crocs-Classic-Clog-Lightning-McQueen-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1620405722"
+                        },
+                        {
+                            "name": "Nike stussy",
+                            "image": "https://images.unsplash.com/photo-1622920799137-86c891159e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+                        }
+                    ]
                 }
             ]
         }
