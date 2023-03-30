@@ -57,11 +57,11 @@ La cuarta semana ha sido dedicada a terminar las funcionalidades de home y carri
 
 Esta semana, al haber dispuesto de únicamente 2 días de trabajo, no ha sido posible realizar tantos avances como en otras semanas. Aún así, hemos podido finalizar tareas pendientes de semanas anteriores.
 
-* Obtención de productos y categorias reales y relación entre estos (Xavi - 6h)
-* Eliminación productos del carrito del html, modificación precio total y cantidad de productos (Oscar - 5h)
-* Cambio color icono carrito al añadir/eliminar producto al carrito desde home (Oscar - 1h)
-* Enviación email de verificación (Samuel - 3h)
-* Implementación medidas rem (Oscar y Xavi - 1h)
+* Obtención de productos y categorias reales y relación entre estos (Xavi | 5h previstas &Rightarrow; 6h reales)
+* Eliminación productos del carrito del html, modificación precio total y cantidad de productos (Oscar | 4h previstas &Rightarrow; 6h reales)
+* Cambio color icono carrito al añadir/eliminar producto al carrito desde home (Oscar | 1h prevista &Rightarrow; 1h real)
+* Enviación email de verificación (Samuel | 3h previstas &Rightarrow; 5h reales)
+* Implementación medidas rem (Oscar y Xavi | 1h prevista &Rightarrow; 1h real)
 
 == 3. Diseño de Base de Datos
 
