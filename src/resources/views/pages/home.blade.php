@@ -145,4 +145,5 @@
     @include('layouts.footer')
     </div>
     <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
+    <script src="{{ asset('js/categoryLink.js') }}"></script>
 @endsection
