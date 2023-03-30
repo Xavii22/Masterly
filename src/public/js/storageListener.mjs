@@ -20,15 +20,7 @@ function addEventListenerCart() {
     });
 }
 
-export function addEventListenerTrash(trash) {
-    trash.addEventListener("click", function (e) {
-        toggleProductInCart(e.target.closest(".product-item").id);
-        e.target.closest(".product-item").remove();
-        // modifyProductsPrice(products);
-    });
-}
-
-function toggleProductInCart(id) {
+export function toggleProductInCart(id) {
     if (cart.includes(id)) {
         cart.splice(cart.indexOf(id), 1);
     } else {
