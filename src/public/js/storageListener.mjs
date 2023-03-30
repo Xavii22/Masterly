@@ -8,10 +8,14 @@ function updateStoredProductsCounter() {
 function addEventListenerCart() {
     const productCart = document.querySelectorAll(".product-element__cart");
 
-    productCart.forEach((cart) => {
-        cart.addEventListener("click", function (e) {
+    productCart.forEach((item) => {
+        if (cart.includes(item.id)) {
+            item.classList.add('product-element__cart--active');
+        }
+        
+        item.addEventListener("click", function (e) {
             toggleProductInCart(e.target.id);
-            cart.classList.toggle('product-element__cart--active');
+            item.classList.toggle('product-element__cart--active');
         });
     });
 }
@@ -20,10 +24,11 @@ export function addEventListenerTrash(trash) {
     trash.addEventListener("click", function (e) {
         toggleProductInCart(e.target.closest(".product-item").id);
         e.target.closest(".product-item").remove();
+        // modifyProductsPrice(products);
     });
 }
 
-export function toggleProductInCart(id) {
+function toggleProductInCart(id) {
     if (cart.includes(id)) {
         cart.splice(cart.indexOf(id), 1);
     } else {

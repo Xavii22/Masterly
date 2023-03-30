@@ -1,11 +1,12 @@
 import {addEventListenerTrash} from './storageListener.mjs';
 
-function createProductsPrice(products) {
+export function modifyProductsPrice(products) {
     const price = document.querySelector(".cart__summary-price span");
 
     price.textContent = products
         .map((product) => product.price)
         .reduce((acc, amount) => acc + amount);
+        console.log('hola');
 }
 
 function createProductsCounter(counter, totalProducts) {
@@ -42,7 +43,7 @@ function createParagraph(className, text) {
     return span;
 }
 
-function createProductArticle(item) {
+function createProductArticle(item, products) {
     const article = document.createElement("article");
     article.classList.add("product-item");
     article.id = item.id;
@@ -51,7 +52,7 @@ function createProductArticle(item) {
     const nameLink = createLink(`/product/${item.id}`, createHeading("product-item__name", item.name));
     const price = createParagraph("product-item__price", item.price);
     const trash = createImage("../images/trash.png", "trash");
-    addEventListenerTrash(trash);
+    addEventListenerTrash(trash, products);
 
     article.append(imgLink, nameLink, price, trash);
 
@@ -61,14 +62,14 @@ function createProductArticle(item) {
 function createCartContent(products) {
     const productList = document.querySelector(".cart__product-list");
     products.forEach((item) => {
-        const article = createProductArticle(item);
+        const article = createProductArticle(item, products);
         productList.appendChild(article);
     });
 
     const productsCounter = document.querySelector(".cart__header-products span");
     createProductsCounter(productsCounter, products.length);
 
-    createProductsPrice(products);
+    modifyProductsPrice(products);
 }
 
 async function fetchStorageProducts() {
