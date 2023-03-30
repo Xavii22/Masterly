@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->delete();
 
-        $data = file_get_contents('C:\Users\Xavi\Documents\Masterly\src\database\products\products.json');
+        $data = file_get_contents(__DIR__ . '/../../database/products/products.json');
         $data = json_decode($data, true);
 
         foreach ($data['categories'] as $categoryData) {

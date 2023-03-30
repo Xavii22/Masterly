@@ -41,12 +41,12 @@ class ProductFactory extends Factory
     {
         //$productData = $this->getDataFromUnsplashApi();
 
-        $data = file_get_contents('C:\Users\Xavi\Documents\Masterly\src\database\products\products.json');
+        $data = file_get_contents(__DIR__ . '/../../database/products/products.json');
         $data = json_decode($data, true);
 
         $category = $data['categories'][fake()->numberBetween(0, 2)];
         $subcategory = $category['subcategories'][fake()->numberBetween(0, count($category)-1)];
-        $product = $subcategory['products'][fake()->numberBetween(0, count($subcategory)-1)];
+        $product = $subcategory['products'][fake()->numberBetween(0, count($subcategory['products'])-1)];
 
         return [
             //'name' => $productData[0],
