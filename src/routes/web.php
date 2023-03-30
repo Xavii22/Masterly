@@ -17,7 +17,7 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return 'Landing page to bonica';
+    return 'Landing page mu bonica';
 });
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');

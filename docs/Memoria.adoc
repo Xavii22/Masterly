@@ -60,6 +60,7 @@ Esta semana, al haber dispuesto de únicamente 2 días de trabajo, no ha sido po
 * Obtención de productos y categorias reales y relación entre estos (Xavi - 6h)
 * Eliminación productos del carrito del html, modificación precio total y cantidad de productos (Oscar - 5h)
 * Cambio color icono carrito al añadir/eliminar producto al carrito desde home (Oscar - 1h)
+* Enviación email de verificación (Samuel - 3h)
 
 == 3. Diseño de Base de Datos
 
