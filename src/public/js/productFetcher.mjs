@@ -1,16 +1,16 @@
-import {addEventListenerTrash} from './storageListener.mjs';
+import {toggleProductInCart} from './storageListener.mjs';
 
 export function modifyProductsPrice(products) {
     const price = document.querySelector(".cart__summary-price span");
 
-    price.textContent = products
-        .map((product) => product.price)
-        .reduce((acc, amount) => acc + amount);
-        console.log('hola');
+    price.textContent = products.length > 0 ? 
+        products.map((product) => product.price).reduce((acc, amount) => acc + amount) : 0;
 }
 
-function createProductsCounter(counter, totalProducts) {
-    counter.textContent = totalProducts;
+function modifyProductsCounter(totalProducts) {
+    const productsCounter = document.querySelector(".cart__header-products span");
+
+    productsCounter.textContent = totalProducts;
 }
 
 function createLink(url, content) {
@@ -43,6 +43,17 @@ function createParagraph(className, text) {
     return span;
 }
 
+function addEventListenerTrash(trash, products) {
+    trash.addEventListener("click", function (e) {
+        toggleProductInCart(e.target.closest(".product-item").id);
+        e.target.closest(".product-item").remove();
+
+        products = products.filter(item => localStorage.getItem("cart").includes(item.id));
+        modifyProductsPrice(products);
+        modifyProductsCounter(products.length);
+    });
+}
+
 function createProductArticle(item, products) {
     const article = document.createElement("article");
     article.classList.add("product-item");
@@ -66,8 +77,7 @@ function createCartContent(products) {
         productList.appendChild(article);
     });
 
-    const productsCounter = document.querySelector(".cart__header-products span");
-    createProductsCounter(productsCounter, products.length);
+    modifyProductsCounter(products.length);
 
     modifyProductsPrice(products);
 }
