@@ -17,14 +17,12 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return 'Landing page';
+    return 'Landing page to bonica';
 });
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
 
 Route::get('/product/{id}', [HomeController::class, 'showProduct'])->name('pages.product');
-
-//Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::get('/login', [LoginController::class, 'login'])->name('pages.login');
 
