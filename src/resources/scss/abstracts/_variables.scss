@@ -35,6 +35,10 @@ $hover-color: #0a6c8f !default;
 /// @type Color
 $footer-color: #2D3339 !default;
 
+/// Filter
+/// @type Color
+$primary-filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%) !default;
+
 
 
 /// Container's maximum width

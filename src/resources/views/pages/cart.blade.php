@@ -7,7 +7,7 @@
         @include('layouts.header')
         <div class="cart">
             <section class="cart__header">
-                <h2 class="cart__header-title">Carrito</h2>
+                <h1 class="cart__header-title">Carrito</h1>
                 <h5 class="cart__header-products"><span></span> productos</h5>
                 
             </section>
@@ -30,6 +30,6 @@
         </div>
         @include('layouts.footer')
     </div>
-    <script src="{{ asset('js/productFetcher.js') }}"></script>
-    <script src="{{ asset('js/storageListener.js') }}"></script>
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
+    <script src="{{ asset('js/productFetcher.mjs') }}" type="module"></script>
 @endsection

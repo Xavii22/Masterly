@@ -3,8 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="parent">
-        @include('layouts.header')
+    @include('layouts.header')
+    <main>
         <div class="home">
             <aside class="categories">
                 <div class="categories__path">
@@ -118,8 +118,7 @@
                             <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $product->image }}">
                             </a>
-                            <img class="product-element__cart" src="{{ asset('images/cart.png') }}"
-                                onclick="toggleProductInCart({{ $product->id }})">
+                            <img class="product-element__cart" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
                             <div class="product-element__info">
                                 <div>
                                     <h3>{{ $product->name }}</h3>
@@ -134,7 +133,8 @@
                 {{ $products->appends(['query' => $query, 'sort' => $sort])->links('vendor.pagination.default') }}
             </section>
         </div>
-        @include('layouts.footer')
+    </main>
+    @include('layouts.footer')
     </div>
-    <script src="{{ asset('js/storageListener.js') }}"></script>
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
 @endsection
