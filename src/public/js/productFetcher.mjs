@@ -1,28 +1,15 @@
-function createProductsPrice(price, products) {
-    price.textContent = products.map(product => product.price).reduce((acc, amount) => acc + amount);
+import {addEventListenerTrash} from './storageListener.mjs';
+
+function createProductsPrice(products) {
+    const price = document.querySelector(".cart__summary-price span");
+
+    price.textContent = products
+        .map((product) => product.price)
+        .reduce((acc, amount) => acc + amount);
 }
 
 function createProductsCounter(counter, totalProducts) {
     counter.textContent = totalProducts;
-}
-
-function createProductArticle(item) {
-    const article = document.createElement("article");
-    article.classList.add("product-item");
-
-    const imgLink = createLink(
-        `/product/${item.id}`,
-        createImage(item.image, item.name)
-    );
-    const nameLink = createLink(
-        `/product/${item.id}`,
-        createHeading(1, "product-item__name", item.name)
-    );
-    const price = createParagraph("product-item__price", item.price);
-
-    article.append(imgLink, nameLink, price);
-
-    return article;
 }
 
 function createLink(url, content) {
@@ -35,14 +22,14 @@ function createLink(url, content) {
 
 function createImage(src, alt) {
     const img = document.createElement("img");
-    img.classList.add("product-item__image");
+    img.classList.add(`product-item__image-${alt}`);
     img.src = src;
     img.alt = alt;
     return img;
 }
 
-function createHeading(level, className, text) {
-    const heading = document.createElement(`h${level}`);
+function createHeading(className, text) {
+    const heading = document.createElement("h1");
     heading.classList.add(className);
     heading.textContent = text;
     return heading;
@@ -55,23 +42,36 @@ function createParagraph(className, text) {
     return span;
 }
 
-function modifyCartContent(products) {
+function createProductArticle(item) {
+    const article = document.createElement("article");
+    article.classList.add("product-item");
+    article.id = item.id;
+
+    const imgLink = createLink(`/product/${item.id}`, createImage(item.image, "product"));
+    const nameLink = createLink(`/product/${item.id}`, createHeading("product-item__name", item.name));
+    const price = createParagraph("product-item__price", item.price);
+    const trash = createImage("../images/trash.png", "trash");
+    addEventListenerTrash(trash);
+
+    article.append(imgLink, nameLink, price, trash);
+
+    return article;
+}
+
+function createCartContent(products) {
     const productList = document.querySelector(".cart__product-list");
     products.forEach((item) => {
         const article = createProductArticle(item);
         productList.appendChild(article);
     });
 
-    const productsCounter = document.querySelector(
-        ".cart__header-products span"
-    );
+    const productsCounter = document.querySelector(".cart__header-products span");
     createProductsCounter(productsCounter, products.length);
 
-    const productsPrice = document.querySelector(".cart__summary-price span");
-    createProductsPrice(productsPrice, products);
+    createProductsPrice(products);
 }
 
-async function fetchProducts() {
+async function fetchStorageProducts() {
     try {
         const data = JSON.parse(localStorage.getItem("cart"));
         const response = await fetch("/cart", {
@@ -86,10 +86,10 @@ async function fetchProducts() {
         });
         const products = await response.json();
 
-        modifyCartContent(products);
+        createCartContent(products);
     } catch (error) {
         console.error(error);
     }
 }
 
-fetchProducts();
+window.addEventListener("load", fetchStorageProducts());

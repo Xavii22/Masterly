@@ -21,8 +21,7 @@
                             <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $product->image }}">
                             </a>
-                            <img class="product-element__cart" src="{{ asset('images/cart.png') }}"
-                                onclick="toggleProductInCart({{ $product->id }})">
+                            <img class="product-element__cart" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
                             <div class="product-element__info">
                                 <div>
                                     <h3>{{ $product->name }}</h3>
@@ -40,5 +39,5 @@
     </main>
     @include('layouts.footer')
     </div>
-    <script src="{{ asset('js/storageListener.js') }}"></script>
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
 @endsection

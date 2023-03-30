@@ -28,5 +28,5 @@
         </div>
         @include('layouts.footer')
     </div>
-    <script src="{{ asset('js/storageListener.js') }}"></script>
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
 @endsection
