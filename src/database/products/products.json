@@ -1,0 +1,109 @@
+{
+    "categories": [
+        {
+            "name": "Cosmética",
+            "subcategories": [
+                {
+                    "name": "Perfume",
+                    "products": [
+                        {
+                            "name": "Chanel 5",
+                            "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDQ1OTY&ixlib=rb-4.0.3&q=80&w=1080"
+                        },
+                        {
+                            "name": "Pearlessence",
+                            "image": "https://images.unsplash.com/photo-1601068785450-ba55f33dfe0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDQ2MDc&ixlib=rb-4.0.3&q=80&w=1080"
+                        },
+                        {
+                            "name": "Red diamond",
+                            "image": "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDI4MTc&ixlib=rb-4.0.3&q=80&w=1080"
+                        }
+                    ]
+                },
+                {
+                    "name": "Cuidado piel",
+                    "products": [
+                        {
+                            "name": "Necessaire",
+                            "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDQ2MDI&ixlib=rb-4.0.3&q=80&w=1080"
+                        },
+                        {
+                            "name": "Curlogy",
+                            "image": "https://images.unsplash.com/photo-1571782742478-0816a4773a10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDQ2MDY&ixlib=rb-4.0.3&q=80&w=1080"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Mobiliario",
+            "subcategories": [
+                {
+                    "name": "Mesas",
+                    "products": [
+                        {
+                            "name": "Mesa madera",
+                            "image": "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+                        },
+                        {
+                            "name": "Mesa oficina",
+                            "image": "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+                        },
+                        {
+                            "name": "Escritorio",
+                            "image": "https://images.unsplash.com/photo-1526040652367-ac003a0475fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sillas",
+                    "products": [
+                        {
+                            "name": "Silla gris",
+                            "image": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+                        },
+                        {
+                            "name": "Taburete",
+                            "image": "https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Zapatos",
+            "subcategories": [
+                {
+                    "name": "Zapatillas",
+                    "products": [
+                        {
+                            "name": "Air jordan 1",
+                            "image": "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk0OTYxOTQ&ixlib=rb-4.0.3&q=80&w=1080"
+                        },
+                        {
+                            "name": "Puma Smash V2",
+                            "image": "https://images.unsplash.com/photo-1545289414-1c3cb1c06238?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDQ2MDQ&ixlib=rb-4.0.3&q=80&w=1080"
+                        },
+                        {
+                            "name": "Nike air force 1",
+                            "image": "https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80"
+                        }
+                    ]
+                },
+                {
+                    "name": "Running",
+                    "products": [
+                        {
+                            "name": "New balance 247",
+                            "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MjMyMzZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Nzk1MDQ1OTU&ixlib=rb-4.0.3&q=80&w=1080"
+                        },
+                        {
+                            "name": "Nike free",
+                            "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

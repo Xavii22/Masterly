@@ -14,7 +14,7 @@
         height: 80%;
         margin-left: 10px;
 
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 900px) {
             display: none;
         }
 
@@ -22,7 +22,7 @@
             display: none;
             height: 70%;
 
-            @media screen and (max-width: 800px) {
+            @media screen and (max-width: 900px) {
                 display: block;
             }
         }
@@ -56,6 +56,14 @@
     display: flex;
     align-items: center;
     height: 100%;
+
+    &--hidden {
+        display: none;
+
+        @media screen and (max-width: 900px) {
+            display: flex;
+        }
+    }
 }
 
 .stored-products {

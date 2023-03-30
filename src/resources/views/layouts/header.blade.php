@@ -15,5 +15,8 @@
         <a class="item-link" href="{{ route('pages.login') }}">
             <img class="item" src="{{ asset('images/user.png') }}" alt="User">
         </a>
+        <a class="item-link item-link--hidden" href="">
+            <img class="item" src="{{ asset('images/menu.png') }}" alt="Menu">
+        </a>
     </div>
 </header>

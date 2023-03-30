@@ -39,16 +39,22 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $productData = $this->getDataFromUnsplashApi();
+        //$productData = $this->getDataFromUnsplashApi();
+
+        $data = file_get_contents(__DIR__ . '/../../database/products/products.json');
+        $data = json_decode($data, true);
+
+        $category = $data['categories'][fake()->numberBetween(0, 2)];
+        $subcategory = $category['subcategories'][fake()->numberBetween(0, count($category)-1)];
+        $product = $subcategory['products'][fake()->numberBetween(0, count($subcategory['products'])-1)];
 
         return [
-            'name' => $productData[0],
-            // 'name' => fake()->word(),
+            //'name' => $productData[0],
+            'name' => $product['name'],
             'description' => fake()->paragraph(10),
             'price' => fake()->numberBetween(10, 100),
-            'category' => fake()->word(),
-            'image' => $productData[1]
-            // 'image' => fake()->imageUrl(rand(480, 640), rand(480, 640), 'product')
+            //'image' => $productData[1]
+            'image' => $product['image']
         ];
     }
 }
