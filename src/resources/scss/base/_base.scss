@@ -39,8 +39,12 @@ a:visited {
     color: inherit;
 }
 
-.parent {
+body {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+}
+
+main {
+    // min-height: 100vh;
+    flex: 1;
 }

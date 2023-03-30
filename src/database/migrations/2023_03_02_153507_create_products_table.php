@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name', 30)->notNullable();
             $table->string('description', 5000)->notNullable();
             $table->integer('price')->notNullable();
-            $table->string('category', 40)->notNullable();
             $table->string('image', 200)->notNullable();
             $table->timestamps();
         });
