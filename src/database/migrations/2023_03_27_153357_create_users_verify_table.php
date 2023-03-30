@@ -15,14 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('token');
             $table->timestamps();
+
+            $table->foreign('id')->references('id')->on('users');
         });
 
+        /*
         Schema::table('users', function (Blueprint $table) {
 
             $table->boolean('is_email_verified')->default(0);
 
         });
-
+        */
     }
 
     /**
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('users_verify');
+        Schema::dropIfExists('users_verify');
     }
 };

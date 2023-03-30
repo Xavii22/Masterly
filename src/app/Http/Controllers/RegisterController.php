@@ -58,15 +58,18 @@ class RegisterController extends Controller
     public function verifyAccount ($token) 
     {
         $verifyUser = UserVerify::where('token', $token)->first();
-
+        //dd($verifyUser);
         $message = 'Sorry your email cannot be identified.';
 
         if(!is_null ($verifyUser)){
-            $user = $verifyUser->user;
+            //$user = $verifyUser->user;
 
-            if(!$user->is_email_verified){
-                $verifyUser->user->is_email_verified = 1;
-                $verifyUser->user->save();
+            if(!$verifyUser->is_email_verified){
+                
+                $user = $verifyUser->user()->get();
+                //dd($user);
+                $user->is_email_verified = 1;
+                $user->save();
                 $message = "Your e-mail is verified. You can now login.";
             } else {
                 $message = "Your e-mail is already verified. You can now login.";

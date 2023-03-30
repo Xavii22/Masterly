@@ -45,8 +45,9 @@ Route::get('/logout',[LoginController::class, 'logout'])->name('pages.logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('pages.register');
 
+//Send-email-verification
+Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']); 
+Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
 Route::middleware('auth')->group(function () {
-    //Send-email-verification
-    Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']); 
-    Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
+
 });
