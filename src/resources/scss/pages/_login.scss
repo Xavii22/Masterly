@@ -1,3 +1,22 @@
 // -----------------------------------------------------------------------------
 // This file contains styles that are specific to the login page.
 // -----------------------------------------------------------------------------
+.form-login-register{
+    margin-top: 150px;
+}
+
+.title-login-register{
+    text-align: center;
+    color: $secondary-color;
+    font-size: 40px;
+}
+
+p{
+    text-align: center;
+}
+
+.login-register-link{
+    text-decoration: none;
+    color: $secondary-color;
+    font-weight: 600;
+}
