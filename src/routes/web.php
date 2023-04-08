@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
@@ -24,9 +25,7 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::get('/', function () {
-    return 'Landing page mu bonica';
-});
+Route::get('/', [LandingController::class, 'landing'])->name('pages.landing');
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
 
