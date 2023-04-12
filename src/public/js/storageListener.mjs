@@ -1,4 +1,4 @@
-const productsCounter = document.querySelector(".stored-products").firstChild;
+const productsCounter = document.querySelector(".stored-products__number");
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function updateStoredProductsCounter() {
