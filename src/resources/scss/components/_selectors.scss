@@ -53,3 +53,23 @@
         }
     }
 }
+
+.textfield{
+    border-radius: 2px;
+    transition: 0.2s;
+    text-align: center;
+
+    &--loginRegister{
+        height: 50px;
+        width: 400px;
+        border-color: $secondary-color;
+    }
+
+    &--search{
+
+    }
+
+    &--error{
+
+    }
+}

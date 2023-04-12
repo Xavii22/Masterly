@@ -507,8 +507,8 @@ footer {
 
 .button {
   border-radius: 5px;
-  height: 50px;
-  width: 100%;
+  height: 60px;
+  width: 250px;
   transition: 0.2s;
   text-align: center;
 }
@@ -584,6 +584,16 @@ footer {
   background-color: #e6e6e6;
 }
 
+.textfield {
+  border-radius: 2px;
+  transition: 0.2s;
+  text-align: center;
+}
+.textfield--loginRegister {
+  height: 50px;
+  width: 400px;
+  border-color: #2596BE;
+}
 .home {
   display: flex;
   flex: 1;
@@ -676,6 +686,21 @@ footer {
 }
 .product-element__cart--active {
   filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%);
+}
+
+.form-login-register {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.title-login-register {
+  color: #2596BE;
+  font-size: 40px;
+}
+
+.login-register-link {
+  color: #2596BE;
+  font-weight: 600;
 }
 
 .buttons {

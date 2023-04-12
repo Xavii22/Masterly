@@ -7,14 +7,14 @@
         @csrf
         <h1 class="title-login-register">Inicia sesión</h1>
 
-        <p><input class="input-login-register {{ $errors->has('email') ? 'w3-border-red' : '' }}" type="text" name="email" placeholder="Correo electrónico"
+        <p><input class="textfield textfield--loginRegister {{ $errors->has('email') ? 'w3-border-red' : '' }}" type="text" name="email" placeholder="Correo electrónico"
                 required autofocus value="{{ old('email') }}">
             @if ($errors->has('email'))
                 <span class="w3-text-red"><strong>{{ $errors->first('email') }}</strong></span>
             @endif
         </p>
 
-        <p><input class="input-login-register {{ $errors->has('password') ? 'w3-border-red' : '' }}" type="password" placeholder="Contraseña"
+        <p><input class="textfield textfield--loginRegister  {{ $errors->has('password') ? 'w3-border-red' : '' }}" type="password" placeholder="Contraseña"
                 name="password" required autofocus value="">
             @if ($errors->has('password'))
                 <span class="w3-text-red"><strong>{{ $errors->first('password') }}</strong></span>
