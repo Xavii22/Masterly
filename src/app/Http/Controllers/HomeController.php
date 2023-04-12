@@ -13,8 +13,13 @@ class HomeController extends Controller
     {
         $query = $request->input('query');
         $sort = $request->input('sort', 'recent');
+        $tag = $request->input('tag', null);
         $sortOrder = $this->setSortProducts($sort, true);
         $sortBy = $this->setSortProducts($sort, false);
+
+        if ($tag != null) {
+            dd($tag);
+        }
 
         $category = $request->input('category');
         $parentCategory = '';
@@ -47,8 +52,14 @@ class HomeController extends Controller
         
         return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort'));
     }
+    
+    private function showProductsPerTag() {
+        //$products = ;
+        
+        return view('pages.home', compact('products', 'query', 'sort'));
+    }
 
-    public function setSortProducts($sort, $order): string
+    private function setSortProducts($sort, $order): string
     {
         $sortBy = '';
         $sortOrder = '';
