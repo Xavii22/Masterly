@@ -100,6 +100,11 @@ async function fetchStorageProducts() {
         createCartContent(products);
     } catch (error) {
         console.error(error);
+    } finally {
+        const spinner = document.querySelector(".cart__product-spinner");
+        const cart = document.querySelector(".cart");
+        spinner.classList.add('cart__product-spinner--disable');
+        cart.classList.add('cart--enable');
     }
 }
 
