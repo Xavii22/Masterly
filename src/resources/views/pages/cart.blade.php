@@ -28,8 +28,12 @@
                 </div>
             </section>
         </div>
+
+        <img src="{{ asset('images/spinner.png') }}" alt="Loading..." class="cart__product-spinner">
+
         @include('layouts.footer')
     </div>
     <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
     <script src="{{ asset('js/productFetcher.mjs') }}" type="module"></script>
-@endsection
+    @endsection
+    

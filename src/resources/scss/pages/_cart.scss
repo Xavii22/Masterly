@@ -3,12 +3,16 @@
 // -----------------------------------------------------------------------------
 
 .cart {
-    display: grid;
+    display: none;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr auto auto;
     grid-gap: 40px;
 
     padding: 0 10%;
+
+    &--enable {
+        display: grid;
+    }
 
     &__header {
         grid-column: 1 / span 2;
@@ -19,10 +23,21 @@
         }
     }
 
-    &__product-list {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    &__product {
+        &-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        &-spinner {
+            display: block;
+            width: 100%;
+
+            &--disable {
+                display: none;
+            }
+        }
     }
 
     &__summary {
