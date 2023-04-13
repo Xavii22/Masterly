@@ -33,7 +33,10 @@ class CategoryProductSeeder extends Seeder
                     foreach ($subcategory["products"] as $productName) {
                         if ($productName["name"] == $databaseProduct->name) {
                             $categoryId = Category::where('name', $subcategory['name'])->firstOrFail();
-                            $databaseProduct->categories()->attach($categoryId->id);
+                            $databaseProduct->categories()->attach($categoryId->id, [
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ]);
                             continue;
                         }
                     }

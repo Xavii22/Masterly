@@ -19,7 +19,10 @@ class ActiveTagSeeder extends Seeder
                 $activeTagId = Category::where('id', $activeTag['id'])->firstOrFail()->id;
                 foreach ($activeTag['productsId'] as $productsId) {
                     $product = Product::where('id', $productsId)->firstOrFail();
-                    $product->categories()->attach($activeTagId);
+                    $product->categories()->attach($activeTagId, [
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
                 }
             }
         }
@@ -37,7 +40,7 @@ class ActiveTagSeeder extends Seeder
                     ->where('type', '=', 'T');
             })
             ->delete();
-            
+
         $this->saveRelationshipTagsProducts();
     }
 }

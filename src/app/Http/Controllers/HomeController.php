@@ -100,7 +100,13 @@ class HomeController extends Controller
     public function showProductDetails($id)
     {
         $product = Product::findOrFail($id);
-        $query = '';
-        return view('pages.product', compact('product'));
+        
+        $subCategoryName = $product->categories()->where('product_id', $product->id)->pluck('name')[0];
+        $subCategoryParentId = Category::where('name', $subCategoryName)->value('parent_id');
+        $categoryName = Category::where('id', $subCategoryParentId)->value('name');
+
+        Log::info('Selected product id: ' . $id);
+        //dd($product);
+        return view('pages.product', compact('product', 'categoryName', 'subCategoryName'));
     }
 }

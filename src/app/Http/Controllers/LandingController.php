@@ -9,17 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class LandingController extends Controller
 {
-    public function landing(Request $request)
-    {
-        $tags = $this->getTagValues();
-        return view('pages.landing', compact('tags'));
-    }
-
     private function getActiveTagList()
     {
         $tags = file_get_contents(__DIR__ . '/../../../activeTags.json');
         $tags = json_decode($tags, true);
-        
+
         if ($tags == null) {
             Log::error('File not found');
         }
@@ -44,5 +38,11 @@ class LandingController extends Controller
         }
 
         return $tags;
+    }
+
+    public function landing(Request $request)
+    {
+        $tags = $this->getTagValues();
+        return view('pages.landing', compact('tags'));
     }
 }

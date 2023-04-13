@@ -11,7 +11,7 @@
             </section>
             <section class="content">
                 <h1 class="content__title">{{ $product->name }}</h1>
-                <h2 class="content__category">Categoria - Subcategoria</h2>
+                <h2 class="content__category">{{ $categoryName }} - {{ $subCategoryName }}</h2>
                 <h3 class="content__price">{{ $product->price }}€</h3>
                 <h3 class="content__seller"><b>Vendedor: </b>Oscar Alonso</h3>
                 <div class="buttons">
