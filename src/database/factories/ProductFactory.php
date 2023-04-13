@@ -17,7 +17,7 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $data = file_get_contents(__DIR__ . '/../../database/products/products.json');
+        $data = file_get_contents(base_path() . '/database/products/products.json');
         $data = json_decode($data, true);
 
         $category = $data['categories'][fake()->numberBetween(0, 2)];

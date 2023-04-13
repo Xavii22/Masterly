@@ -12,7 +12,7 @@ class ActiveTagSeeder extends Seeder
 
     private function saveRelationshipTagsProducts()
     {
-        $tagsData = file_get_contents(__DIR__ . '/../../activeTags.json');
+        $tagsData = file_get_contents(base_path() . env('ACTIVE_TAGS'));
         $tagsData = json_decode($tagsData, true);
         foreach ($tagsData as $activeTags) {
             foreach ($activeTags as $activeTag) {

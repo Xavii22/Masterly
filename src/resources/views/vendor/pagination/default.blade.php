@@ -1,5 +1,6 @@
 @if ($paginator->hasPages())
     <nav class="pagination">
+        {{-- {{ $paginator->links(['onEachSide' => 2, 'tailLength' => 1]) }} --}}
         @foreach ($elements as $element)
             @if (is_string($element))
                 <div class="pagination__number">

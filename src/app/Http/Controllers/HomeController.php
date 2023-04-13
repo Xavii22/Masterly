@@ -106,7 +106,6 @@ class HomeController extends Controller
         $categoryName = Category::where('id', $subCategoryParentId)->value('name');
 
         Log::info('Selected product id: ' . $id);
-        //dd($product);
         return view('pages.product', compact('product', 'categoryName', 'subCategoryName'));
     }
 }
