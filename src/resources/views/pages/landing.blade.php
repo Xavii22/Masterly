@@ -12,7 +12,7 @@
     @foreach ($tags as $tag)
         <section class="tag">
             <div class="tag__title-container">
-                <a class="tag__title" href="{{ route('pages.home', ['tag' => $tag['name']]) }}">{{ $tag['name'] }}</a>
+                <a class="tag__title" href="{{ route('pages.home', ['tagName' => $tag['id']]) }}">{{ $tag['id'] }}</a>
             </div>
             <div class="tag__products">
                 @foreach ($tag['productsId'] as $product)

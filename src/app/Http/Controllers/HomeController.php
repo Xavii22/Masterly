@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -13,13 +14,9 @@ class HomeController extends Controller
     {
         $query = $request->input('query');
         $sort = $request->input('sort', 'recent');
-        $tag = $request->input('tag', null);
+        $tagName = $request->input('tagName', null);
         $sortOrder = $this->setSortProducts($sort, true);
         $sortBy = $this->setSortProducts($sort, false);
-
-        if ($tag != null) {
-            dd($tag);
-        }
 
         $category = $request->input('category');
         $parentCategory = '';
@@ -27,14 +24,14 @@ class HomeController extends Controller
         $parentCategoryName = Category::where('id', $category)->value('name');
         $childCategories = '';
         $childCategoryName = '';
-        
+
         if ($category != null) {
             $categoryType = Category::where('id', $category)->value('type');
             if ($categoryType === 'P') {
-                $products = Product::getProductListOfSpecificCategory($category, 'categories.parent_id', $sortBy, $sortOrder);
+                $products = Product::getProductListSpecificCategory($category, 'categories.parent_id', $sortBy, $sortOrder);
                 $childCategories = Category::where('type', 'C')->where('parent_id', $category)->get();
             } else {
-                $products = Product::getProductListOfSpecificCategory($category, 'categories.id', $sortBy, $sortOrder);
+                $products = Product::getProductListSpecificCategory($category, 'categories.id', $sortBy, $sortOrder);
 
                 $auxiliar = Category::where('id', $category)->value('parent_id');
                 $childCategoryName = Category::where('id', $category)->value('name');
@@ -49,14 +46,17 @@ class HomeController extends Controller
         if (($query !== '' || $query != null) && $category === null) {
             $products = Product::getProductList($query, $sortBy, $sortOrder);
         }
-        
-        return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort'));
-    }
-    
-    private function showProductsPerTag() {
-        //$products = ;
-        
-        return view('pages.home', compact('products', 'query', 'sort'));
+
+        if ($tagName != null) {
+            $products = Product::getProductListSpecificTag($tagName, $sortBy, $sortOrder);
+            $parentCategoryName = $tagName;
+        }
+
+        if (count($products) <= 0) {
+            Log::warning('The sort variables have not been set correctly.');
+        }
+
+        return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName'));
     }
 
     private function setSortProducts($sort, $order): string
@@ -90,10 +90,14 @@ class HomeController extends Controller
             return $sortOrder;
         }
 
+        if ($sortBy == '' || $sortOrder == '') {
+            Log::error('The sort variables have not been set correctly.');
+        }
+
         return $sortBy;
     }
 
-    public function showProduct($id)
+    public function showProductDetails($id)
     {
         $product = Product::findOrFail($id);
         $query = '';

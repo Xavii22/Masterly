@@ -29,7 +29,7 @@ Route::get('/', [LandingController::class, 'landing'])->name('pages.landing');
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
 
-Route::get('/product/{id}', [HomeController::class, 'showProduct'])->name('pages.product');
+Route::get('/product/{id}', [HomeController::class, 'showProductDetails'])->name('pages.product');
 
 Route::get('/cart', [CartController::class, 'cart'])->name('pages.cart');
 

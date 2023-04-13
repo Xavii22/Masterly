@@ -1,16 +1,16 @@
 {
     "activeTags": [
         {
-            "name": 28,
-            "productsId": [201, 202, 203, 204]
+            "id": 12,
+            "productsId": [81, 82, 83, 84]
         },
         {
-            "name": 27,
-            "productsId": [211, 212]
+            "id": 13,
+            "productsId": [11, 12, 25]
         },
         {
-            "name": 30,
-            "productsId": [221, 222, 223, 224, 225]
+            "id": 14,
+            "productsId": [21, 22, 23, 28]
         }
     ]
 }

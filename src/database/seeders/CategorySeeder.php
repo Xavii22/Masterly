@@ -16,7 +16,11 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->delete();
+        DB::table('categories')
+            ->where('type', '=', 'P')
+            ->orWhere('type', '=', 'C')
+            ->delete();
+
         $this->createParentAndChildCategories();
     }
 

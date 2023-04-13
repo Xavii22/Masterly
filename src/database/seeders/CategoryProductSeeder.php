@@ -14,7 +14,15 @@ class CategoryProductSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('category_product')->delete();
+        DB::table('category_product')
+            ->whereIn('category_id', function ($query) {
+                $query->select('id')
+                    ->from('categories')
+                    ->where('type', '=', 'P')
+                    ->orWhere('type', '=', 'C');
+            })
+            ->delete();
+
         $productList = Product::all();
         $data = file_get_contents(__DIR__ . '/../../database/products/products.json');
         $data = json_decode($data, true);
