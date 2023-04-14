@@ -43,9 +43,15 @@ $hover3-color: #d8d8d8 !default;
 /// @type Color
 $footer-color: #2D3339 !default;
 
-/// Filter
-/// @type Color
+
+
+/// Primary Filter
+/// @type Filter
 $primary-filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%) !default;
+
+/// Incorrect Filter
+/// @type Filter
+$incorrect-filter: invert(22%) sepia(97%) saturate(5193%) hue-rotate(355deg) brightness(104%) contrast(132%) !default;
 
 
 

@@ -1,10 +1,12 @@
 import {toggleProductInCart} from './storageListener.mjs';
 
 export function modifyProductsPrice(products) {
-    const price = document.querySelector(".cart__summary-price span");
+    const price = document.querySelector(".cart__summary-price-number");
 
-    price.textContent = products.length > 0 ? 
+    let totalPrice = products.length > 0 ? 
         products.map((product) => product.price).reduce((acc, amount) => acc + amount) : 0;
+
+    price.textContent = `${totalPrice} €`;
 }
 
 function modifyProductsCounter(totalProducts) {
