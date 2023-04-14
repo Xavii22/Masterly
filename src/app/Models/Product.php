@@ -24,10 +24,20 @@ class Product extends Model
         ->withQueryString();
     }
 
-    public static function getProductListOfSpecificCategory($category, $categoryType, $sortBy, $sortOrder)
+    public static function getProductListSpecificCategory($category, $categoryType, $sortBy, $sortOrder)
     {
         return Product::whereHas('categories', function ($query) use ($categoryType, $category) {
             $query->where($categoryType, $category);
+        })
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate(env('PAGINATE_NUMBER'))
+            ->withQueryString();
+    }
+
+    public static function getProductListSpecificTag($tagName, $sortBy, $sortOrder)
+    {
+        return Product::whereHas('categories', function ($query) use ($tagName) {
+            $query->where('name', $tagName);
         })
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))

@@ -73,47 +73,47 @@
                     <div class="sort">
                         @if ($sort == 'recent')
                             <a class="sort__link sort__link--active button button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category]) }}">Más
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category, 'tagName' => $tagName]) }}">Más
                                 reciente</a>
                         @else
                             <a class="sort__link button button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category]) }}">Más
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'recent', 'category' => $category, 'tagName' => $tagName]) }}">Más
                                 reciente</a>
                         @endif
                         @if ($sort == 'nameAsc')
                             <a class="sort__link button sort__link--active button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc', 'category' => $category]) }}">Nombre
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc', 'category' => $category, 'tagName' => $tagName]) }}">Nombre
                                 (A-Z)</a>
                         @else
                             <a class="sort__link button button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc', 'category' => $category]) }}">Nombre
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameAsc', 'category' => $category, 'tagName' => $tagName]) }}">Nombre
                                 (A-Z)</a>
                         @endif
                         @if ($sort == 'nameDesc')
                             <a class="sort__link button sort__link--active button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc', 'category' => $category]) }}">Nombre
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc', 'category' => $category, 'tagName' => $tagName]) }}">Nombre
                                 (Z-A)</a>
                         @else
                             <a class="sort__link button button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc', 'category' => $category]) }}">Nombre
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'nameDesc', 'category' => $category, 'tagName' => $tagName]) }}">Nombre
                                 (Z-A)</a>
                         @endif
                         @if ($sort == 'priceAsc')
                             <a class="sort__link button sort__link--active button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc', 'category' => $category]) }}">Precio
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc', 'category' => $category, 'tagName' => $tagName]) }}">Precio
                                 más alto</a>
                         @else
                             <a class="sort__link button button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc', 'category' => $category]) }}">Precio
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceAsc', 'category' => $category, 'tagName' => $tagName]) }}">Precio
                                 más alto</a>
                         @endif
                         @if ($sort == 'priceDesc')
                             <a class="sort__link button sort__link--active button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category]) }}">Precio
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category, 'tagName' => $tagName]) }}">Precio
                                 más bajo</a>
                         @else
                             <a class="sort__link button button--transparent"
-                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category]) }}">Precio
+                                href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category, 'tagName' => $tagName]) }}">Precio
                                 más bajo</a>
                         @endif
                     </div>

@@ -1,5 +1,5 @@
 <header class="header">
-    <a class="item-link" href="{{ route('pages.home') }}">
+    <a class="item-link" href="{{ route('pages.landing') }}">
         <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
     </a>
 	<img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">

@@ -1,0 +1,75 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the landing page.
+// -----------------------------------------------------------------------------
+
+.introduction {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    padding: 100px;
+    background-color: lightblue !important;
+    //background-image: url('/images/landing-background-2.png');
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-position: center center;
+
+    &__title {
+        align-self: center;
+        color: $primary-color;
+        font-size: 6rem;
+        background-color: rgba(0, 0, 0, 1);
+        border-radius: 10px;
+        padding: 0px 10px;
+        color: $secondary-color;
+    }
+
+    &__text {
+        color: $primary-color;
+        font-size: 1.5rem;
+    }
+
+    &__button {
+        width: fit-content;
+        align-self: center;
+        padding: 0px 15px;
+        display: inline-block;
+        line-height: 50px;
+        color: $primary-color !important;
+        text-decoration: none !important;
+    }
+}
+
+.tag {
+    margin: 50px 50px 0px 50px;
+
+    &__title-container {
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    &__products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+        justify-items: start;
+        align-items: center;
+    }
+
+    &__product {
+        
+    }
+}
+
+.product-landing {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    transition: left 0.5s ease-in-out;
+}
