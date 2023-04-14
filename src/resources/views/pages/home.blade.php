@@ -66,7 +66,9 @@
                         @endif
                     </div>
                 @endif
-
+                <div class="products-total">
+                    <span class="products-total__number">{{ $products->total() }} artículos</span>
+                </div>
                 @if ($products->total() > 0)
                     <div class="sort">
                         @if ($sort == 'recent')
@@ -114,7 +116,6 @@
                                 href="{{ route('pages.home', ['query' => $query, 'sort' => 'priceDesc', 'category' => $category]) }}">Precio
                                 más bajo</a>
                         @endif
-                        <p>{{ $products->total() }}</p>
                     </div>
                 @endif
                 <div class="products">
@@ -126,14 +127,11 @@
                             <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $product->image }}">
                             </a>
-                            <img class="product-element__cart" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
                             <div class="product-element__info">
-                                <div>
-                                    <h3>{{ $product->name }}</h3>
-                                </div>
-                                <div>
-                                    <p>{{ $product->price }}</p>
-                                </div>
+                                <h3 class="product-element__info-name">{{ $product->name }}</h3>
+                                <span class="product-element__info-price">{{ $product->price }} €</span>
+                                <span class="product-element__info-category">{{ $product->name }}</span>
+                                <img class="product-element__cart" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
                             </div>
                         </article>
                     @endforeach

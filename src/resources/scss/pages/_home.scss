@@ -83,12 +83,23 @@
 }
 
 .product-element {
-    //width: 200px;
     cursor: pointer;
 
     &__info {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        margin-top: 10px;
+
+        &-name {
+            margin: 0px;
+        }
+        &-category {
+            color: $tertiary-color;
+            margin: 0px;
+            font-size: 0.9rem;
+        }
     }
 
     &__image {
@@ -105,5 +116,16 @@
         &--active {
             filter: $primary-filter;
         }
+    }
+}
+
+.products-total {
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+
+    &__number {
+        color: $tertiary-color;
+        font-size: 0.9rem;
     }
 }
