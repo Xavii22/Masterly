@@ -23,10 +23,6 @@
         color: $tertiary-color;
         background-color: transparent;
         border-color: $tertiary-color;
-
-        &:hover {
-            filter: $primary-filter;
-        }
     }
 
     &--transparent {

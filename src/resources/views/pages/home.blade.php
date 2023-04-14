@@ -131,7 +131,7 @@
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>
                                 <span class="product-element__info-price">{{ $product->price }} €</span>
                                 <span class="product-element__info-category">{{ $product->name }}</span>
-                                <img class="product-element__cart" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
+                                <img class="product-element__cart cart-listener" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
                             </div>
                         </article>
                     @endforeach
