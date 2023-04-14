@@ -10,6 +10,11 @@
 
     padding: 0 10%;
 
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: auto;
+        grid-template-rows: 1fr auto auto;
+    }
+
     &--enable {
         display: grid;
     }
@@ -59,6 +64,11 @@
 
             border-top: 1px solid $border-color;
         }
+
+        @media screen and (max-width: 1000px) {
+            grid-column: 1;
+            grid-row: 3;
+        }
     }
 }
 
@@ -83,14 +93,17 @@
         }
 
         &-trash {
-            width: 27px;
-            height: 27px;
+            width: 24px;
+            height: 24px;
             margin: 5px;
             grid-column: 3;
             grid-row: 1;
+            transition: 0.3s;
 
             &:hover {
+                transition: 0.3s;
                 cursor: pointer;
+                filter: $incorrect-filter;
             }
         }
     }
