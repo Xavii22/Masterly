@@ -13,6 +13,14 @@
         font-size: 20px;
         color: $tertiary-color;
     }
+
+    &__currency {
+        font-size: 3.3rem;
+    }
+
+    &__title {
+        margin: 0px;
+    }
     
     &__price {
         font-size: 70px;
@@ -35,6 +43,8 @@
 }
 
 .details {
+    grid-column: 2;
+
     &__description {
         font-size: 15px;
         color: $tertiary-color;
@@ -45,20 +55,26 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+    grid-row: 1 / span 2;
     
     img {
-        max-width: 100%;
-        height: auto;
-        z-index: -1;
+        display: block;
+        width: 650px;
+        height: 500px;
+        object-fit: cover;
         transition: 0.2s;
+        position: sticky;
+        top: 40px;
     }
 }
 
 .product {
     display: grid;
-    grid-template-columns: repeat(2, max(1fr));
+    grid-template-columns: 5fr 4fr;
     grid-template-rows: repeat(2, auto-fit);
     flex: 1;
-    grid-gap: 20px;
-    padding: 0 10%;
+    column-gap: 20px;
+    row-gap: 80px;
+    padding: 0 9%;
+    margin-top: 40px;
 }

@@ -9,15 +9,17 @@
             @endif
             @if (is_array($element))
                 @foreach ($element as $page => $url)
-                    @if ($page == $paginator->currentPage())
-                        <div class="pagination__number pagination__number--active">
-                            <p class="active" aria-current="page"><span>{{ $page }}</span></p>
-                        </div>
-                    @else
-                        <div class="pagination__number">
-                            <p><a href="{{ $url }}">{{ $page }}</a></p>
-                        </div>
-                    @endif
+                    <a href="{{ $url }}">
+                        @if ($page == $paginator->currentPage())
+                            <div class="pagination__number pagination__number--active">
+                                <p class="active" aria-current="page"><span>{{ $page }}</span></p>
+                            </div>
+                        @else
+                            <div class="pagination__number">
+                                <span>{{ $page }}</span>
+                            </div>
+                        @endif
+                    </a>
                 @endforeach
             @endif
         @endforeach
