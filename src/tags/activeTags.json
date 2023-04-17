@@ -2,15 +2,15 @@
     "activeTags": [
         {
             "id": 12,
-            "productsId": [81, 82, 83, 84]
+            "amount": 4
         },
         {
             "id": 13,
-            "productsId": [11, 12, 25]
+            "amount": 3
         },
         {
             "id": 14,
-            "productsId": [21, 22, 23, 28]
+            "amount": 20
         }
     ]
 }

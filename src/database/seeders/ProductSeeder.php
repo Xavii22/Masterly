@@ -14,6 +14,6 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->delete();
-        Product::factory(200)->create();
+        Product::factory(1000)->create();
     }
 }

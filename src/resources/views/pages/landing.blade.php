@@ -12,21 +12,21 @@
     @foreach ($tags as $tag)
         <section class="tag">
             <div class="tag__title-container">
-                <a class="tag__title" href="{{ route('pages.home', ['tagName' => $tag['id']]) }}">{{ $tag['id'] }}</a>
+                <a class="tag__title" href="{{ route('pages.home', ['tagName' => $tag['id']]) }}">{{ $tag['name'] }}</a>
             </div>
             <div class="tag__products">
-                @foreach ($tag['productsId'] as $product)
+                @foreach ($tag['products'] as $product)
                     <div>
                         <article class="product-landing">
-                            <a href="{{ route('pages.product', [$product[0]['id']]) }}">
-                                <img class="product-element__image" src="{{ $product[0]['image'] }}">
+                            <a href="{{ route('pages.product', [$product['id']]) }}">
+                                <img class="product-element__image" src="{{ $product['image'] }}">
                             </a>
                             <div class="product-element__info">
                                 <div>
-                                    <h3>{{ $product[0]['name'] }}</h3>
+                                    <h3>{{ $product['name'] }}</h3>
                                 </div>
                                 <div>
-                                    <p>{{ $product[0]['price'] }}</p>
+                                    <p>{{ $product['price'] }}</p>
                                 </div>
                             </div>
                         </article>

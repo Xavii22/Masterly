@@ -9,10 +9,25 @@ use Illuminate\Support\Facades\DB;
 class TagSeeder extends Seeder
 {
 
-    private $tags = array("Las mejores ofertas esta Navidad", "Novedades", "Productos destacados", "Los más vendidos");
+    //private $tags = array("Las mejores ofertas esta Navidad", "Novedades", "Productos destacados", "Los más vendidos");
 
-    private function saveTags() {
-        foreach ($this->tags as $tagName) {
+    private function getTagList()
+    {
+        $tagsFile = fopen(base_path() . env('TAGS'), 'r');
+        $tags = array();
+        
+        while (($row = fgetcsv($tagsFile)) !== false) {
+            $tags[] = $row[0];
+        }
+        
+        fclose($tagsFile);
+
+        return $tags;
+    }
+
+    private function saveTags()
+    {
+        foreach ($this->getTagList() as $tagName) {
             $tag = new Category();
             $tag->name = $tagName;
             $tag->type = 'T';
@@ -30,5 +45,4 @@ class TagSeeder extends Seeder
 
         $this->saveTags();
     }
-    
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class LandingController extends Controller
 {
+
     private function getActiveTagList()
     {
         $tags = file_get_contents(base_path() . env('ACTIVE_TAGS'));
@@ -23,26 +24,29 @@ class LandingController extends Controller
 
     private function getTagValues()
     {
-        $tags = $this->getActiveTagList();
+        $activeTags = $this->getActiveTagList();
+        $tagProducts = array();
 
-        for ($i = 0; $i < count($tags); $i++) {
-            $tags[$i]['id'] = Category::where('id', $tags[$i]['id'])->value('name');
-
-            for ($j = 0; $j < count($tags[$i]['productsId']); $j++) {
-                $tags[$i]['productsId'][$j] = Product::where('id', $tags[$i]['productsId'][$j])->get();
-            }
+        foreach ($activeTags as $key => $activeTag) {
+            $tagProducts[$key]['id'] = $activeTag['id'];
+            $tagProducts[$key]['name'] = Category::where('id', $activeTag['id'])->value('name');
+            $tagProducts[$key]['products'] = Product::whereHas('categories', function ($query) use ($activeTag) {
+                $query->where('categories.type', 'T')
+                      ->where('categories.id', $activeTag['id']);
+            })->get();
         }
 
-        if (count($tags) == 0) {
-            Log::error('No tags found.');
+        if (count($tagProducts) == 0) {
+            Log::error('No tag products found.');
         }
 
-        return $tags;
+        return $tagProducts;
     }
 
     public function landing(Request $request)
     {
         $tags = $this->getTagValues();
+        //dd($tags[0]['products']);
         return view('pages.landing', compact('tags'));
     }
 }
