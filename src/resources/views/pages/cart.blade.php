@@ -18,7 +18,7 @@
                 <h3>Resumen:</h3>
                 <div class="cart__summary-price">
                     <h4>Total:</h4>
-                    <span></span>
+                    <span class="cart__summary-price-number"></span>
                 </div>
                 <div class="button-container">
                     <button class="button button--blue"><span>Realizar pedido</span></button>
