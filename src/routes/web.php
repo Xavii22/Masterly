@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
@@ -45,6 +46,11 @@ Route::post('/register', [RegisterController::class, 'register'])->name('pages.r
 //Send-email-verification
 Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']); 
 Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
+
+//Password reset
+Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/password/reset', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
 Route::middleware('auth')->group(function () {
 
 });
