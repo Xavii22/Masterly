@@ -29,8 +29,6 @@ class ActiveTagSeeder extends Seeder
     {
         $tagsData = $this->getActiveTagList();
         foreach ($tagsData as $activeTag) {
-            $activeTagId = Category::where('id', $activeTag['id'])->firstOrFail()->id;
-
             if ($activeTag['amount'] > Product::count()) {
                 $errorMessage = 'No hi ha productes suficients.';
                 Log::error($errorMessage);
@@ -40,7 +38,6 @@ class ActiveTagSeeder extends Seeder
             for ($i = 0; $i < $activeTag['amount']; $i++) {
                 $tag = Category::where('id', $activeTag['id'])->first();
                 $product = Product::inRandomOrder()->first();
-                //dd($product->id);
                 $tag->products()->attach($product->id, [
                     'created_at' => now(),
                     'updated_at' => now(),

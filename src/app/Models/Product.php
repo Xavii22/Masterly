@@ -37,7 +37,7 @@ class Product extends Model
     public static function getProductListSpecificTag($tagName, $sortBy, $sortOrder)
     {
         return Product::whereHas('categories', function ($query) use ($tagName) {
-            $query->where('name', $tagName);
+            $query->where('categories.id', $tagName);
         })
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))

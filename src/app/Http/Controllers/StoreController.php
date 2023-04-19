@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Store;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class HomeController extends Controller
+class StoreController extends Controller
 {
-    public function home(Request $request)
+    
+    public function store(Request $request)
     {
         $query = $request->input('query');
         $sort = $request->input('sort', 'recent');
         $tagName = $request->input('tagName', null);
+        $storeName = $request->input('storeName', null);
         $sortOrder = $this->setSortProducts($sort, true);
         $sortBy = $this->setSortProducts($sort, false);
+        dd($storeName);
 
         $category = $request->input('category');
         $parentCategory = '';
@@ -58,7 +60,7 @@ class HomeController extends Controller
             Log::warning('The sort variables have not been set correctly.');
         }
 
-        return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName'));
+        return view('pages.store', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName'));
     }
 
     private function setSortProducts($sort, $order): string
@@ -102,13 +104,13 @@ class HomeController extends Controller
     public function showProductDetails($id)
     {
         $product = Product::findOrFail($id);
-
+        
         $subCategoryName = $product->categories()->where('product_id', $product->id)->pluck('name')[0];
         $subCategoryParentId = Category::where('name', $subCategoryName)->value('parent_id');
         $categoryName = Category::where('id', $subCategoryParentId)->value('name');
-        $storeName = Store::where('id', $product->store_id)->value('name');
 
         Log::info('Selected product id: ' . $id);
-        return view('pages.product', compact('product', 'categoryName', 'subCategoryName', 'storeName'));
+        return view('pages.product', compact('product', 'categoryName', 'subCategoryName'));
     }
+
 }
