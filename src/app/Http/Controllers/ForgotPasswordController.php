@@ -12,36 +12,18 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
-    return view('auth.passwords.email');
+        return view('auth.forgot-password');
     }
 
     public function sendResetLinkEmail(Request $request)
     {
-
         $request->validate(['email' => 'required|email']);
-
-        $response = $this->broker()->sendResetLink(
-            $request->only('email')
-        );
+    
+        $response = $this->broker()->sendResetLink($request->only('email'));
     
         return $response == Password::RESET_LINK_SENT
-            ? back()->with('status', trans($response))
-            : back()->withErrors(['email' => trans($response)]);
-
-        /*
-        $this->validateEmail($request);
-
-        $response = $this->broker()->sendResetLink(
-            $this->credentials($request)
-        );
-
-        if ($response == Password::RESET_LINK_SENT) {
-            return back()->with('status', trans($response));
-        }
-
-        return back()->withErrors(
-            ['email' =>trans($response)]
-        );
-        */
+                    ? back()->with('status', trans($response))
+                    : back()->withErrors(['email' => trans($response)]);
     }
+    
 }

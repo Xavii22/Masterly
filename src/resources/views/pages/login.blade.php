@@ -20,11 +20,9 @@
                 <span class="w3-text-red"><strong>{{ $errors->first('password') }}</strong></span>
             @endif
         </p>
-        <!--
-        <label>Remember me</label>
-        <p><input class="w3-check" type="checkbox" name="remember" value="{{ old('remember') ? 'checked' : '' }}">
-        </p>
-        -->
+        
+        <label><input class="w3-check" type="checkbox" name="remember" value="{{ old('remember') ? 'checked' : '' }}"> Remember me</label>
+
         <p><input class="button button--blue" type="submit" value="Login!"></p>
         <a class="forgot-password-link" href="{{ route('password.request') }}">¿Has olvidado la contraseña?</a>
         <p>¿Aún no te has registrado en nuestra página?  <a class="login-register-link" href="{{ route('pages.register') }}">¡Regístrate!</a></p>

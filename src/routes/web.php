@@ -48,8 +48,8 @@ Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['
 Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
 
 //Password reset
-Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('/password/reset', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
 Route::middleware('auth')->group(function () {
 
