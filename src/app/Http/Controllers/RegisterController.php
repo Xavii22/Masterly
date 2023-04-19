@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cart;
+use App\Models\Product;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,10 +39,10 @@ class RegisterController extends Controller
             'token' => $token
         ]);
 
-        Mail::send('pages.emailVerificationEmail', ['token' => $token], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Email Verification Mail');
-        });
+        // Mail::send('pages.emailVerificationEmail', ['token' => $token], function($message) use($request){
+        //     $message->to($request->email);
+        //     $message->subject('Email Verification Mail');
+        // });
 
         session()->flash('status', "User {$data['name']} created with success!");
         return redirect()->route('pages.login');
@@ -48,11 +50,19 @@ class RegisterController extends Controller
 
     public function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
+    
+        $localStorage = $data['localStorage'] ?? [];
+        $products = Product::whereIn('id', $localStorage)->get();
+    
+        $cart = Cart::create(['user_id' => $user->id]);
+        $cart->products()->attach($products->pluck('id')->toArray());
+    
+        return $user;
     }
 
     public function verifyAccount ($token) 
