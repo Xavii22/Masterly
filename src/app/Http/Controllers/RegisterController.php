@@ -69,7 +69,7 @@ class RegisterController extends Controller
                 $user = $verifyUser->user()->get();
                 //dd($user);
                 $user->is_email_verified = 1;
-                $user->save();
+                $user->avg();
                 $message = "Your e-mail is verified. You can now login.";
             } else {
                 $message = "Your e-mail is already verified. You can now login.";
