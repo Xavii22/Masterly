@@ -66,7 +66,10 @@ Esta semana, al haber dispuesto de únicamente 2 días de trabajo, no ha sido po
 
 === Semana 6
 
-
+* Relación productos aleatorios y tags (Xavi | 5h previstas &Rightarrow; 4h reales)
+* Implementación de la relación entre tiendas y productos (Xavi | 9h previstas &Rightarrow; 9h reales)
+* Almacenamiento productos del carrito en la base de datos (Oscar | 10h previstas &Rightarrow; 12h reales)
+* Productos añadidos al carrito desde la pantalla de producto (Oscar | 3h previstas &Rightarrow; 4h reales)
 
 == 3. Diseño de Base de Datos
 
