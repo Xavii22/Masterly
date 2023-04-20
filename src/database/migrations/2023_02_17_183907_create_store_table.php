@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30)->notNullable();
+            $table->string('name', 100)->notNullable();
             $table->unsignedBigInteger('user_id')->notNullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

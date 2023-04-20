@@ -10,23 +10,29 @@ use Illuminate\Support\Str;
 
 class StoreSeeder extends Seeder
 {
+
+    private function generateRandomStoreName()
+    {
+        $storeName = '';
+
+        do {
+            $storeName = fake()->company();
+        } while (Str::contains($storeName, '-') || Str::contains($storeName, ','));
+
+        return $storeName;
+    }
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
         DB::table('stores')->delete();
-        $storeName = '';
         
-        do {
-            $storeName = fake()->company();
-        }
-        while (Str::contains($storeName, '-'));
-
         $users = User::distinct()->take(5)->get();
-        foreach ($users as $user) { 
+        foreach ($users as $user) {
             Store::create([
-                'name' => $storeName,
+                'name' => $this->generateRandomStoreName(),
                 'user_id' => $user->id
             ]);
         }

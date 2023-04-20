@@ -65,7 +65,6 @@ class HomeController extends Controller
 
         if ($storeUrl != null) {
             $currentStore = Store::whereRaw('lower(name) = ?', strtolower(str_replace('-', ' ', $storeUrl)))->first();
-
             $currentStoreId = $currentStore->id;
             $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder);
             $currentStoreName = $currentStore->name;
