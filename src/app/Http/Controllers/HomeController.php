@@ -15,7 +15,12 @@ class HomeController extends Controller
     {
         $query = $request->input('query');
         $sort = $request->input('sort', 'recent');
+
         $tagName = $request->input('tagName', null);
+
+        $storeUrl = $this->getCurrentUrl();
+        $currentStoreName = null;
+
         $sortOrder = $this->setSortProducts($sort, true);
         $sortBy = $this->setSortProducts($sort, false);
 
@@ -51,14 +56,38 @@ class HomeController extends Controller
         if ($tagName != null) {
             $tagName = intval($tagName);
             $products = Product::getProductListSpecificTag($tagName, $sortBy, $sortOrder);
-            $parentCategoryName = $tagName;
+            $parentCategoryName = Category::where('id', $tagName)->value('name');
         }
 
         if (count($products) <= 0) {
             Log::warning('The sort variables have not been set correctly.');
         }
 
-        return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName'));
+        if ($storeUrl != null) {
+            $currentStore = Store::whereRaw('lower(name) = ?', strtolower(str_replace('-', ' ', $storeUrl)))->first();
+
+            $currentStoreId = $currentStore->id;
+            $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder);
+            $currentStoreName = $currentStore->name;
+
+            return view('pages.store', ['id' => $storeUrl], compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
+        }
+
+        return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
+    }
+
+    private function getCurrentUrl()
+    {
+        $url = request()->url();
+        $path = parse_url($url, PHP_URL_PATH);
+        $segments = explode('/', $path);
+
+        if (count($segments) >= 3) {
+            $value = $segments[2];
+            return $value;
+        }
+
+        return null;
     }
 
     private function setSortProducts($sort, $order): string
@@ -106,9 +135,11 @@ class HomeController extends Controller
         $subCategoryName = $product->categories()->where('product_id', $product->id)->pluck('name')[0];
         $subCategoryParentId = Category::where('name', $subCategoryName)->value('parent_id');
         $categoryName = Category::where('id', $subCategoryParentId)->value('name');
+
         $storeName = Store::where('id', $product->store_id)->value('name');
+        $storeNameInUrl = strtolower(str_replace(' ', '-', $storeName));
 
         Log::info('Selected product id: ' . $id);
-        return view('pages.product', compact('product', 'categoryName', 'subCategoryName', 'storeName'));
+        return view('pages.product', compact('product', 'categoryName', 'subCategoryName', 'storeName', 'storeNameInUrl'));
     }
 }

@@ -42,6 +42,10 @@ main {
   flex: 1;
 }
 
+.chosen-cart {
+  filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%);
+}
+
 /**
  * Clear inner floats
  */
@@ -513,6 +517,7 @@ h3 {
 }
 
 footer {
+  margin-top: 40px;
   width: 100%;
   height: 150px;
   background-color: #2D3339;
@@ -538,9 +543,6 @@ footer {
   background-color: transparent;
   border-color: #828282;
 }
-.button--grey:hover {
-  filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%);
-}
 .button--transparent {
   background-color: transparent;
   border-color: transparent;
@@ -553,19 +555,19 @@ footer {
 .pagination {
   display: flex;
   justify-content: center;
+  gap: 20px;
   height: 55px;
-  margin-bottom: 20px;
+  margin: 40px 0px;
 }
 .pagination__number {
-  margin: 0 10px;
-  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
   color: #828282;
   border: 2px solid #828282;
-  display: flex;
-  align-items: center;
   min-width: 55px;
-  justify-content: center;
+  min-height: 55px;
 }
 .pagination__number--active {
   color: #FFFFFF;
@@ -583,6 +585,9 @@ footer {
   margin-right: 20px;
 }
 .sort__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #b5b5b5;
   padding: 5px;
   margin: 15px 20px;
@@ -734,8 +739,19 @@ footer {
   cursor: pointer;
 }
 .product-element__info {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  margin-top: 10px;
+}
+.product-element__info-name {
+  margin: 0px;
+}
+.product-element__info-category {
+  color: #828282;
+  margin: 0px;
+  font-size: 0.9rem;
 }
 .product-element__image {
   display: block;
@@ -747,8 +763,15 @@ footer {
   width: 25px;
   height: 25px;
 }
-.product-element__cart--active {
-  filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%);
+
+.products-total {
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+}
+.products-total__number {
+  color: #828282;
+  font-size: 0.9rem;
 }
 
 .form-login-register {
@@ -780,6 +803,12 @@ p {
   font-size: 20px;
   color: #828282;
 }
+.content__currency {
+  font-size: 3.3rem;
+}
+.content__title {
+  margin: 0px;
+}
 .content__price {
   font-size: 70px;
   font-weight: bold;
@@ -797,6 +826,9 @@ p {
   height: 25px;
 }
 
+.details {
+  grid-column: 2;
+}
 .details__description {
   font-size: 15px;
   color: #828282;
@@ -806,21 +838,27 @@ p {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  grid-row: 1/span 2;
 }
 .image img {
-  max-width: 100%;
-  height: auto;
-  z-index: -1;
+  display: block;
+  width: 650px;
+  height: 500px;
+  object-fit: cover;
   transition: 0.2s;
+  position: sticky;
+  top: 40px;
 }
 
 .product {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 5fr 4fr;
   grid-template-rows: repeat(2, auto-fit);
   flex: 1;
-  grid-gap: 20px;
-  padding: 0 10%;
+  column-gap: 20px;
+  row-gap: 80px;
+  padding: 0 9%;
+  margin-top: 40px;
 }
 
 .cart {
@@ -829,6 +867,12 @@ p {
   grid-template-rows: 1fr auto auto;
   grid-gap: 40px;
   padding: 0 10%;
+}
+@media screen and (max-width: 1000px) {
+  .cart {
+    grid-template-columns: auto;
+    grid-template-rows: 1fr auto auto;
+  }
 }
 .cart--enable {
   display: grid;
@@ -868,6 +912,12 @@ p {
   justify-content: space-between;
   border-top: 1px solid #b5b5b5;
 }
+@media screen and (max-width: 1000px) {
+  .cart__summary {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
 
 .product-item {
   display: grid;
@@ -887,14 +937,17 @@ p {
   grid-row: 1/span 2;
 }
 .product-item__image-trash {
-  width: 27px;
-  height: 27px;
+  width: 24px;
+  height: 24px;
   margin: 5px;
   grid-column: 3;
   grid-row: 1;
+  transition: 0.3s;
 }
 .product-item__image-trash:hover {
+  transition: 0.3s;
   cursor: pointer;
+  filter: invert(22%) sepia(97%) saturate(5193%) hue-rotate(355deg) brightness(104%) contrast(132%);
 }
 .product-item__name-link {
   grid-column: 2;

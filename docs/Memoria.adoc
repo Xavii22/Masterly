@@ -63,6 +63,11 @@ Esta semana, al haber dispuesto de únicamente 2 días de trabajo, no ha sido po
 * Enviación email de verificación (Samuel | 3h previstas &Rightarrow; 5h reales)
 * Implementación medidas rem (Oscar y Xavi | 1h prevista &Rightarrow; 1h real)
 
+
+=== Semana 6
+
+
+
 == 3. Diseño de Base de Datos
 
 == 4. Guia de estilos

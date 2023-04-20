@@ -44,6 +44,14 @@ class Product extends Model
             ->withQueryString();
     }
 
+    public static function getProductListSpecificStore($storeId, $sortBy, $sortOrder)
+    {
+        return Product::where('store_id', $storeId)
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate(env('PAGINATE_NUMBER'))
+            ->withQueryString();
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);

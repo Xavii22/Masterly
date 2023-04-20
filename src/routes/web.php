@@ -7,7 +7,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -36,7 +35,7 @@ Route::get('/cart', [CartController::class, 'cart'])->name('pages.cart');
 
 Route::post('/cart', [CartController::class, 'queryProducts'])->name('pages.cart');
 
-Route::get('/store', [StoreController::class, 'store'])->name('pages.store');
+Route::get('/store/{id}', [HomeController::class, 'home'])->name('pages.store');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('pages.login');
