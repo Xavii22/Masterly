@@ -6,6 +6,43 @@ function updateStoredProductsCounter() {
     productsCounter.textContent = cart.length;
 }
 
+async function setLocalStorageToCartDatabase() {
+    try {
+        const response = await fetch("/home-init", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
+            }
+        });
+
+        const result = await response.json();
+        localStorage.setItem("cart", JSON.stringify(result));
+
+} catch (error) {
+        console.error(error);
+    }
+}
+
+async function submitProductIDToDatabase(data) {
+    try {
+        await fetch("/home", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
+            },
+            body: JSON.stringify(data),
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 function addEventListenerCart() {
 
     productCart.forEach((item) => {
@@ -26,12 +63,14 @@ export function toggleProductInCart(id) {
     } else {
         cart.push(id);
     }
-
+    
     localStorage.setItem("cart", JSON.stringify(cart));
     updateStoredProductsCounter();
+    submitProductIDToDatabase(id);
 }
 
 window.addEventListener("load", function () {
+    setLocalStorageToCartDatabase();
     addEventListenerCart();
     updateStoredProductsCounter();
 });

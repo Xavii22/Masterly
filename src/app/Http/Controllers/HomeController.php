@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Cart;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -102,5 +104,21 @@ class HomeController extends Controller
         $product = Product::findOrFail($id);
         $query = '';
         return view('pages.product', compact('product'));
+    }
+
+    public function toggleProductFromCart(Request $request)
+    {
+        if (Auth::check()) {
+            $currentCart = Cart::where('user_id', Auth::id())->first();
+
+            $currentCart->products()->toggle($request->input(0, ''));
+        }
+    }
+
+    public function getProductsFromCart()
+    {
+        if (Auth::check()) {
+            return Cart::getCartProducts()->pluck('id');
+        }
     }
 }

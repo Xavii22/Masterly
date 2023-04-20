@@ -28,6 +28,8 @@ use Illuminate\Support\Str;
 Route::get('/', [LandingController::class, 'landing'])->name('pages.landing');
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
+Route::post('/home', [HomeController::class, 'toggleProductFromCart'])->name('pages.home');
+Route::get('/home-init', [HomeController::class, 'getProductsFromCart'])->name('pages.home');
 
 Route::get('/product/{id}', [HomeController::class, 'showProductDetails'])->name('pages.product');
 

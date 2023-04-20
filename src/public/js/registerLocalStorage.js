@@ -25,10 +25,9 @@ async function sendLocalStorage() {
             body: JSON.stringify(data),
         });
 
-        // if (response.ok) {
+        if (response.ok) {
             localStorage.removeItem('cart');
-            console.log(localStorage.getItem("cart"));
-        // }
+        }
 
     } catch (error) {
         console.error(error);

@@ -17,12 +17,7 @@ class CartController extends Controller
     public function queryProducts(Request $request)
     {
         if (Auth::check()) {
-            $currentUserId = Auth::id();
-            $currentCartId = Cart::where('user_id', $currentUserId)->value('id');
-            //$products = Product::whereIn('id', Auth::id())->get();
-            $products = Product::whereHas('carts', function ($query) use ($currentCartId) {
-                $query->where('carts.id', $currentCartId);
-            })->get();
+            $products = Cart::getCartProducts();
 
             return response()->json($products);
         }
