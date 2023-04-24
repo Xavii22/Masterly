@@ -11,16 +11,20 @@
         <a class="item-link" href="{{ route('pages.cart') }}">
             <img class="item" src="{{ asset('images/cart.png') }}" alt="Cart">
             <div class="stored-products">
-                <span class="stored-products__number"></span>
+                <span class="stored-products__number">-</span>
             </div>
         </a>
-        <a class="item-link" href="{{ route('pages.login') }}">
-            <img class="item" src="{{ asset('images/user.png') }}" alt="User">
-            <span>
-                @if (Auth::check())
-                    {{ Auth::user()->name }}
-                @endif
-            </span>
+        @if (Auth::check())
+                <a class="item-link" href="{{ route('pages.profile') }}">
+            @else
+                <a class="item-link" href="{{ route('pages.login') }}">
+        @endif
+        <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+        <span>
+            @if (Auth::check())
+                {{ Auth::user()->name }}
+            @endif
+        </span>
         </a>
         <a class="item-link item-link--hidden" href="">
             <img class="item" src="{{ asset('images/menu.png') }}" alt="Menu">

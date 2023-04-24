@@ -30,5 +30,6 @@
         <p>¿Aún no te has registrado en nuestra página?  <a class="login-register-link" href="{{ route('pages.register') }}">¡Regístrate!</a></p>
     </form>
     
+    <script src="{{ asset('js/loginLocalStorage.js') }}"></script>
 @endsection
 
