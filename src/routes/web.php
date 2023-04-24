@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -28,6 +29,8 @@ use Illuminate\Support\Str;
 Route::get('/', [LandingController::class, 'landing'])->name('pages.landing');
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
+Route::post('/home', [HomeController::class, 'toggleProductFromCart'])->name('pages.home');
+Route::post('/home-init', [HomeController::class, 'getProductsFromCart'])->name('pages.home-init');
 
 Route::get('/product/{id}', [HomeController::class, 'showProductDetails'])->name('pages.product');
 
@@ -46,6 +49,6 @@ Route::post('/register', [RegisterController::class, 'register'])->name('pages.r
 //Send-email-verification
 Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']); 
 Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {});
 
-});
+Route::get('/profile', [ProfileController::class, 'profile'])->name('pages.profile');

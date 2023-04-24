@@ -2,7 +2,7 @@
     <a class="item-link" href="{{ route('pages.landing') }}">
         <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
     </a>
-	<img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
+    <img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
     <div class="items">
         <form method="GET" action="{{ route('pages.home') }}">
             @csrf
@@ -11,11 +11,20 @@
         <a class="item-link" href="{{ route('pages.cart') }}">
             <img class="item" src="{{ asset('images/cart.png') }}" alt="Cart">
             <div class="stored-products">
-                <span class="stored-products__number"></span>
+                <span class="stored-products__number">-</span>
             </div>
         </a>
-        <a class="item-link" href="{{ route('pages.login') }}">
-            <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+        @if (Auth::check())
+                <a class="item-link" href="{{ route('pages.profile') }}">
+            @else
+                <a class="item-link" href="{{ route('pages.login') }}">
+        @endif
+        <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+        <span>
+            @if (Auth::check())
+                {{ Auth::user()->name }}
+            @endif
+        </span>
         </a>
         <a class="item-link item-link--hidden" href="">
             <img class="item" src="{{ asset('images/menu.png') }}" alt="Menu">
