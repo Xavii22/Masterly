@@ -104,6 +104,10 @@
             color: $tertiary-color;
             margin: 0px;
             font-size: 0.9rem;
+            width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 
