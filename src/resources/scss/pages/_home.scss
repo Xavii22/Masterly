@@ -95,6 +95,10 @@
 
         &-name {
             margin: 0px;
+            width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         &-category {
             color: $tertiary-color;
@@ -112,7 +116,7 @@
 
     &__cart {
         width: 25px;
-        height: 25px;   
+        height: 25px;
     }
 }
 
