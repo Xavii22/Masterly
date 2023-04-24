@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProfileController;
@@ -51,9 +50,5 @@ Route::post('/register', [RegisterController::class, 'register'])->name('pages.r
 Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']); 
 Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
 Route::middleware('auth')->group(function () {});
-
-//Password reset
-Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
 Route::get('/profile', [ProfileController::class, 'profile'])->name('pages.profile');
