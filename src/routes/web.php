@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -37,6 +38,8 @@ Route::post('/cart', [CartController::class, 'queryProducts'])->name('pages.cart
 
 Route::get('/store/{id}', [HomeController::class, 'home'])->name('pages.store');
 
+Route::get('/manageStore', [HomeController::class, 'home'])->name('pages.manageStore');
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('pages.login');
 Route::get('/logout',[LoginController::class, 'logout'])->name('pages.logout');
@@ -49,3 +52,14 @@ Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'
 Route::middleware('auth')->group(function () {
 
 });
+
+// Errors
+ Route::get('/productNotFound', [ErrorController::class, 'productNotFound'])->name('errors.productNotFound');
+
+Route::get('/storeNotFound', [ErrorController::class, 'storeNotFound'])->name('errors.storeNotFound');
+
+// Route::get('/defaultError', [ErrorController::class, 'defaultError'])->name('errors.defaultError');
+
+// Route::fallback(function () {
+//     abort(404);
+// });

@@ -1,0 +1,17 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__code {
+        font-size: 10rem;
+        margin-bottom: 0px;
+        color: $not-found-color;
+    }
+}
+
+.suggested {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
