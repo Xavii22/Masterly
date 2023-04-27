@@ -1,0 +1,9 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the profile page.
+// -----------------------------------------------------------------------------
+
+.profile {
+    &__name {
+        border-bottom: 1px solid $border-color;
+    }
+}
