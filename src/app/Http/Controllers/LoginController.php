@@ -39,10 +39,10 @@ class LoginController extends Controller
         return redirect(route('pages.login'));
     }
 
-    public function logout(Request $request) {
+    public function logout() {
         session()->flush(); 
         Auth::logout(); 
 
-        return redirect('pages.login');
+        return redirect()->route('pages.landing');
     }
 }
