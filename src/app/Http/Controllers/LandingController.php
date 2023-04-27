@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Support\Facades\Log;
 
@@ -43,7 +44,7 @@ class LandingController extends Controller
         return $tagProducts;
     }
 
-    public function landing(Request $request)
+    public function landing()
     {
         $tags = $this->getTagValues();
         return view('pages.landing', compact('tags'));

@@ -1,8 +1,19 @@
+<?php
+function userCircle($username)
+{
+    $colorCode = ord(strtoupper(substr($username, 0, 1)));
+    $red = ($colorCode * 17) % 255;
+    $green = ($colorCode * 13) % 255;
+    $blue = ($colorCode * 19) % 255;
+    $color = sprintf("#%02x%02x%02x", $red, $green, $blue);
+    return '<div style="background-color:' . $color . '; display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 35px; height: 35px; text-align: center; font-size: 18px; color: white; line-height: 50px;">' . strtoupper(substr($username, 0, 1)) . '</div>';
+}
+?>
 <header class="header">
     <a class="item-link" href="{{ route('pages.landing') }}">
         <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
     </a>
-	<img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
+    <img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
     <div class="items">
         <form method="GET" action="{{ route('pages.home') }}">
             @csrf
@@ -11,11 +22,22 @@
         <a class="item-link" href="{{ route('pages.cart') }}">
             <img class="item" src="{{ asset('images/cart.png') }}" alt="Cart">
             <div class="stored-products">
-                <span class="stored-products__number"></span>
+                <span class="stored-products__number">-</span>
             </div>
         </a>
-        <a class="item-link" href="{{ route('pages.login') }}">
-            <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+        @if (Auth::check())
+            <a class="item-link" href="{{ route('pages.profile') }}">
+            @else
+                <a class="item-link" href="{{ route('pages.login') }}">
+        @endif
+        <span>
+            @if (Auth::check())
+                {!! userCircle(Auth::user()->name) !!}
+                {{-- {{ Auth::user()->name }} --}}
+            @else
+                <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+            @endif
+        </span>
         </a>
         <a class="item-link item-link--hidden" href="">
             <img class="item" src="{{ asset('images/menu.png') }}" alt="Menu">

@@ -9,6 +9,7 @@ use App\Http\Controllers\EditProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -30,6 +31,8 @@ use Illuminate\Support\Str;
 Route::get('/', [LandingController::class, 'landing'])->name('pages.landing');
 
 Route::get('/home', [HomeController::class, 'home'])->name('pages.home');
+Route::post('/home', [HomeController::class, 'toggleProductFromCart'])->name('pages.home');
+Route::post('/home-init', [HomeController::class, 'getProductsFromCart'])->name('pages.home-init');
 
 Route::get('/product/{id}', [HomeController::class, 'showProductDetails'])->name('pages.product');
 
@@ -72,3 +75,5 @@ Route::get('/storeNotFound', [ErrorController::class, 'storeNotFound'])->name('e
 // Route::fallback(function () {
 //     abort(404);
 // });
+
+Route::get('/profile', [ProfileController::class, 'profile'])->name('pages.profile');
