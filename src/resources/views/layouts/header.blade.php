@@ -1,3 +1,14 @@
+<?php
+function userCircle($username)
+{
+    $colorCode = ord(strtoupper(substr($username, 0, 1)));
+    $red = ($colorCode * 17) % 255;
+    $green = ($colorCode * 13) % 255;
+    $blue = ($colorCode * 19) % 255;
+    $color = sprintf("#%02x%02x%02x", $red, $green, $blue);
+    return '<div style="background-color:' . $color . '; display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 35px; height: 35px; text-align: center; font-size: 18px; color: white; line-height: 50px;">' . strtoupper(substr($username, 0, 1)) . '</div>';
+}
+?>
 <header class="header">
     <a class="item-link" href="{{ route('pages.landing') }}">
         <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
@@ -15,14 +26,16 @@
             </div>
         </a>
         @if (Auth::check())
-                <a class="item-link" href="{{ route('pages.profile') }}">
+            <a class="item-link" href="{{ route('pages.profile') }}">
             @else
                 <a class="item-link" href="{{ route('pages.login') }}">
         @endif
-        <img class="item" src="{{ asset('images/user.png') }}" alt="User">
         <span>
             @if (Auth::check())
-                {{ Auth::user()->name }}
+                {!! userCircle(Auth::user()->name) !!}
+                {{-- {{ Auth::user()->name }} --}}
+            @else
+                <img class="item" src="{{ asset('images/user.png') }}" alt="User">
             @endif
         </span>
         </a>

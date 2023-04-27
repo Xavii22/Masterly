@@ -21,6 +21,11 @@ html {
     box-sizing: inherit;
 }
 
+*::selection {
+    background-color: $secondary-color;
+    color: #fff;
+}
+
 /**
    * Basic styles for links
    */
