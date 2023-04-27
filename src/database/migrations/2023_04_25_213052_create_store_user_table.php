@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('store_user', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->notNullable();
-            $table->string('image', 200)->notNullable();
-            $table->unsignedBigInteger('user_id')->notNullable();
-            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('store_id')->index();
+            $table->foreign('store_id')->references('id')->on('stores')->cascadeOnDelete();
+
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('store_user');
     }
 };

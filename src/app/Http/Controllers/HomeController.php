@@ -8,6 +8,8 @@ use App\Models\Store;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class HomeController extends Controller
 {
@@ -64,12 +66,18 @@ class HomeController extends Controller
         }
 
         if ($storeUrl != null) {
-            $currentStore = Store::whereRaw('lower(name) = ?', strtolower(str_replace('-', ' ', $storeUrl)))->first();
-            $currentStoreId = $currentStore->id;
-            $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder);
-            $currentStoreName = $currentStore->name;
+            try {
+                $currentStore = Store::whereRaw('lower(name) = ?', strtolower(str_replace('-', ' ', $storeUrl)))->first();
+                $currentStoreId = $currentStore->id;
+                $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);
+                $importantProducts = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, true);
+                
+                $currentStoreName = $currentStore->name;
+            } catch (Exception $e) {
+                return view('errors.storeNotFound');
+            }
 
-            return view('pages.store', ['id' => $storeUrl], compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
+            return view('pages.store', ['id' => $storeUrl], compact('products', 'importantProducts', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
         }
 
         return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
@@ -84,6 +92,8 @@ class HomeController extends Controller
         if (count($segments) >= 3) {
             $value = $segments[2];
             return $value;
+        } else {
+            Log::error('Url not setted correctly');
         }
 
         return null;
@@ -129,8 +139,11 @@ class HomeController extends Controller
 
     public function showProductDetails($id)
     {
-        $product = Product::findOrFail($id);
-
+        try {
+            $product = Product::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            ErrorController::productNotFound();
+        }
         $subCategoryName = $product->categories()->where('product_id', $product->id)->pluck('name')[0];
         $subCategoryParentId = Category::where('name', $subCategoryName)->value('parent_id');
         $categoryName = Category::where('id', $subCategoryParentId)->value('name');

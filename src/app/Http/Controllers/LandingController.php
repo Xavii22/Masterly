@@ -46,7 +46,6 @@ class LandingController extends Controller
     public function landing(Request $request)
     {
         $tags = $this->getTagValues();
-        //dd($tags[0]['products']);
         return view('pages.landing', compact('tags'));
     }
 }

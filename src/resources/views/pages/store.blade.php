@@ -56,14 +56,16 @@
             </aside>
             <section class="products-parent">
                 @if ($products->total() > 0)
-                    <span>{{ $currentStoreName }}</span>
                     <div class="products-title">
+                        <div class="products-title__image">
+                            <img class="products-title__image" src="{{ asset('images/logo-mobile.png') }}">
+                        </div>
                         @if ($childCategoryName != null)
-                            <h1>{{ $childCategoryName }}</h1>
+                            <h1>{{ $currentStoreName }} - {{ $childCategoryName }}</h1>
                         @elseif ($parentCategoryName != null)
-                            <h1>{{ $parentCategoryName }}</h1>
+                            <h1>{{ $currentStoreName }} - {{ $parentCategoryName }}</h1>
                         @else
-                            <h1>Artículos</h1>
+                            <h1>{{ $currentStoreName }} - Artículos</h1>
                         @endif
                     </div>
                 @endif
@@ -119,10 +121,39 @@
                         @endif
                     </div>
                 @endif
+                <div class="dropdown">
+                    <button class="button button--blue dropdown__button">DALTONISMO</button>
+                    <div class="dropdown__content">
+                        <span class="dropdown-content__value">Protanopia</span>
+                        <span class="dropdown-content__value">Deuteranopia</span>
+                        <span class="dropdown-content__value">Acromatopsia</span>
+                        <span class="dropdown-content__value">Tritanopia</span>
+                    </div>
+                </div>
+                @if ($products->total() <= 0)
+                    <h2>Ningún artículo corresponde a tu búsqueda</h2>
+                @endif
+                @if ($importantProducts->total() > 0)
+                    <h2>Artículos destacados</h2>
+                    <div class="products">
+                        @foreach ($importantProducts as $importantProduct)
+                            <article class="product-element">
+                                <a href="{{ route('pages.product', [$importantProduct->id]) }}">
+                                    <img class="product-element__image" src="{{ $importantProduct->image }}">
+                                </a>
+                                <div class="product-element__info">
+                                    <h3 class="product-element__info-name">{{ $importantProduct->name }}</h3>
+                                    <span class="product-element__info-price">{{ $importantProduct->price }} €</span>
+                                    <span class="product-element__info-category">{{ $importantProduct->name }}</span>
+                                    <img class="product-element__cart cart-listener" id="{{ $importantProduct->id }}"
+                                        src="{{ asset('images/cart.png') }}">
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
                 <div class="products">
-                    @if ($products->total() <= 0)
-                        <h2>Ningún artículo corresponde a tu búsqueda</h2>
-                    @endif
+
                     @foreach ($products as $product)
                         <article class="product-element">
                             <a href="{{ route('pages.product', [$product->id]) }}">
@@ -132,6 +163,8 @@
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>
                                 <span class="product-element__info-price">{{ $product->price }} €</span>
                                 <span class="product-element__info-category">{{ $product->name }}</span>
+                                <img class="product-element__cart cart-listener" id="{{ $product->id }}"
+                                    src="{{ asset('images/cart.png') }}">
                             </div>
                         </article>
                     @endforeach
@@ -142,5 +175,7 @@
     </main>
     @include('layouts.footer')
     </div>
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
     <script src="{{ asset('js/categoryLink.js') }}"></script>
+    <script src="{{ asset('js/colorblindnessFilter.js') }}"></script>
 @endsection

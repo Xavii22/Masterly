@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\EditProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ErrorController;
@@ -40,21 +41,29 @@ Route::get('/store/{id}', [HomeController::class, 'home'])->name('pages.store');
 
 Route::get('/manageStore', [HomeController::class, 'home'])->name('pages.manageStore');
 
+Route::get('/editProduct/{id}', [EditProductController::class, 'editProduct'])
+    ->name('pages.editProduct')
+    ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
+
+Route::post('/editProduct/{id}', [EditProductController::class, 'editDetails'])
+    ->name('pages.editDetails')
+    ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
+
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('pages.login');
-Route::get('/logout',[LoginController::class, 'logout'])->name('pages.logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('pages.logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('pages.register');
 
 //Send-email-verification
-Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']); 
-Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify'); 
+Route::get('dashboard', [RegisterController::class, 'dashboard'])->middleware(['is_verify_email']);
+Route::get('account/verify/{token}', [RegisterController::class, 'verifyAccount'])->name('user.verify');
 Route::middleware('auth')->group(function () {
-
 });
 
 // Errors
- Route::get('/productNotFound', [ErrorController::class, 'productNotFound'])->name('errors.productNotFound');
+Route::get('/productNotFound', [ErrorController::class, 'productNotFound'])->name('errors.productNotFound');
 
 Route::get('/storeNotFound', [ErrorController::class, 'storeNotFound'])->name('errors.storeNotFound');
 

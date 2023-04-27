@@ -10,9 +10,9 @@ class Category extends Model
     protected $fillable = ['name', 'type', 'parent_id'];
     use HasFactory;
 
-    public function getCategory()
+    public static function getAllSpecificCategories($type)
     {
-        return;
+        return Category::where('type', $type)->get();
     }
 
     public function products()

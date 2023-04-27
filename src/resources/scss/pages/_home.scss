@@ -72,6 +72,12 @@
 .products-title {
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    &__image {
+        height: 40px;
+        margin-right: 10px;
+    }
 }
 
 .products {
@@ -108,11 +114,27 @@
         width: 200px;
         height: 225px;
         object-fit: cover;
+
+        &--protanopia {
+            filter: contrast(1.2) brightness(0.9) saturate(1.1) hue-rotate(45deg);
+        }
+
+        &--deuteranopia {
+            filter: contrast(1.2) brightness(0.9) saturate(1.1) hue-rotate(-45deg);
+        }
+
+        &--acromatopsia {
+            filter: contrast(1.5) brightness(1.2);
+        }
+
+        &--tritanopia {
+            filter: contrast(1.2) brightness(0.9) saturate(1.1) hue-rotate(-75deg);
+        }
     }
 
     &__cart {
         width: 25px;
-        height: 25px;   
+        height: 25px;
     }
 }
 

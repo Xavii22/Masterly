@@ -39,14 +39,16 @@ class Product extends Model
         return Product::whereHas('categories', function ($query) use ($tagName) {
             $query->where('categories.id', $tagName);
         })
+            //->where
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
     }
 
-    public static function getProductListSpecificStore($storeId, $sortBy, $sortOrder)
+    public static function getProductListSpecificStore($storeId, $sortBy, $sortOrder, $important)
     {
         return Product::where('store_id', $storeId)
+            ->where('important', $important)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
