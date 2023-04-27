@@ -9,24 +9,26 @@ function updateStoredProductsCounter() {
 
 async function setLocalStorageToCartDatabase() {
   try {
+    const data = JSON.parse(localStorage.getItem("cart"));
     const response = await fetch("/home-init", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-TOKEN": document
-          .querySelector('meta[name="csrf-token"]')
-          .getAttribute("content"),
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       },
+      body: JSON.stringify(data),
     });
 
     const result = await response.json();
 
     localStorage.setItem("cart", JSON.stringify(result));
-    cart = result; // Update cart variable with the result
-    return Promise.resolve(); // Resolve the promise
+    cart = result;
+    return Promise.resolve();
   } catch (error) {
     console.error(error);
-    return Promise.reject(error); // Reject the promise if there's an error
+    return Promise.reject(error);
   }
 }
 

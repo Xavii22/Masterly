@@ -153,10 +153,11 @@ class HomeController extends Controller
         }
     }
 
-    public function getProductsFromCart()
+    public function getProductsFromCart(Request $request)
     {
         if (Auth::check()) {
             return Cart::getCartProducts()->pluck('id');
         }
+        return response()->json($request);
     }
 }
