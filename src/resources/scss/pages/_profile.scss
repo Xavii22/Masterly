@@ -3,7 +3,150 @@
 // -----------------------------------------------------------------------------
 
 .profile {
-    &__name {
-        border-bottom: 1px solid $border-color;
+    margin: 50px 10%;
+
+    & section {
+        border-top: 1px solid $border-color;
+        padding: 20px 0px;
     }
+
+    &__password {
+        &-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-column-gap: 20px;
+        }
+
+        &-save {
+            grid-column: 3;
+        }
+    }
+
+    &__shop {
+        &-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 15%;
+        }
+
+        &-save {
+            grid-column: 2;
+        }
+    }
+
+    &__data {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: min-content 1fr min-content;
+        grid-column-gap: 15%;
+
+        &-logout {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0px;
+            padding: 10px;
+            width: 130px;
+            height: 40px;
+            justify-self: end;
+            border: none;
+            border-radius: 2px;
+            outline: 1px solid $incorrect-color;
+            color: $incorrect-color !important;
+            background-color: transparent;
+            cursor: pointer;
+            transition: 0.1s;
+
+            &:hover {
+                background-color: $incorrect-color;
+                color: white !important;
+                outline-color: $incorrect-color;
+            }
+        }
+
+        &__name {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 2fr;
+        }
+
+        &__logo {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr 2fr;
+
+            &-label {
+                grid-column: 1 / span 2;
+            }
+
+            &-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            &-upload {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                align-self: center;
+                cursor: pointer;
+
+                &-image {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                &-label {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &-save {
+            grid-column: 2;
+        }
+    }
+
+    &__input {
+        height: 40px;
+        border: none;
+        border-radius: 2px;
+        font-size: 16px;
+        padding: 10px 15px;
+        outline: 1px solid rgb(205, 205, 205);
+        background-color: rgb(233, 233, 233);
+        color: $tertiary-color;
+        transition: 0.1s;
+
+        &:focus {
+            background-color: transparent;
+            outline-color: rgb(122, 122, 122);
+        }
+    }
+
+    &__save {
+        margin: 10px 0px;
+        padding: 10px;
+        width: 130px;
+        height: 40px;
+        justify-self: end;
+        border: none;
+        border-radius: 2px;
+        outline: 1px solid $secondary-color;
+        color: $secondary-color;
+        background-color: transparent;
+        cursor: pointer;
+        transition: 0.1s;
+
+        &:hover {
+            background-color: $secondary-color;
+            color: white;
+        }
+    }
+}
+
+input[type="file"] {
+    display: none;
 }

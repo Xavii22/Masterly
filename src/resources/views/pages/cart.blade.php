@@ -9,7 +9,6 @@
             <section class="cart__header">
                 <h1 class="cart__header-title">Carrito</h1>
                 <h5 class="cart__header-products"><span></span></span> productos</h5>
-                
             </section>
             <section class="cart__product-list">
                 {{-- Product storage... --}}
