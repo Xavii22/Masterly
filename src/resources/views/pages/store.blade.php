@@ -55,7 +55,7 @@
                 </div>
             </aside>
             <section class="products-parent">
-                @if ($products->total() > 0)
+                @if ($products->total() > 0 || $importantProducts->total() > 0)
                     <div class="products-title">
                         <div class="products-title__image">
                             <img class="products-title__image" src="{{ asset('images/logo-mobile.png') }}">
@@ -70,9 +70,10 @@
                     </div>
                 @endif
                 <div class="products-total">
-                    <span class="products-total__number">{{ $products->total() }} artículos</span>
+                    <span class="products-total__number">{{ $products->total() + $importantProducts->total() }}
+                        artículos</span>
                 </div>
-                @if ($products->total() > 0)
+                @if ($products->total() > 0 || $importantProducts->total() > 0)
                     <div class="sort">
                         @if ($sort == 'recent')
                             <a class="sort__link sort__link--active button button--transparent"
@@ -130,14 +131,17 @@
                         <span class="dropdown-content__value">Tritanopia</span>
                     </div>
                 </div>
-                @if ($products->total() <= 0)
-                    <h2>Ningún artículo corresponde a tu búsqueda</h2>
+                @if ($products->total() <= 0 && $importantProducts->total() <= 0)
+                    <h2>Ningún artículo corresponde a tu búsqueda</h2>ºº
                 @endif
                 @if ($importantProducts->total() > 0)
                     <h2>Artículos destacados</h2>
                     <div class="products">
                         @foreach ($importantProducts as $importantProduct)
                             <article class="product-element">
+                                @if (Route::currentRouteName() == 'pages.manageStore')
+                                    <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}">editar</a>
+                                @endif
                                 <a href="{{ route('pages.product', [$importantProduct->id]) }}">
                                     <img class="product-element__image" src="{{ $importantProduct->image }}">
                                 </a>
@@ -156,6 +160,9 @@
 
                     @foreach ($products as $product)
                         <article class="product-element">
+                            @if (Route::currentRouteName() == 'pages.manageStore')
+                                <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}">editar</a>
+                            @endif
                             <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $product->image }}">
                             </a>

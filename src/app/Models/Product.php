@@ -13,6 +13,7 @@ class Product extends Model
     public static function getProductList($query, $sortBy, $sortOrder)
     {
         return Product::where('name', 'like', '%' . $query . '%')
+            ->where('enabled', true)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'));
     }
@@ -20,8 +21,9 @@ class Product extends Model
     public static function getOrderedProductList($sortBy, $sortOrder)
     {
         return Product::orderBy($sortBy, $sortOrder)
-        ->paginate(env('PAGINATE_NUMBER'))
-        ->withQueryString();
+            ->where('enabled', true)
+            ->paginate(env('PAGINATE_NUMBER'))
+            ->withQueryString();
     }
 
     public static function getProductListSpecificCategory($category, $categoryType, $sortBy, $sortOrder)
@@ -29,6 +31,7 @@ class Product extends Model
         return Product::whereHas('categories', function ($query) use ($categoryType, $category) {
             $query->where($categoryType, $category);
         })
+            ->where('enabled', true)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
@@ -39,7 +42,7 @@ class Product extends Model
         return Product::whereHas('categories', function ($query) use ($tagName) {
             $query->where('categories.id', $tagName);
         })
-            //->where
+            ->where('enabled', true)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
@@ -48,6 +51,7 @@ class Product extends Model
     public static function getProductListSpecificStore($storeId, $sortBy, $sortOrder, $important)
     {
         return Product::where('store_id', $storeId)
+            ->where('enabled', true)
             ->where('important', $important)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))

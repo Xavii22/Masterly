@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -22,7 +23,7 @@ class HomeController extends Controller
 
         $tagName = $request->input('tagName', null);
 
-        $storeUrl = $this->getCurrentUrl();
+        $storeUrl = ManageStoreController::getCurrentUrl();
         $currentStoreName = null;
 
         $sortOrder = $this->setSortProducts($sort, true);
@@ -71,9 +72,14 @@ class HomeController extends Controller
             try {
                 $currentStore = Store::whereRaw('lower(name) = ?', strtolower(str_replace('-', ' ', $storeUrl)))->first();
                 $currentStoreId = $currentStore->id;
+
+                if (Route::currentRouteName() == 'pages.manageStore' && Auth::id() != $currentStore->user_id) {
+                    dd('NO TIENES ACCESO');
+                }
+
                 $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);
                 $importantProducts = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, true);
-                
+
                 $currentStoreName = $currentStore->name;
             } catch (Exception $e) {
                 return view('errors.storeNotFound');
@@ -83,22 +89,6 @@ class HomeController extends Controller
         }
 
         return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
-    }
-
-    private function getCurrentUrl()
-    {
-        $url = request()->url();
-        $path = parse_url($url, PHP_URL_PATH);
-        $segments = explode('/', $path);
-
-        if (count($segments) >= 3) {
-            $value = $segments[2];
-            return $value;
-        } else {
-            Log::error('Url not setted correctly');
-        }
-
-        return null;
     }
 
     private function setSortProducts($sort, $order): string

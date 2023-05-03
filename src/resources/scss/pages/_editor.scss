@@ -2,7 +2,7 @@
 // This file contains styles that are specific to the profile page.
 // -----------------------------------------------------------------------------
 
-.profile {
+.editor {
     margin: 50px 10%;
 
     & section {
@@ -100,6 +100,19 @@
 
                 &-label {
                     cursor: pointer;
+                }
+            }
+
+            &-trash {
+                width: 24px;
+                height: 24px;
+                margin: 5px;
+                transition: 0.3s;
+    
+                &:hover {
+                    transition: 0.3s;
+                    cursor: pointer;
+                    filter: $incorrect-filter;
                 }
             }
         }

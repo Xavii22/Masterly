@@ -4,55 +4,76 @@
 
 @section('content')
     @include('layouts.header')
-    <main class="edit-product">
+    <main class="editor">
         <h1>Editar producto</h1>
-        <section class="edit-product__section">
+        <section>
+            <h2>Detalles</h2>
             <div>
-                <h2>Detalles</h2>
-                <form method="POST" action="{{ route('pages.editDetails', [$product['id']]) }}" class="edit-product__form">
+                <form method="POST"
+                    action="{{ route('pages.manageEditProductForms', [$product['id']]) }}?form=productDetails"
+                    class="editor__password-content">
                     @csrf
                     <label for="form-name">Nombre</label>
-                    <input type="text" value="{{ $product['name'] }}" id="form-name" name="name">
                     <label for="form-description">Descripción</label>
-                    <textarea rows="4" cols="20" name="description">{{ $product['description'] }}</textarea>
                     <label for="form-price">Precio</label>
-                    <input type="number" value="{{ $product['price'] }}" id="form-price" min="1" max="10000" name="price">
-                    <input type="submit" value="GUARDAR" class="button button--blue introduction__button">
-                </form>                
+                    <input class="editor__input" type="text" value="{{ $product['name'] }}" id="form-name" name="name">
+                    <textarea class="editor__input" rows="4" cols="20" name="description">{{ $product['description'] }}</textarea>
+                    <input class="editor__input" type="number" value="{{ $product['price'] }}" id="form-price"
+                        min="1" max="10000" name="price">
+                    <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
+                </form>
             </div>
         </section>
-        <section class="edit-product__section">
+        <section>
             <div>
-                <h2>Categorias</h2>
+                <h2>Subcategorias</h2>
+                <form method="POST"
+                    action="{{ route('pages.manageEditProductForms', [$product['id']]) }}?form=productSubcategory"
+                    class="edit-product__form">
+                    @csrf
+                    @foreach ($subcategories as $subcategory)
+                        @if ($subcategory[1] != null)
+                            <input type="radio" name="subcategory" value="{{ $subcategory[0]['name'] }}"
+                                id="{{ $subcategory[0]['name'] }}" checked>
+                        @else
+                            <input type="radio" name="subcategory" value="{{ $subcategory[0]['name'] }}"
+                                id="{{ $subcategory[0]['name'] }}">
+                        @endif
+                        <label for="{{ $subcategory[0]['name'] }}">{{ $subcategory[0]['name'] }}</label>
+                    @endforeach
+                    <input type="hidden" name="id" value="{{ $product['id'] }}">
+                    <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
+                </form>
             </div>
         </section>
-        <section class="edit-product__section">
+        <section>
             <div>
                 <h2>Estado</h2>
-                <form action="" class="edit-product__state-form">
+                <form method="POST"
+                    action="{{ route('pages.manageEditProductForms', [$product['id']]) }}?form=productState"
+                    class="editor__password-content">
                     @csrf
-                    <label for="form-important">Destacar</label>
-                    <label for="form-enable">Habilitar</label>
-                    
-                    <img src="{{ asset('images/trash.png') }}" class="product-item__image-trash">
+                    <label>Destacar</label>
+                    <label>Habilitar</label>
+                    <button class="editor__data-logout">ELIMINAR</button>
                     <label class="switch">
                         @if ($product->important)
-                            <input type="checkbox" checked>
+                            <input type="checkbox" name="important" checked>
                         @else
-                            <input type="checkbox">
+                            <input type="checkbox" name="important">
                         @endif
                         <span class="slider round"></span>
                     </label>
                     <label class="switch">
                         @if ($product->enabled)
-                            <input type="checkbox" checked>
+                            <input type="checkbox" name="enabled" checked>
                         @else
-                            <input type="checkbox">
+                            <input type="checkbox" name="enabled">
                         @endif
                         <span class="slider round"></span>
                     </label>
-                    <label for="form-delete">Eliminar</label>
-                    <input type="submit" value="GUARDAR" class="button button--blue introduction__button">
+                    <input type="hidden" name="id" value="{{ $product['id'] }}">
+                    <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
                 </form>
             </div>
         </section>

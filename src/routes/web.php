@@ -42,16 +42,15 @@ Route::post('/cart', [CartController::class, 'queryProducts'])->name('pages.cart
 
 Route::get('/store/{id}', [HomeController::class, 'home'])->name('pages.store');
 
-Route::get('/manageStore', [HomeController::class, 'home'])->name('pages.manageStore');
+Route::get('/manageStore/{id}', [HomeController::class, 'home'])->name('pages.manageStore');
 
 Route::get('/editProduct/{id}', [EditProductController::class, 'editProduct'])
     ->name('pages.editProduct')
     ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
 
-Route::post('/editProduct/{id}', [EditProductController::class, 'editDetails'])
-    ->name('pages.editDetails')
+Route::post('/editProduct/{id}', [EditProductController::class, 'manageEditProductForms'])
+    ->name('pages.manageEditProductForms')
     ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
-
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('pages.login');
@@ -67,7 +66,6 @@ Route::middleware('auth')->group(function () {
 
 // Errors
 Route::get('/productNotFound', [ErrorController::class, 'productNotFound'])->name('errors.productNotFound');
-
 Route::get('/storeNotFound', [ErrorController::class, 'storeNotFound'])->name('errors.storeNotFound');
 
 // Route::get('/defaultError', [ErrorController::class, 'defaultError'])->name('errors.defaultError');
