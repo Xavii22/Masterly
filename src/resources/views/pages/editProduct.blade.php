@@ -20,7 +20,7 @@
                     <textarea class="editor__input" rows="4" cols="20" name="description">{{ $product['description'] }}</textarea>
                     <input class="editor__input" type="number" value="{{ $product['price'] }}" id="form-price"
                         min="1" max="10000" name="price">
-                    <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
+                    <input type="submit" value="GUARDAR" class="editor__save editor__data-details">
                 </form>
             </div>
         </section>
@@ -55,20 +55,19 @@
                     @csrf
                     <label>Destacar</label>
                     <label>Habilitar</label>
-                    <button class="editor__data-logout">ELIMINAR</button>
                     <label class="switch">
                         @if ($product->important)
-                            <input type="checkbox" name="important" checked>
+                        <input type="checkbox" name="important" checked>
                         @else
-                            <input type="checkbox" name="important">
+                        <input type="checkbox" name="important">
                         @endif
                         <span class="slider round"></span>
                     </label>
                     <label class="switch">
                         @if ($product->enabled)
-                            <input type="checkbox" name="enabled" checked>
+                        <input type="checkbox" name="enabled" checked>
                         @else
-                            <input type="checkbox" name="enabled">
+                        <input type="checkbox" name="enabled">
                         @endif
                         <span class="slider round"></span>
                     </label>
@@ -76,6 +75,10 @@
                     <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
                 </form>
             </div>
+        </section>
+        <section>
+            <button class="editor__data-logout">ELIMINAR</button>
+            
         </section>
     </main>
     @include('layouts.footer')

@@ -21,6 +21,10 @@
         &-save {
             grid-column: 3;
         }
+
+        &-item {
+            
+        }
     }
 
     &__shop {
@@ -108,7 +112,7 @@
                 height: 24px;
                 margin: 5px;
                 transition: 0.3s;
-    
+
                 &:hover {
                     transition: 0.3s;
                     cursor: pointer;
@@ -119,6 +123,10 @@
 
         &-save {
             grid-column: 2;
+        }
+
+        &-details {
+            grid-column: 3;
         }
     }
 
