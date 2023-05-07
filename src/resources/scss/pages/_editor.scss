@@ -21,9 +21,26 @@
         &-save {
             grid-column: 3;
         }
+    }
+
+    &__state {
+        &-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 20px;
+        }
+
+        &-save {
+            grid-column: 3;
+        }
 
         &-item {
-            
+            justify-self: center;
+        }
+
+        &-enable {
+            grid-column: 2/4;
         }
     }
 
@@ -52,8 +69,8 @@
             align-items: center;
             margin: 10px 0px;
             padding: 10px;
-            width: 130px;
             height: 40px;
+            min-width: 130px;
             justify-self: end;
             border: none;
             border-radius: 2px;

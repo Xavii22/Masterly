@@ -9,13 +9,17 @@ use App\Models\Product;
 class EditProductController extends Controller
 {
 
+    public function createProduct()
+    {
+        
+    }
+
     public function editProduct($productId)
     {
         $categoryInstance = new Category();
 
         $product = Product::where('id', $productId)->first();
         $subcategories = $categoryInstance->getActiveCategoriesOfProduct('C', $productId);
-        //$tags = $categoryInstance->getActiveCategoriesOfProduct('T', $productId);
 
         return view('pages.editProduct', compact('product', 'productId', 'subcategories'));
     }
@@ -27,6 +31,9 @@ class EditProductController extends Controller
         switch ($form) {
             case 'productDetails':
                 $this->editProductDetails($request);
+                break;
+            case 'productImages':
+                $this->editProductImages($request);
                 break;
             case 'productSubcategory':
                 $this->editProductSubcategory($request);
@@ -50,6 +57,10 @@ class EditProductController extends Controller
         $xavisl = 'smith-group';
 
         return redirect()->route('pages.manageStore', ['id' => $xavisl]);
+    }
+
+    public function editProductImages(Request $request)
+    {
     }
 
     public function editProductSubcategory(Request $request)
@@ -82,11 +93,12 @@ class EditProductController extends Controller
 
         $product->save();
 
-        //return redirect()->route('pages.manageStore');
+        return redirect()->route('pages.manageStore');
     }
 
     public function deleteProduct(Request $request)
     {
-        
+        $productToDelete = Product::find($request->input('id'));
+        $productToDelete->delete();
     }
 }

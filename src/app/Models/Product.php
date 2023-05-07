@@ -14,6 +14,7 @@ class Product extends Model
     {
         return Product::where('name', 'like', '%' . $query . '%')
             ->where('enabled', true)
+            ->where('sold', false)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'));
     }
@@ -22,6 +23,7 @@ class Product extends Model
     {
         return Product::orderBy($sortBy, $sortOrder)
             ->where('enabled', true)
+            ->where('sold', false)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
     }
@@ -32,6 +34,7 @@ class Product extends Model
             $query->where($categoryType, $category);
         })
             ->where('enabled', true)
+            ->where('sold', false)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
@@ -43,6 +46,7 @@ class Product extends Model
             $query->where('categories.id', $tagName);
         })
             ->where('enabled', true)
+            ->where('sold', false)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
@@ -52,10 +56,18 @@ class Product extends Model
     {
         return Product::where('store_id', $storeId)
             ->where('enabled', true)
+            ->where('sold', false)
             ->where('important', $important)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(env('PAGINATE_NUMBER'))
             ->withQueryString();
+    }
+
+    public static function getProductListFromSpecificCart($cartId)
+    {
+        return Product::whereHas('carts', function ($query) use ($cartId) {
+            $query->where('cart_id', $cartId);
+        })->get();
     }
 
     public function categories()
@@ -66,5 +78,10 @@ class Product extends Model
     public function carts()
     {
         return $this->belongsToMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
     }
 }

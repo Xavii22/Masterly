@@ -25,6 +25,16 @@
             </div>
         </section>
         <section>
+            <h2>Imágenes</h2>
+            <form method="POST"
+                action="{{ route('pages.manageEditProductForms', [$product['id']]) }}?form=productSubcategory"
+                class="edit-product__form">
+                @csrf
+                <input type="hidden" name="id" value="{{ $product['id'] }}">
+                <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
+            </form>
+        </section>
+        <section>
             <div>
                 <h2>Subcategorias</h2>
                 <form method="POST"
@@ -51,23 +61,23 @@
                 <h2>Estado</h2>
                 <form method="POST"
                     action="{{ route('pages.manageEditProductForms', [$product['id']]) }}?form=productState"
-                    class="editor__password-content">
+                    class="editor__state-content">
                     @csrf
-                    <label>Destacar</label>
-                    <label>Habilitar</label>
-                    <label class="switch">
+                    <label class="editor__state-item">Destacar</label>
+                    <label class="editor__state-item editor__state-enable">Habilitar</label>
+                    <label class="switch editor__state-item">
                         @if ($product->important)
-                        <input type="checkbox" name="important" checked>
+                            <input type="checkbox" name="important" checked>
                         @else
-                        <input type="checkbox" name="important">
+                            <input type="checkbox" name="important">
                         @endif
                         <span class="slider round"></span>
                     </label>
-                    <label class="switch">
+                    <label class="switch editor__state-item">
                         @if ($product->enabled)
-                        <input type="checkbox" name="enabled" checked>
+                            <input type="checkbox" name="enabled" checked>
                         @else
-                        <input type="checkbox" name="enabled">
+                            <input type="checkbox" name="enabled">
                         @endif
                         <span class="slider round"></span>
                     </label>
@@ -77,8 +87,15 @@
             </div>
         </section>
         <section>
-            <button class="editor__data-logout">ELIMINAR</button>
-            
+            <form method="POST" action="{{ route('pages.deleteProduct', [$product['id']]) }}"
+                class="editor__state-content">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" value="{{ $product['id'] }}">
+                <input type="submit" value="ELIMINAR PRODUCTO" class="editor__data-logout">
+            </form>
+
+
         </section>
     </main>
     @include('layouts.footer')

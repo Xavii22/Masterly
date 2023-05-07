@@ -1119,6 +1119,21 @@ p {
 .editor__password-save {
   grid-column: 3;
 }
+.editor__state-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 20px;
+}
+.editor__state-save {
+  grid-column: 3;
+}
+.editor__state-item {
+  justify-self: center;
+}
+.editor__state-enable {
+  grid-column: 2/4;
+}
 .editor__shop-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1140,8 +1155,8 @@ p {
   align-items: center;
   margin: 10px 0px;
   padding: 10px;
-  width: 130px;
   height: 40px;
+  min-width: 130px;
   justify-self: end;
   border: none;
   border-radius: 2px;

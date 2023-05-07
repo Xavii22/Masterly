@@ -37,7 +37,9 @@
         </section>
         <section class="editor__historical">
             <h2 class="editor__historical-title">Histórico de pedidos</h2>
-
+            @foreach ($collection as $item)
+                
+            @endforeach
         </section>
         <section class="editor__shop">
             <h2 class="editor__shop-title">Tienda</h2>

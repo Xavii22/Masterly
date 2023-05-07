@@ -20,8 +20,10 @@
                     <span class="cart__summary-price-number"></span>
                 </div>
                 <div class="button-container">
-                    <button class="button button--blue"><span>Realizar pedido</span></button>
-                    <a href="/home">    
+                    <a href="{{ route('pages.order') }}">
+                        <button class="button button--blue"><span>Realizar pedido</span></button>
+                    </a>
+                    <a href="/home">
                         <button class="button button--transparent"><span>Continuar comprando</span></button>
                     </a>
                 </div>
@@ -34,5 +36,4 @@
     </div>
     <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
     <script src="{{ asset('js/productFetcher.mjs') }}" type="module"></script>
-    @endsection
-    
+@endsection

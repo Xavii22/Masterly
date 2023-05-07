@@ -123,16 +123,17 @@
                     </div>
                 @endif
                 <div class="dropdown">
-                    <button class="button button--blue dropdown__button">DALTONISMO</button>
+                    {{-- <a href="" class="button button--blue dropdown__button">CREAR PRODUCTO</a> --}}
+                    {{-- <button class="button button--blue dropdown__button">DALTONISMO</button>
                     <div class="dropdown__content">
                         <span class="dropdown-content__value">Protanopia</span>
                         <span class="dropdown-content__value">Deuteranopia</span>
                         <span class="dropdown-content__value">Acromatopsia</span>
                         <span class="dropdown-content__value">Tritanopia</span>
-                    </div>
+                    </div> --}}
                 </div>
                 @if ($products->total() <= 0 && $importantProducts->total() <= 0)
-                    <h2>Ningún artículo corresponde a tu búsqueda</h2>ºº
+                    <h2>Ningún artículo corresponde a tu búsqueda</h2>
                 @endif
                 @if ($importantProducts->total() > 0)
                     <h2>Artículos destacados</h2>

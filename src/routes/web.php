@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -44,13 +45,21 @@ Route::get('/store/{id}', [HomeController::class, 'home'])->name('pages.store');
 
 Route::get('/manageStore/{id}', [HomeController::class, 'home'])->name('pages.manageStore');
 
+Route::get('/createProduct', [EditProductController::class, 'editProduct'])->name('pages.editProduct');
+
 Route::get('/editProduct/{id}', [EditProductController::class, 'editProduct'])
     ->name('pages.editProduct')
+    ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
+
+Route::delete('/editProduct/{id}', [EditProductController::class, 'deleteProduct'])
+    ->name('pages.deleteProduct')
     ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
 
 Route::post('/editProduct/{id}', [EditProductController::class, 'manageEditProductForms'])
     ->name('pages.manageEditProductForms')
     ->middleware('App\Http\Middleware\CheckUserAccessToEditProduct');
+
+Route::get('/order', [OrderController::class, 'order'])->name('pages.order');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('pages.login');
