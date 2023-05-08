@@ -10,7 +10,7 @@
             <a class="editor__data-logout" href="{{ route('pages.logout') }}">Logout</a>
             <div class="editor__data__name">
                 <label class="data__logo-name">Nombre</label>
-                <input type="text" class="editor__input editor__data__name-input" placeholder= {{ Auth::user()->name }}>
+                <input type="text" class="editor__input editor__data__name-input" placeholder={{ Auth::user()->name }}>
             </div>
             <div class="editor__data__logo">
                 <label class="editor__data__logo-label">Logo</label>
@@ -37,8 +37,19 @@
         </section>
         <section class="editor__historical">
             <h2 class="editor__historical-title">Histórico de pedidos</h2>
-            @foreach ($collection as $item)
-                
+            @foreach ($orders as $order)
+                <span>{{ $order[0] }}</span>
+                @if (!$order[2])
+                    <span>Pendiente</span>
+                @endif
+                <br>
+                @foreach ($order[1] as $orderProducts)
+                    @foreach ($orderProducts as $orderProduct)
+                        <span>{{ $orderProduct['name'] }}</span>
+                        <br>
+                    @endforeach
+                @endforeach
+                <br>
             @endforeach
         </section>
         <section class="editor__shop">
