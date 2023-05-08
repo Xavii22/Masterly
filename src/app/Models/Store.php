@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
+    protected $fillable = ['name', 'logo', 'user_id'];
     use HasFactory;
 
     public function user()

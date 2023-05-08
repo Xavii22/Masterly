@@ -43,8 +43,10 @@
 }
 
 .item {
-    height: 50%;
+    height: 35px;
+    width: 35px;
     margin: 0 20px;
+    object-fit: cover;
 }
 
 .search-bar {
