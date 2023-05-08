@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->notNullable();
             $table->string('logo', 200)->nullable();
-
+			
             $table->unsignedBigInteger('user_id')->notNullable();
             $table->foreign('user_id')->references('id')->on('users');
             

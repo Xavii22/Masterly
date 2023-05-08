@@ -30,14 +30,15 @@ function userCircle($username)
             @else
                 <a class="item-link" href="{{ route('pages.login') }}">
         @endif
-        <span>
             @if (Auth::check())
-                {!! userCircle(Auth::user()->name) !!}
-                {{-- {{ Auth::user()->name }} --}}
+                @if (DB::table('users')->where('id', Auth::id())->value('pfp'))
+                    <img class="item" src="{{ asset(Auth::user()->pfp) }}" alt="User">
+                @else
+                    {!! userCircle(Auth::user()->name) !!}
+                @endif
             @else
                 <img class="item" src="{{ asset('images/user.png') }}" alt="User">
             @endif
-        </span>
         </a>
         <a class="item-link item-link--hidden" href="">
             <img class="item" src="{{ asset('images/menu.png') }}" alt="Menu">
