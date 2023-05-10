@@ -477,8 +477,10 @@ h3 {
 }
 
 .item {
-  height: 50%;
+  height: 35px;
+  width: 35px;
   margin: 0 20px;
+  object-fit: cover;
 }
 
 .search-bar {
@@ -1101,6 +1103,48 @@ p {
   display: flex;
   justify-content: center;
   margin-top: 100px;
+}
+
+.chat-parent {
+  display: grid;
+  flex-direction: column;
+}
+
+.chat {
+  flex: 1;
+  display: grid;
+  gap: 15px;
+  width: 90%;
+  justify-self: center;
+  margin: 20px 0px;
+}
+.chat__message {
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 10px;
+  width: fit-content;
+  max-width: 75%;
+}
+.chat__message--user {
+  background-color: #cceeff;
+  justify-self: end;
+}
+.chat__message--other {
+  background-color: #f8f4f4;
+}
+
+.chat-info {
+  height: 70px;
+  background-color: #f8f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat-info__input {
+  background-color: #FFFFFF;
+  height: 60%;
+  width: 90%;
+  border-radius: 10px;
 }
 
 .editor {

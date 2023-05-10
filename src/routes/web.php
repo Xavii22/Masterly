@@ -11,6 +11,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HeaderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -52,6 +53,7 @@ Route::post('/upload', [ProfileController::class, 'upload'])->name('pages.upload
 Route::post('/changePassword', [ProfileController::class, 'changePassword'])->name('pages.changePassword');
 Route::post('/createStore', [ProfileController::class, 'createStore'])->name('pages.createStore');
 
+Route::get('/chat', [ChatController::class, 'chat'])->name('pages.chat');
 
 Route::get('/editProduct/{id}', [EditProductController::class, 'editProduct'])
     ->name('pages.editProduct')

@@ -11,22 +11,17 @@ use App\Models\Store;
 
 class ProfileController extends Controller
 {
-    private function getOrderHistory()
+    private function getOrderHistory($actor)
     {
         $orderProducts = array();
-        $orders = Order::where('buyer_id', Auth::id())->get()->groupBy('number');
+        $orders = Order::where($actor, Auth::id())->get()->groupBy('number');
 
         foreach ($orders as $key => $order) {
             $orderProducts[$key][0] = $order[0]->created_at->format('d-m-Y');
 
             foreach ($order as $key2 => $vendorOrder) {
-                $orderProducts[$key][1][$key2] = $vendorOrder->products()->wherePivot('order_id', $vendorOrder->id)->get();
-            }
-
-            if ($order[0]->accepted == true) {
-                $orderProducts[$key][2] = true;
-            } else {
-                $orderProducts[$key][2] = false;
+                $orderProducts[$key][1][$key2][0] = $vendorOrder->products()->wherePivot('order_id', $vendorOrder->id)->get();
+                $orderProducts[$key][1][$key2][1] = $vendorOrder->accepted;
             }
         }
 
@@ -41,9 +36,10 @@ class ProfileController extends Controller
     public function profile()
     {
         $storeExists = $this->checkUserHasStore(Auth::id());
-		$orders = $this->getOrderHistory();
-		
-        $data = ['storeExists' => $storeExists, 'orders' => $orders];
+        $orders = $this->getOrderHistory('buyer_id');
+        $sellerOrders = $this->getOrderHistory('seller_id');
+
+        $data = ['storeExists' => $storeExists, 'orders' => $orders, 'sellerOrders' => $sellerOrders];
         return view('pages.profile', $data);
     }
 
@@ -73,41 +69,41 @@ class ProfileController extends Controller
     public function createStore(Request $request)
     {
         // REVISAR!!!!!!!!!!!
-        
+
         // $this->validate($request, [
         //     'name' => 'required',
         //     'logo' => 'required|image|max:2048',
         // ]);
-    
+
         $imagePath = $this->storeImage($request->file('image'), 'logoShop');
-    
+
         Store::create([
             'name' => $request->input('name'),
             'logo' => $imagePath,
             'user_id' => Auth::id()
         ]);
-    
+
         return back();
     }
 
     public function upload(Request $request)
     {
         $user = User::findOrFail(Auth::id());
-    
+
         $this->validate($request, [
             'name' => 'required|max:255',
             'image' => 'nullable|image|max:2048',
         ]);
-    
+
         $user->name = $request->name;
-    
+
         if ($request->hasFile('image')) {
             $imagePath = $this->storeImage($request->file('image'), 'logoProfile');
             $user->pfp = $imagePath;
         }
-    
+
         $user->save();
-    
+
         return redirect()->back()->with('success', 'La información ha sido actualizada correctamente.');
     }
 
