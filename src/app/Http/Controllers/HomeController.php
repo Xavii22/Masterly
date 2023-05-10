@@ -85,7 +85,9 @@ class HomeController extends Controller
                 return view('errors.storeNotFound');
             }
 
-            return view('pages.store', ['id' => $storeUrl], compact('products', 'importantProducts', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));
+            $storeLogo = Store::getLogo($currentStoreId);
+
+            return view('pages.store', ['id' => $storeUrl], compact('products', 'importantProducts', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName', 'storeLogo'));
         }
 
         return view('pages.home', compact('products', 'query', 'category', 'parentCategory', 'parentCategoryName', 'childCategoryName', 'parentCategories', 'childCategories', 'sort', 'tagName', 'currentStoreName'));

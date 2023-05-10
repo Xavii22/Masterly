@@ -14,6 +14,20 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->delete();
-        Product::factory(1000)->create();
+        Product::factory(10)->create();
+
+        // Product::factory(20)->afterCreating(function (Product $product) {
+        //     $client = new Client();
+        
+        //     $client->post('http://localhost:8080/api/store', [
+        //         'json' => [
+        //             'name' => $product->name,
+        //             'path' => $product->image,
+        //             'main' => false,
+        //             'product_id' => $product->id
+        //         ]
+        //     ]);
+        
+        // })->create();
     }
 }

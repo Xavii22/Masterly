@@ -26,11 +26,11 @@
         </section>
         <section>
             <h2>Imágenes</h2>
-            <form method="POST"
-                action="{{ route('pages.manageEditProductForms', [$product['id']]) }}?form=productSubcategory"
-                class="edit-product__form">
+             <form action="{{ route('pages.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" value="{{ $product['id'] }}">
+                <input type="file" class="editor__data__logo-input" name="image" id="file-logoProfile">
+                <img src="{{ asset(Auth::user()->pfp) }}" class="editor__data__logo-image">
+                <label class="editor__data__logo-upload-label" for="file-logoProfile">Seleccionar imagen</label>
                 <input type="submit" value="GUARDAR" class="editor__save editor__data-save">
             </form>
         </section>
@@ -99,4 +99,6 @@
         </section>
     </main>
     @include('layouts.footer')
+
+    <script src="{{ asset('js/profileManager.js') }}"></script>
 @endsection

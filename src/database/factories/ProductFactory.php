@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Store;
+use GuzzleHttp\Client;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -11,16 +13,18 @@ use App\Models\Store;
 class ProductFactory extends Factory
 {
 
-    private function getInitialProductList() {
+    private function getInitialProductList()
+    {
         $data = file_get_contents(base_path() . '/database/products/products.json');
         $data = json_decode($data, true);
 
         $category = $data['categories'][fake()->numberBetween(0, 2)];
-        $subcategory = $category['subcategories'][fake()->numberBetween(0, count($category['subcategories'])-1)];
-        return $subcategory['products'][fake()->numberBetween(0, count($subcategory['products'])-1)];
+        $subcategory = $category['subcategories'][fake()->numberBetween(0, count($category['subcategories']) - 1)];
+        return $subcategory['products'][fake()->numberBetween(0, count($subcategory['products']) - 1)];
     }
 
-    private function getStoreListAmount() {
+    private function getStoreListAmount()
+    {
         return fake()->numberBetween(1, count(Store::all()));
     }
 
@@ -41,4 +45,19 @@ class ProductFactory extends Factory
             'store_id' => $this->getStoreListAmount()
         ];
     }
+    
 }
+
+Product::factory()->afterCreating(function (Product $product) {
+    $client = new Client();
+
+    $client->post('http://localhost:8080/api/store', [
+        'json' => [
+            'name' => $product->name,
+            'path' => $product->image,
+            'main' => false,
+            'product_id' => $product->id
+        ]
+    ]);
+
+})->count(10)->create();

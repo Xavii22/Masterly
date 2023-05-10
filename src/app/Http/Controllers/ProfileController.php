@@ -41,9 +41,10 @@ class ProfileController extends Controller
     public function profile()
     {
         $storeExists = $this->checkUserHasStore(Auth::id());
-		$orders = $this->getOrderHistory();
-		
-        $data = ['storeExists' => $storeExists, 'orders' => $orders];
+        $storeName = Store::getOwnStoreName();
+        $orders = $this->getOrderHistory();
+
+        $data = ['storeExists' => $storeExists, 'orders' => $orders, 'storeName' => $storeName];
         return view('pages.profile', $data);
     }
 
@@ -73,41 +74,41 @@ class ProfileController extends Controller
     public function createStore(Request $request)
     {
         // REVISAR!!!!!!!!!!!
-        
+
         // $this->validate($request, [
         //     'name' => 'required',
         //     'logo' => 'required|image|max:2048',
         // ]);
-    
+
         $imagePath = $this->storeImage($request->file('image'), 'logoShop');
-    
+
         Store::create([
             'name' => $request->input('name'),
             'logo' => $imagePath,
             'user_id' => Auth::id()
         ]);
-    
+
         return back();
     }
 
     public function upload(Request $request)
     {
         $user = User::findOrFail(Auth::id());
-    
+
         $this->validate($request, [
             'name' => 'required|max:255',
             'image' => 'nullable|image|max:2048',
         ]);
-    
+
         $user->name = $request->name;
-    
+
         if ($request->hasFile('image')) {
             $imagePath = $this->storeImage($request->file('image'), 'logoProfile');
             $user->pfp = $imagePath;
         }
-    
+
         $user->save();
-    
+
         return redirect()->back()->with('success', 'La información ha sido actualizada correctamente.');
     }
 
@@ -119,4 +120,5 @@ class ProfileController extends Controller
         $image->storeAs("public/images/{$userId}", $imageName);
         return $imagePath;
     }
+
 }

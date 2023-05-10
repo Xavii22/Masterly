@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use GuzzleHttp\Client;
 
 class EditProductController extends Controller
 {
 
     public function createProduct()
     {
-        
     }
 
     public function editProduct($productId)
@@ -100,5 +100,13 @@ class EditProductController extends Controller
     {
         $productToDelete = Product::find($request->input('id'));
         $productToDelete->delete();
+    }
+
+    public function imageManager(Request $endpoint)
+    {
+        $client = new Client();
+        $response = $client->get('http://localhost:8080/api/' . $endpoint);
+        $images = json_decode($response->getBody());
+        
     }
 }

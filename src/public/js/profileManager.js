@@ -1,5 +1,5 @@
-const fileInput = document.querySelector('.profile__data__logo-input');
-const image = document.querySelector('.profile__data__logo-image');
+const fileInput = document.querySelector('.editor__data__logo-input');
+const image = document.querySelector('.editor__data__logo-image');
 
 const loadImage = (file) => {
   const reader = new FileReader();

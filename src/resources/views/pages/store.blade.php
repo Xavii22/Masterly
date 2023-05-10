@@ -58,7 +58,7 @@
                 @if ($products->total() > 0 || $importantProducts->total() > 0)
                     <div class="products-title">
                         <div class="products-title__image">
-                            <img class="products-title__image" src="{{ asset('images/logo-mobile.png') }}">
+                            <img class="products-title__image" src="{{ asset($storeLogo) }}">
                         </div>
                         @if ($childCategoryName != null)
                             <h1>{{ $currentStoreName }} - {{ $childCategoryName }}</h1>
