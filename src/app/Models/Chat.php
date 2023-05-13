@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Model
 {
-    protected $fillable = ['name', 'description', 'category', 'price', 'image'];
+    protected $fillable = ['description', 'type', 'order_id'];
     use HasFactory;
 }

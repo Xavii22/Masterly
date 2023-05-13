@@ -61,11 +61,17 @@
                         <span>{{ $orderProduct['name'] }}</span>
                         <br>
                     @endforeach
-                    <a href="" style="color: purple">LINK AL CHAT</a>
+                    <form method="GET" action="{{ route('pages.chat') }}">
+                        @csrf
+                        <input type="hidden" name="userType" value="B">
+                        <input type="hidden" name="orderId" value="{{ $orderProducts[2] }}">
+                        <input type="submit" value="LINK AL CHAT" style="color: purple">
+                    </form>
                     <br>
                     <br>
                     <br>
                 @endforeach
+
                 <br>
                 <span>SEPARACIO DE COMANDES</span>
                 <br>
@@ -82,7 +88,8 @@
                         <span>{{ $sellerOrderProduct['name'] }}</span>
                         <br>
                     @endforeach
-                    <a href="" style="color: purple">LINK AL CHAT</a>
+                    <a href="{{ route('pages.chat', ['orderId' => $sellerOrderProducts[2], 'userType' => 'S']) }}"
+                        style="color: purple">LINK AL CHAT</a>
                     <br>
                     <br>
                     <br>

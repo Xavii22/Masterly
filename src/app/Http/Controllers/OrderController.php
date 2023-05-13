@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Product;
@@ -47,6 +46,13 @@ class OrderController extends Controller
         return $lastOrder->number + 1;
     }
 
+    private function setProductStateToSold($product)
+    {
+        $product->enabled = false;
+        $product->sold = true;
+        $product->save();
+    }
+
     private function createOrderRegisters($cartProducts)
     {
         $groupedProductsByStore = $cartProducts->groupBy('store_id');
@@ -64,7 +70,10 @@ class OrderController extends Controller
 
             foreach ($orderProducts as $orderProduct) {
                 $order->products()->attach($orderProduct);
+                $this->setProductStateToSold($orderProduct);                
             }
+
+            ChatController::createMessage(env('INTRODUCTION_MESSAGE'), 'S', $order->id);
         }
     }
 

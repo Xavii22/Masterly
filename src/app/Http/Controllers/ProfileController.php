@@ -22,6 +22,7 @@ class ProfileController extends Controller
             foreach ($order as $key2 => $vendorOrder) {
                 $orderProducts[$key][1][$key2][0] = $vendorOrder->products()->wherePivot('order_id', $vendorOrder->id)->get();
                 $orderProducts[$key][1][$key2][1] = $vendorOrder->accepted;
+                $orderProducts[$key][1][$key2][2] = $vendorOrder->id;
             }
         }
 
@@ -30,7 +31,13 @@ class ProfileController extends Controller
 
     private function acceptOrder()
     {
-        dd('ayoooooooooo');
+        //order id to accepted
+        //ChatController::createMessage(env('INTRODUCTION_MESSAGE'), 'S', $order->id);
+    }
+
+    private function denyOrder()
+    {
+        //product to not sold
     }
 
     public function profile()

@@ -53,7 +53,8 @@ Route::post('/upload', [ProfileController::class, 'upload'])->name('pages.upload
 Route::post('/changePassword', [ProfileController::class, 'changePassword'])->name('pages.changePassword');
 Route::post('/createStore', [ProfileController::class, 'createStore'])->name('pages.createStore');
 
-Route::get('/chat', [ChatController::class, 'chat'])->name('pages.chat');
+Route::get('/chat', [ChatController::class, 'enterChat'])->name('pages.chat');
+Route::post('/chat', [ChatController::class, 'getMessageValues'])->name('pages.chat');
 
 Route::get('/editProduct/{id}', [EditProductController::class, 'editProduct'])
     ->name('pages.editProduct')
