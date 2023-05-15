@@ -573,6 +573,22 @@ footer {
   transition: 0.2s;
 }
 
+.chat-button {
+  background-color: #2596BE;
+  border-radius: 25px;
+  height: 40px;
+  width: 40px;
+  border: none;
+  margin-left: 20px;
+}
+.chat-button__image {
+  position: relative;
+  top: -30px;
+  left: 31px;
+  height: 20px;
+  width: 20px;
+}
+
 .pagination {
   display: flex;
   justify-content: center;

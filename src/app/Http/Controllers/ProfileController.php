@@ -16,6 +16,12 @@ class ProfileController extends Controller
         $messages = Order::find($orderId)->chats()->get();
         $notificationCounter = 0;
 
+        if($actor == 'buyer_id') {
+            $actor = 'B';
+        } else {
+            $actor = 'S';
+        }
+        
         foreach ($messages as $message) {
             if ($message->read == false && $message->type != $actor) {
                 $notificationCounter++;

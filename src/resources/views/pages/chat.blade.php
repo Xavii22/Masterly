@@ -28,7 +28,8 @@
                 <input type="hidden" name="orderId" value="{{ $orderId }}">
                 <input class="chat-info__text" type="text" placeholder="Escribe un mensaje" name="message" autofocus>
                 <div>
-                    <input type="submit" value="ENVIAR" class="">
+                    <input type="submit" value="" class="chat-button">
+                    <img src="{{ asset('images/send.png') }}" class="chat-button__image">
                 </div>
             </form>
         </aside>

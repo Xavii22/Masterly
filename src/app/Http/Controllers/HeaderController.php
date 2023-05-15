@@ -10,7 +10,7 @@ class HeaderController extends Controller
     public function checkUnreadChats()
     {
         $buyerOrderList = Order::where('buyer_id', Auth::id())->get();
-        $sellerOrderList = Order::where('buyer_id', Auth::id())->get();
+        $sellerOrderList = Order::where('seller_id', Auth::id())->get();
 
         $notificationCounter = 0;
 
@@ -31,12 +31,6 @@ class HeaderController extends Controller
         }
 
         return $notificationCounter;
-    }
-
-    public function checkSpecificUnreadChat()
-    {
-
-        return '5';
     }
 
     public function header()

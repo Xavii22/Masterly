@@ -41,7 +41,9 @@ function userCircle($username)
             @else
                 {!! userCircle(Auth::user()->name) !!}
             @endif
-            <div class="item-link__notification">{{ $notificationNumber }}</div>
+            @if ($notificationNumber > 0)
+                <div class="item-link__notification">{{ $notificationNumber }}</div>
+            @endif
         @else
             <img class="item" src="{{ asset('images/user.png') }}" alt="User">
         @endif

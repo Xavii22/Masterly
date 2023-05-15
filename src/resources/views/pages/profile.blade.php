@@ -5,10 +5,11 @@
 @section('content')
     @include('layouts.header')
     @if (count($pendingOrders) >= 0 && $pendingOrders != null)
-        <dialog class="confirm">
+        <dialog class="confirm" open>
             <div class="confirm__background">
-                <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar. El pedido contiene los
+                <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar el cual contiene los
                     siguientes productos.</p>
+                
                 <form method="GET" action="{{ route('pages.profile') }}">
                     @csrf
                     <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][1] }}">
@@ -94,9 +95,10 @@
                                 @csrf
                                 <input type="hidden" name="userType" value="B">
                                 <input type="hidden" name="orderId" value="{{ $orderProducts[2] }}">
-                                <input class="editor__save editor__password-save" type="submit" value="Enlace al chat">
+                                <input class="editor__save editor__password-save" type="submit" value="Chat">
                                 @if ($orderProducts[4] > 0)
-                                    <div class="item-link__notification  item-link__notification--profile">{{ $orderProducts[4] }}</div>
+                                    <div class="item-link__notification  item-link__notification--profile">
+                                        {{ $orderProducts[4] }}</div>
                                 @endif
                             </form>
                         </div>
@@ -133,7 +135,7 @@
                                 @csrf
                                 <input type="hidden" name="userType" value="S">
                                 <input type="hidden" name="orderId" value="{{ $sellerOrderProducts[2] }}">
-                                <input class="editor__save editor__password-save" type="submit" value="Enlace al chat">
+                                <input class="editor__save editor__password-save" type="submit" value="Chat">
                             </form>
                         </div>
                         @if (!$loop->last)
