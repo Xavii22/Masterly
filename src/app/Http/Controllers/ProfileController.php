@@ -81,6 +81,7 @@ class ProfileController extends Controller
         $orders = $this->getOrderHistory('buyer_id');
         $sellerOrders = $this->getOrderHistory('seller_id');
         $pendingOrders = $this->getPendingOrders($sellerOrders);
+        $storeName = Store::getOwnStoreName();
 
         $data = ['storeExists' => $storeExists, 'orders' => $orders, 'sellerOrders' => $sellerOrders, 'pendingOrders' => $pendingOrders, 'storeName' => $storeName];
 
@@ -159,4 +160,4 @@ class ProfileController extends Controller
         $image->storeAs("public/images/{$userId}", $imageName);
         return $imagePath;
     }
-	
+}
