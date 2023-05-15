@@ -21,7 +21,7 @@
     &__title {
         margin: 0px;
     }
-    
+
     &__price {
         font-size: 70px;
         font-weight: bold;
@@ -34,7 +34,7 @@
         align-items: center;
         gap: 10px;
         transition: 0.2s;
-        
+
         img {
             width: 25px;
             height: 25px;
@@ -56,16 +56,42 @@
     align-items: flex-start;
     justify-content: flex-start;
     grid-row: 1 / span 2;
-    
-    img {
-        display: block;
-        width: 650px;
-        height: 500px;
-        object-fit: cover;
-        transition: 0.2s;
+
+    &__slider {
         position: sticky;
         top: 40px;
+
+        &-image {
+            width: 650px;
+            height: 500px;
+            object-fit: cover;
+            transition: 0.2s;
+        }
+    
+        &-left,
+        &-right {
+            padding: 5px;
+            position: relative;
+            top: 290px;
+            border-radius: 100%;
+            cursor: pointer;
+            
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        &-right {
+            left: 590px;
+        }
+
+        &-left {
+            transform: rotate(180deg);
+            left: 0px;
+        }
     }
+
 }
 
 .product {

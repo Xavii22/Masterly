@@ -16,10 +16,13 @@
             </div>
             <div class="tag__products">
                 @foreach ($tag['products'] as $product)
+                    @php
+                        $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
+                    @endphp
                     <div>
                         <article class="product-landing">
                             <a href="{{ route('pages.product', [$product['id']]) }}">
-                                <img class="product-element__image" src="{{ $product['image'] }}">
+                                <img class="product-element__image" src="{{ $mainImage }}">
                             </a>
                             <div class="product-element__info">
                                 <div>

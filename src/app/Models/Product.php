@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'category', 'price', 'image'];
+    protected $fillable = ['name', 'description', 'category', 'price', 'store_id'];
     use HasFactory;
 
     public static function getProductList($query, $sortBy, $sortOrder)

@@ -477,8 +477,10 @@ h3 {
 }
 
 .item {
-  height: 50%;
+  height: 35px;
+  width: 35px;
   margin: 0 20px;
+  object-fit: cover;
 }
 
 .search-bar {
@@ -968,14 +970,32 @@ p {
   justify-content: flex-start;
   grid-row: 1/span 2;
 }
-.image img {
-  display: block;
+.image__slider {
+  position: sticky;
+  top: 40px;
+}
+.image__slider-image {
   width: 650px;
   height: 500px;
   object-fit: cover;
   transition: 0.2s;
-  position: sticky;
-  top: 40px;
+}
+.image__slider-left, .image__slider-right {
+  padding: 5px;
+  position: relative;
+  top: 290px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.image__slider-left:hover, .image__slider-right:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.image__slider-right {
+  left: 590px;
+}
+.image__slider-left {
+  transform: rotate(180deg);
+  left: 0px;
 }
 
 .product {

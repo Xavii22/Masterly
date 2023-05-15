@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Product; 
+use App\Models\Product;
+use GuzzleHttp\Client;
 
 class ProductSeeder extends Seeder
 {
@@ -14,20 +15,31 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->delete();
-        Product::factory(10)->create();
+        Product::factory()->count(500)->afterCreating(function (Product $product) {
+            $client = new Client();
 
-        // Product::factory(20)->afterCreating(function (Product $product) {
-        //     $client = new Client();
-        
-        //     $client->post('http://localhost:8080/api/store', [
-        //         'json' => [
-        //             'name' => $product->name,
-        //             'path' => $product->image,
-        //             'main' => false,
-        //             'product_id' => $product->id
-        //         ]
-        //     ]);
-        
-        // })->create();
+            $data = file_get_contents(base_path() . '/database/products/images.json');
+            $data = json_decode($data, true);
+
+
+            foreach ($data['products'] as $item) {
+                if ($item['name'] == $product->name) {
+                    $images = $item['images'];
+                }
+            }
+
+            $main = true;
+            foreach ($images as $image) {
+                $client->post('http://localhost:8080/api/store', [
+                    'json' => [
+                        'path' => $image,
+                        'main' => $main,
+                        'product_id' => $product->id
+                    ]
+                ]);
+
+                $main = false;
+            }
+        })->create();
     }
 }

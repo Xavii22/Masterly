@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name', 30)->notNullable();
             $table->string('description', 5000)->notNullable();
             $table->integer('price')->notNullable();
-            $table->string('image', 200)->notNullable();
             $table->boolean('enabled')->default(true);
             $table->boolean('important')->default(false);
             $table->boolean('sold')->default(false);

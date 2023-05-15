@@ -123,15 +123,20 @@
                         <h2>Ningún artículo corresponde a tu búsqueda</h2>
                     @endif
                     @foreach ($products as $product)
+                        @php
+                            $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
+                        @endphp
+
                         <article class="product-element">
                             <a href="{{ route('pages.product', [$product->id]) }}">
-                                <img class="product-element__image" src="{{ $product->image }}">
+                                <img class="product-element__image" src="{{ $mainImage }}">
                             </a>
                             <div class="product-element__info">
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>
                                 <span class="product-element__info-price">{{ $product->price }} €</span>
                                 <span class="product-element__info-category">{{ $product->name }}</span>
-                                <img class="product-element__cart cart-listener" id="{{ $product->id }}" src="{{ asset('images/cart.png') }}">
+                                <img class="product-element__cart cart-listener" id="{{ $product->id }}"
+                                    src="{{ asset('images/cart.png') }}">
                             </div>
                         </article>
                     @endforeach

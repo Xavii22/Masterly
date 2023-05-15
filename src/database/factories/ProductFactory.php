@@ -41,23 +41,8 @@ class ProductFactory extends Factory
             'name' => $product['name'],
             'description' => fake()->paragraph(10),
             'price' => fake()->numberBetween(10, 100),
-            'image' => $product['image'],
             'store_id' => $this->getStoreListAmount()
         ];
     }
     
 }
-
-Product::factory()->afterCreating(function (Product $product) {
-    $client = new Client();
-
-    $client->post('http://localhost:8080/api/store', [
-        'json' => [
-            'name' => $product->name,
-            'path' => $product->image,
-            'main' => false,
-            'product_id' => $product->id
-        ]
-    ]);
-
-})->count(10)->create();

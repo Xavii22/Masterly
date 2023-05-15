@@ -11,6 +11,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CreateProductController;
 use App\Http\Controllers\HeaderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,7 +46,8 @@ Route::get('/store/{id}', [HomeController::class, 'home'])->name('pages.store');
 
 Route::get('/manageStore/{id}', [HomeController::class, 'home'])->name('pages.manageStore');
 
-Route::get('/createProduct', [EditProductController::class, 'editProduct'])->name('pages.editProduct');
+Route::get('/createProduct', [CreateProductController::class, 'creator'])->name('pages.creator');
+Route::post('/createProduct', [CreateProductController::class, 'createProduct'])->name('pages.createProduct');
 
 Route::get('/profile', [ProfileController::class, 'profile'])->name('pages.profile');
 Route::post('/upload', [ProfileController::class, 'upload'])->name('pages.upload');

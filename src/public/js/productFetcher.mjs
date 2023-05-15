@@ -23,6 +23,31 @@ function createLink(url, content) {
     return link;
 }
 
+function findMainImage(images) {
+    for (const image of images.data) {
+      if (image.main) {
+        return image.path;
+      }
+    }
+  }
+
+async function fetchProductImage(productId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/products/${productId}/images`);
+        const images = await response.json();
+
+        return findMainImage(images);
+
+    } catch (error) {
+        console.error(error);
+    } finally {
+        const spinner = document.querySelector(".cart__product-spinner");
+        const cart = document.querySelector(".cart");
+        spinner.classList.add('cart__product-spinner--disable');
+        cart.classList.add('cart--enable');
+    }
+}
+
 function createImage(src, alt) {
     const img = document.createElement("img");
     img.classList.add(`product-item__image-${alt}`);
@@ -56,28 +81,29 @@ function addEventListenerTrash(trash, products) {
     });
 }
 
-function createProductArticle(item, products) {
+async function createProductArticle(item, products) {
     const article = document.createElement("article");
     article.classList.add("product-item");
     article.id = item.id;
-
-    const imgLink = createLink(`/product/${item.id}`, createImage(item.image, "product"));
+  
+    const imageUrl = await fetchProductImage(item.id);
+    const imgLink = createLink(`/product/${item.id}`, createImage(imageUrl, "product"));
     const nameLink = createLink(`/product/${item.id}`, createHeading("product-item__name", item.name));
     const price = createParagraph("product-item__price", item.price);
     const trash = createImage("../images/trash.png", "trash");
     addEventListenerTrash(trash, products);
-
+  
     article.append(imgLink, nameLink, price, trash);
-
+  
     return article;
 }
 
-function createCartContent(products) {
+async function createCartContent(products) {
     const productList = document.querySelector(".cart__product-list");
-    products.forEach((item) => {
-        const article = createProductArticle(item, products);
+    for (const item of products) {
+        const article = await createProductArticle(item, products);
         productList.appendChild(article);
-    });
+    }
 
     modifyProductsCounter(products.length);
 
@@ -102,11 +128,6 @@ async function fetchStorageProducts() {
         createCartContent(products);
     } catch (error) {
         console.error(error);
-    } finally {
-        const spinner = document.querySelector(".cart__product-spinner");
-        const cart = document.querySelector(".cart");
-        spinner.classList.add('cart__product-spinner--disable');
-        cart.classList.add('cart--enable');
     }
 }
 
