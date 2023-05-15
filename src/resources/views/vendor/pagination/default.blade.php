@@ -1,27 +1,67 @@
 @if ($paginator->hasPages())
     <nav class="pagination">
-        {{-- {{ $paginator->links(['onEachSide' => 2, 'tailLength' => 1]) }} --}}
-        @foreach ($elements as $element)
-            @if (is_string($element))
+        @php
+            $maxLinks = 3; // Maximum number of pagination links to display
+            $currentPage = $paginator->currentPage();
+            $lastPage = $paginator->lastPage();
+            
+            $startRange = $currentPage - floor($maxLinks / 2);
+            $endRange = $currentPage + floor($maxLinks / 2);
+            
+            if ($startRange < 1) {
+                $endRange += abs($startRange) + 1;
+                $startRange = 1;
+            }
+            
+            if ($endRange > $lastPage) {
+                $startRange -= $endRange - $lastPage;
+                $endRange = $lastPage;
+            }
+            
+            $showFirstPageLink = $startRange > 1;
+            $showLastPageLink = $endRange < $lastPage;
+        @endphp
+
+        @if ($showFirstPageLink)
+            <a href="{{ $paginator->url(1) }}">
                 <div class="pagination__number">
-                    <p class="disabled" aria-disabled="true"><span>{{ $element }}</span></p>
+                    <span>1</span>
                 </div>
+            </a>
+        @endif
+
+        @if ($showFirstPageLink && $startRange > 2)
+            <div class="pagination__number">
+                <span>...</span>
+            </div>
+        @endif
+
+        @for ($i = $startRange; $i <= $endRange; $i++)
+            @if ($i == $currentPage)
+                <div class="pagination__number pagination__number--active">
+                    <p class="active" aria-current="page"><span>{{ $i }}</span></p>
+                </div>
+            @else
+                <a href="{{ $paginator->url($i) }}">
+                    <div class="pagination__number">
+                        <span>{{ $i }}</span>
+                    </div>
+                </a>
             @endif
-            @if (is_array($element))
-                @foreach ($element as $page => $url)
-                    <a href="{{ $url }}">
-                        @if ($page == $paginator->currentPage())
-                            <div class="pagination__number pagination__number--active">
-                                <p class="active" aria-current="page"><span>{{ $page }}</span></p>
-                            </div>
-                        @else
-                            <div class="pagination__number">
-                                <span>{{ $page }}</span>
-                            </div>
-                        @endif
-                    </a>
-                @endforeach
-            @endif
-        @endforeach
+        @endfor
+
+        @if ($showLastPageLink && $endRange < $lastPage - 1)
+            <div class="pagination__number">
+                <span>...</span>
+            </div>
+        @endif
+
+        @if ($showLastPageLink)
+            <a href="{{ $paginator->url($lastPage) }}">
+                <div class="pagination__number">
+                    <span>{{ $lastPage }}</span>
+                </div>
+            </a>
+        @endif
     </nav>
 @endif

@@ -4,6 +4,20 @@
 
 @section('content')
     @include('layouts.header')
+    @if (count($pendingOrders) >= 0 && $pendingOrders != null)
+        <dialog class="confirm">
+            <div class="confirm__background">
+                <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar. El pedido contiene los
+                    siguientes productos.</p>
+                <form method="GET" action="{{ route('pages.profile') }}">
+                    @csrf
+                    <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][1] }}">
+                    <input type="submit" value="Aceptar" class="editor__save editor__save--accept editor__data-save">
+                    <input type="submit" value="Denegar" class="editor__save editor__save--deny editor__data-save">
+                </form>
+            </div>
+        </dialog>
+    @endif
     <main class="editor">
         <form action="{{ route('pages.upload') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -50,55 +64,84 @@
         <section class="editor__historical">
             <h2 class="editor__historical-title">Histórico de pedidos</h2>
             @foreach ($orders as $order)
-                <span>{{ $order[0] }}</span>
-                <br>
-                @foreach ($order[1] as $orderProducts)
-                    @if ($orderProducts[1] == 0)
-                        <span>PENDIENTE</span>
-                    @endif
-                    <br>
-                    @foreach ($orderProducts[0] as $orderProduct)
-                        <span>{{ $orderProduct['name'] }}</span>
-                        <br>
+                <article class="order">
+                    <b>Fecha:</b>
+                    <span>{{ $order[0] }}</span>
+                    @foreach ($order[1] as $orderProducts)
+                        <div class="order__vendor">
+                            <div>
+                                <b>Vendido por:</b>
+                                <span>{{ $orderProducts[3] }}</span>
+                                <br>
+                                @if ($orderProducts[1] == 0)
+                                    <i>Pedido pendiente de confirmación por parte del vendedor</i>
+                                    <br>
+                                @endif
+                                @foreach ($orderProducts[0] as $orderProduct)
+                                    <div class="order__vendor__product">
+                                        <div>
+                                            <img src="{{ $orderProduct['image'] }}" class="order__vendor__product-image">
+                                        </div>
+                                        <div>
+                                            <span>{{ $orderProduct['name'] }}</span>
+                                            <br>
+                                            <span>{{ $orderProduct['price'] }} €</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <form method="GET" action="{{ route('pages.chat') }}">
+                                @csrf
+                                <input type="hidden" name="userType" value="B">
+                                <input type="hidden" name="orderId" value="{{ $orderProducts[2] }}">
+                                <input class="editor__save editor__password-save" type="submit" value="Enlace al chat">
+                                @if ($orderProducts[4] > 0)
+                                    <div class="item-link__notification  item-link__notification--profile">{{ $orderProducts[4] }}</div>
+                                @endif
+                            </form>
+                        </div>
+                        @if (!$loop->last)
+                            <hr class="order__vendor__separator">
+                        @endif
                     @endforeach
-                    <form method="GET" action="{{ route('pages.chat') }}">
-                        @csrf
-                        <input type="hidden" name="userType" value="B">
-                        <input type="hidden" name="orderId" value="{{ $orderProducts[2] }}">
-                        <input type="submit" value="LINK AL CHAT" style="color: purple">
-                    </form>
-                    <br>
-                    <br>
-                    <br>
-                @endforeach
-
-                <br>
-                <span>SEPARACIO DE COMANDES</span>
-                <br>
+                </article>
             @endforeach
             <hr>
             <h3>Pedidos como vendedor</h3>
             @foreach ($sellerOrders as $sellerOrder)
-                <span>{{ $sellerOrder[0] }}</span>
-                <br>
-                @foreach ($sellerOrder[1] as $sellerOrderProducts)
-                    <span>{{ $sellerOrderProducts[1] }}</span>
-                    <br>
-                    @foreach ($sellerOrderProducts[0] as $sellerOrderProduct)
-                        <span>{{ $sellerOrderProduct['name'] }}</span>
-                        <br>
+                <article class="order">
+                    <b>Fecha:</b>
+                    <span>{{ $sellerOrder[0] }}</span>
+                    @foreach ($sellerOrder[1] as $sellerOrderProducts)
+                        <div class="order__vendor">
+                            <div>
+                                @foreach ($sellerOrderProducts[0] as $sellerOrderProduct)
+                                    <div class="order__vendor__product">
+                                        <div>
+                                            <img src="{{ $sellerOrderProduct['image'] }}"
+                                                class="order__vendor__product-image">
+                                        </div>
+                                        <div>
+                                            <span>{{ $sellerOrderProduct['name'] }}</span>
+                                            <br>
+                                            <span>{{ $sellerOrderProduct['price'] }} €</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <form method="GET" action="{{ route('pages.chat') }}">
+                                @csrf
+                                <input type="hidden" name="userType" value="S">
+                                <input type="hidden" name="orderId" value="{{ $sellerOrderProducts[2] }}">
+                                <input class="editor__save editor__password-save" type="submit" value="Enlace al chat">
+                            </form>
+                        </div>
+                        @if (!$loop->last)
+                            <hr class="order__vendor__separator">
+                        @endif
                     @endforeach
-                    <a href="{{ route('pages.chat', ['orderId' => $sellerOrderProducts[2], 'userType' => 'S']) }}"
-                        style="color: purple">LINK AL CHAT</a>
-                    <br>
-                    <br>
-                    <br>
-                @endforeach
-                <br>
-                <span>SEPARACIO DE COMANDES</span>
-                <br>
+                </article>
             @endforeach
-
         </section>
         <form action="{{ route('pages.createStore') }}" method="POST" enctype="multipart/form-data">
             @csrf

@@ -490,19 +490,34 @@ h3 {
   height: 40px;
   padding: 20px;
 }
+@media screen and (max-width: 600px) {
+  .search-bar {
+    width: 170px;
+  }
+}
 
 .item-link {
   display: flex;
   align-items: center;
   height: 100%;
 }
-.item-link--hidden {
-  display: none;
+.item-link__notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  width: 15px;
+  height: 15px;
+  background-color: #d2170e;
+  position: relative;
+  left: -10px;
+  top: -10px;
+  font-size: 0.7rem;
+  color: #FFFFFF;
 }
-@media screen and (max-width: 900px) {
-  .item-link--hidden {
-    display: flex;
-  }
+.item-link__notification--profile {
+  left: 122px;
+  top: -57px;
 }
 
 .stored-products {
@@ -575,6 +590,11 @@ footer {
   min-width: 55px;
   min-height: 55px;
 }
+@media screen and (max-width: 700px) {
+  .pagination__number {
+    min-width: 35px;
+  }
+}
 .pagination__number--active {
   color: #FFFFFF;
   background-color: #2596BE;
@@ -599,6 +619,12 @@ footer {
   margin: 15px 20px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+@media screen and (max-width: 700px) {
+  .sort__link {
+    font-size: 0.7rem;
+    margin: 15px 10px;
+  }
 }
 .sort__link--active {
   border-color: #2596BE;
@@ -707,6 +733,26 @@ input:focus + .slider {
   border-radius: 50%;
 }
 
+.confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.confirm__background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  padding: 20px;
+  z-index: 10000;
+  border-radius: 5px;
+}
+
 .introduction {
   display: flex;
   justify-content: center;
@@ -767,8 +813,12 @@ input:focus + .slider {
 }
 
 .home {
-  display: flex;
-  flex: 1;
+  display: block;
+}
+@media screen and (min-width: 750px) {
+  .home {
+    display: flex;
+  }
 }
 
 .categories {
@@ -793,9 +843,9 @@ input:focus + .slider {
 .categories__icon {
   height: 25%;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 750px) {
   .categories {
-    display: none;
+    width: 100%;
   }
 }
 
@@ -838,15 +888,27 @@ input:focus + .slider {
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
   grid-gap: 50px;
   flex: 1;
   justify-items: center;
   align-items: center;
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 700px) {
+  .products {
+    grid-gap: 0px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 .product-element {
   cursor: pointer;
+}
+@media screen and (max-width: 700px) {
+  .product-element {
+    margin-bottom: 50px;
+  }
 }
 .product-element__info {
   display: grid;
@@ -973,7 +1035,7 @@ p {
 .image img {
   display: block;
   width: 650px;
-  height: 500px;
+  height: 600px;
   object-fit: cover;
   transition: 0.2s;
   position: sticky;
@@ -1299,6 +1361,20 @@ p {
   cursor: pointer;
   transition: 0.1s;
 }
+.editor__save--accept {
+  color: #85e085;
+  outline: 1px solid #85e085;
+}
+.editor__save--accept:hover {
+  background-color: #85e085 !important;
+}
+.editor__save--deny {
+  color: #d2170e;
+  outline: 1px solid #d2170e;
+}
+.editor__save--deny:hover {
+  background-color: #d2170e !important;
+}
 .editor__save:hover {
   background-color: #2596BE;
   color: white;
@@ -1306,6 +1382,37 @@ p {
 
 input[type=file] {
   display: none;
+}
+
+.order {
+  border: 1px solid #b5b5b5;
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+.order__vendor {
+  margin: 40px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (max-width: 900px) {
+  .order__vendor {
+    flex-direction: column;
+  }
+}
+.order__vendor__product {
+  display: flex;
+  margin: 20px 0px;
+}
+.order__vendor__product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.order__vendor__separator {
+  border: 1px solid #b5b5b5;
 }
 
 /*# sourceMappingURL=styles.css.map */

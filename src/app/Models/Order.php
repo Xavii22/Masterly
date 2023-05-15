@@ -14,4 +14,9 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }

@@ -35,9 +35,20 @@ class ChatController extends Controller
         return Chat::where('order_id', $orderId)->get();
     }
 
+    private function setChatsToRead($chatMessages, $userType)
+    {
+        foreach($chatMessages as $message) {
+            if ($message->read == false && $message->type != $userType) {
+                $message->read = true;
+                $message->save();
+            }
+        }
+    }
+
     public function enterChat(Request $request)
     {
         $orderId = $request->input('orderId');
+
         if ($orderId == null) {
             $orderId = session('orderId');
         }
@@ -48,6 +59,8 @@ class ChatController extends Controller
         if ($userType == null) {
             $userType = session('userType');
         }
+
+        $this->setChatstoRead($chatMessages, $userType);
 
         return view('pages.chat', compact('chatMessages', 'userType', 'orderId'));
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('message', 5000)->notNullable();
             $table->enum('type', ['B', 'S']);
+            $table->boolean('read')->default(false);
 
             $table->unsignedBigInteger('order_id')->index();
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();

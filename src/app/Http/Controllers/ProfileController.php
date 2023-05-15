@@ -11,6 +11,20 @@ use App\Models\Store;
 
 class ProfileController extends Controller
 {
+    public function checkSpecificUnreadChat($orderId, $actor)
+    {
+        $messages = Order::find($orderId)->chats()->get();
+        $notificationCounter = 0;
+
+        foreach ($messages as $message) {
+            if ($message->read == false && $message->type != $actor) {
+                $notificationCounter++;
+            }
+        }
+
+        return $notificationCounter;
+    }
+
     private function getOrderHistory($actor)
     {
         $orderProducts = array();
@@ -23,10 +37,25 @@ class ProfileController extends Controller
                 $orderProducts[$key][1][$key2][0] = $vendorOrder->products()->wherePivot('order_id', $vendorOrder->id)->get();
                 $orderProducts[$key][1][$key2][1] = $vendorOrder->accepted;
                 $orderProducts[$key][1][$key2][2] = $vendorOrder->id;
+                $orderProducts[$key][1][$key2][3] = Store::where('user_id', $vendorOrder->seller_id)->value('name');
+                $orderProducts[$key][1][$key2][4] = $this->checkSpecificUnreadChat($vendorOrder->id, $actor);
             }
         }
 
         return $orderProducts;
+    }
+
+    private function getPendingOrders($orders)
+    {
+        $pendingOrders = array();
+
+        foreach ($orders as $order) {
+            if ($order[1][0][1] == false) {
+                array_push($pendingOrders, $order);
+            }
+        }
+
+        return $pendingOrders;
     }
 
     private function acceptOrder()
@@ -45,8 +74,9 @@ class ProfileController extends Controller
         $storeExists = $this->checkUserHasStore(Auth::id());
         $orders = $this->getOrderHistory('buyer_id');
         $sellerOrders = $this->getOrderHistory('seller_id');
+        $pendingOrders = $this->getPendingOrders($sellerOrders);
 
-        $data = ['storeExists' => $storeExists, 'orders' => $orders, 'sellerOrders' => $sellerOrders];
+        $data = ['storeExists' => $storeExists, 'orders' => $orders, 'sellerOrders' => $sellerOrders, 'pendingOrders' => $pendingOrders];
         return view('pages.profile', $data);
     }
 
