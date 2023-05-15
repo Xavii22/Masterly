@@ -5,15 +5,15 @@ function userCircle($username)
     $red = ($colorCode * 17) % 255;
     $green = ($colorCode * 13) % 255;
     $blue = ($colorCode * 19) % 255;
-    $color = sprintf("#%02x%02x%02x", $red, $green, $blue);
+    $color = sprintf('#%02x%02x%02x', $red, $green, $blue);
     return '<div style="background-color:' . $color . '; display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 35px; height: 35px; text-align: center; font-size: 18px; color: white; line-height: 50px;">' . strtoupper(substr($username, 0, 1)) . '</div>';
 }
 ?>
 <header class="header">
     <a class="item-link" href="{{ route('pages.landing') }}">
         <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="Masterly">
+        <img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
     </a>
-    <img class="header__logo header__logo--mobile" src="{{ asset('images/logo-mobile.png') }}" alt="Masterly">
     <div class="items">
         <form method="GET" action="{{ route('pages.home') }}">
             @csrf
@@ -26,22 +26,27 @@ function userCircle($username)
             </div>
         </a>
         @if (Auth::check())
+            @php
+                $controller = app(\App\Http\Controllers\HeaderController::class);
+                $notificationNumber = $controller->checkUnreadChats();
+            @endphp
+
             <a class="item-link" href="{{ route('pages.profile') }}">
             @else
                 <a class="item-link" href="{{ route('pages.login') }}">
         @endif
-            @if (Auth::check())
-                @if (DB::table('users')->where('id', Auth::id())->value('pfp'))
-                    <img class="item" src="{{ asset(Auth::user()->pfp) }}" alt="User">
-                @else
-                    {!! userCircle(Auth::user()->name) !!}
-                @endif
+        @if (Auth::check())
+            @if (DB::table('users')->where('id', Auth::id())->value('pfp'))
+                <img class="item" src="{{ asset(Auth::user()->pfp) }}" alt="User">
             @else
-                <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+                {!! userCircle(Auth::user()->name) !!}
             @endif
-        </a>
-        <a class="item-link item-link--hidden" href="">
-            <img class="item" src="{{ asset('images/menu.png') }}" alt="Menu">
+            @if ($notificationNumber > 0)
+                <div class="item-link__notification">{{ $notificationNumber }}</div>
+            @endif
+        @else
+            <img class="item" src="{{ asset('images/user.png') }}" alt="User">
+        @endif
         </a>
     </div>
 </header>

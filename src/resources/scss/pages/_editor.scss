@@ -178,6 +178,24 @@
         cursor: pointer;
         transition: 0.1s;
 
+        &--accept {
+            color: $correct-color;
+            outline: 1px solid $correct-color;
+
+            &:hover {
+                background-color: $correct-color !important;
+            }
+        }
+
+        &--deny {
+            color: $incorrect-color;
+            outline: 1px solid $incorrect-color;
+
+            &:hover {
+                background-color: $incorrect-color !important;
+            }
+        }
+
         &:hover {
             background-color: $secondary-color;
             color: white;
@@ -187,4 +205,38 @@
 
 input[type="file"] {
     display: none;
+}
+
+.order {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    padding: 30px;
+    margin-bottom: 40px;
+
+    &__vendor {
+        margin: 40px 0px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media screen and (max-width: 900px) {
+            flex-direction: column;
+        }
+
+        &__product {
+            display: flex;
+            margin: 20px 0px;
+
+            &-image {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                margin-right: 10px;
+            }
+        }
+
+        &__separator {
+            border: 1px solid $border-color;
+        }
+    }
 }

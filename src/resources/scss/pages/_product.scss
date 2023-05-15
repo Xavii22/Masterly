@@ -56,8 +56,14 @@
     align-items: flex-start;
     justify-content: flex-start;
     grid-row: 1 / span 2;
-
-    &__slider {
+    
+    img {
+        display: block;
+        width: 650px;
+        height: 600px;
+        object-fit: cover;
+        transition: 0.2s;
+		&__slider {
         position: sticky;
         top: 40px;
 

@@ -11,40 +11,79 @@ use App\Models\Store;
 
 class ProfileController extends Controller
 {
-    private function getOrderHistory()
+    public function checkSpecificUnreadChat($orderId, $actor)
+    {
+        $messages = Order::find($orderId)->chats()->get();
+        $notificationCounter = 0;
+
+        if($actor == 'buyer_id') {
+            $actor = 'B';
+        } else {
+            $actor = 'S';
+        }
+        
+        foreach ($messages as $message) {
+            if ($message->read == false && $message->type != $actor) {
+                $notificationCounter++;
+            }
+        }
+
+        return $notificationCounter;
+    }
+
+    private function getOrderHistory($actor)
     {
         $orderProducts = array();
-        $orders = Order::where('buyer_id', Auth::id())->get()->groupBy('number');
+        $orders = Order::where($actor, Auth::id())->get()->groupBy('number');
 
         foreach ($orders as $key => $order) {
             $orderProducts[$key][0] = $order[0]->created_at->format('d-m-Y');
 
             foreach ($order as $key2 => $vendorOrder) {
-                $orderProducts[$key][1][$key2] = $vendorOrder->products()->wherePivot('order_id', $vendorOrder->id)->get();
-            }
-
-            if ($order[0]->accepted == true) {
-                $orderProducts[$key][2] = true;
-            } else {
-                $orderProducts[$key][2] = false;
+                $orderProducts[$key][1][$key2][0] = $vendorOrder->products()->wherePivot('order_id', $vendorOrder->id)->get();
+                $orderProducts[$key][1][$key2][1] = $vendorOrder->accepted;
+                $orderProducts[$key][1][$key2][2] = $vendorOrder->id;
+                $orderProducts[$key][1][$key2][3] = Store::where('user_id', $vendorOrder->seller_id)->value('name');
+                $orderProducts[$key][1][$key2][4] = $this->checkSpecificUnreadChat($vendorOrder->id, $actor);
             }
         }
 
         return $orderProducts;
     }
 
+    private function getPendingOrders($orders)
+    {
+        $pendingOrders = array();
+
+        foreach ($orders as $order) {
+            if ($order[1][0][1] == false) {
+                array_push($pendingOrders, $order);
+            }
+        }
+
+        return $pendingOrders;
+    }
+
     private function acceptOrder()
     {
-        dd('ayoooooooooo');
+        //order id to accepted
+        //ChatController::createMessage(env('INTRODUCTION_MESSAGE'), 'S', $order->id);
+    }
+
+    private function denyOrder()
+    {
+        //product to not sold
     }
 
     public function profile()
     {
         $storeExists = $this->checkUserHasStore(Auth::id());
-        $storeName = Store::getOwnStoreName();
-        $orders = $this->getOrderHistory();
+        $orders = $this->getOrderHistory('buyer_id');
+        $sellerOrders = $this->getOrderHistory('seller_id');
+        $pendingOrders = $this->getPendingOrders($sellerOrders);
 
-        $data = ['storeExists' => $storeExists, 'orders' => $orders, 'storeName' => $storeName];
+        $data = ['storeExists' => $storeExists, 'orders' => $orders, 'sellerOrders' => $sellerOrders, 'pendingOrders' => $pendingOrders, 'storeName' => $storeName];
+
         return view('pages.profile', $data);
     }
 
@@ -120,5 +159,4 @@ class ProfileController extends Controller
         $image->storeAs("public/images/{$userId}", $imageName);
         return $imagePath;
     }
-
-}
+	

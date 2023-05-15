@@ -1,0 +1,53 @@
+.chat-parent {
+    display: grid;
+    flex-direction: column;
+}
+
+.chat {
+    flex: 1;
+    display: grid;
+    gap: 15px;
+    width: 80%;
+    justify-self: center;
+    margin: 20px 0px;
+
+    &__message {
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 10px;
+        width: fit-content;
+        max-width: 75%;
+
+        &--user {
+            background-color: $message-color;
+            justify-self: end;
+        }
+
+        &--other {
+            background-color: $chat-color;
+        }
+    }
+}
+
+.chat-info {
+    height: 70px;
+    background-color: $chat-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__input {
+        height: 60%;
+        width: 80%;
+        display: flex;
+    }
+
+    &__text {
+        background-color: $primary-color;
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+        padding-left: 15px;
+        border: none;
+    }
+}

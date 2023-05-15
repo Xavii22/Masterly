@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Masterly')
+@section('title', 'Los mejores productes artesanales')
 
 @section('content')
     @include('layouts.header')

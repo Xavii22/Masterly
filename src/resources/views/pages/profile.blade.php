@@ -4,6 +4,21 @@
 
 @section('content')
     @include('layouts.header')
+    @if (count($pendingOrders) >= 0 && $pendingOrders != null)
+        <dialog class="confirm" open>
+            <div class="confirm__background">
+                <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar el cual contiene los
+                    siguientes productos.</p>
+                
+                <form method="GET" action="{{ route('pages.profile') }}">
+                    @csrf
+                    <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][1] }}">
+                    <input type="submit" value="Aceptar" class="editor__save editor__save--accept editor__data-save">
+                    <input type="submit" value="Denegar" class="editor__save editor__save--deny editor__data-save">
+                </form>
+            </div>
+        </dialog>
+    @endif
     <main class="editor">
         <form action="{{ route('pages.upload') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -17,7 +32,7 @@
                 </div>
                 <div class="editor__data__logo">
                     <label class="editor__data__logo-label">Logo</label>
-                    <input type="file" class="editor__data__logo-input" name="image" id="file-logoProfile">
+                    <input type="file" class="editor__data__logo-input" name="image" id="file-logoeditor">
                     @if (DB::table('users')->where('id', Auth::id())->value('pfp'))
                         <img src="{{ asset(Auth::user()->pfp) }}" class="editor__data__logo-image">
                     @else
@@ -25,7 +40,7 @@
                     @endif
                     <div class="editor__data__logo-upload">
                         <img class="editor__data__logo-upload-image" src="{{ asset('images/upload.png') }}" alt="">
-                        <label class="editor__data__logo-upload-label" for="file-logoProfile">Seleccionar imagen</label>
+                        <label class="editor__data__logo-upload-label" for="file-logoeditor">Seleccionar imagen</label>
                     </div>
                 </div>
                 <button type="submit" class="editor__save editor__data-save">Guardar</button>
@@ -47,31 +62,105 @@
                 </div>
             </section>
         </form>
-
         <section class="editor__historical">
             <h2 class="editor__historical-title">Histórico de pedidos</h2>
+            @foreach ($orders as $order)
+                <article class="order">
+                    <b>Fecha:</b>
+                    <span>{{ $order[0] }}</span>
+                    @foreach ($order[1] as $orderProducts)
+                        <div class="order__vendor">
+                            <div>
+                                <b>Vendido por:</b>
+                                <span>{{ $orderProducts[3] }}</span>
+                                <br>
+                                @if ($orderProducts[1] == 0)
+                                    <i>Pedido pendiente de confirmación por parte del vendedor</i>
+                                    <br>
+                                @endif
+                                @foreach ($orderProducts[0] as $orderProduct)
+                                    <div class="order__vendor__product">
+                                        <div>
+                                            <img src="{{ $orderProduct['image'] }}" class="order__vendor__product-image">
+                                        </div>
+                                        <div>
+                                            <span>{{ $orderProduct['name'] }}</span>
+                                            <br>
+                                            <span>{{ $orderProduct['price'] }} €</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <form method="GET" action="{{ route('pages.chat') }}">
+                                @csrf
+                                <input type="hidden" name="userType" value="B">
+                                <input type="hidden" name="orderId" value="{{ $orderProducts[2] }}">
+                                <input class="editor__save editor__password-save" type="submit" value="Chat">
+                                @if ($orderProducts[4] > 0)
+                                    <div class="item-link__notification  item-link__notification--profile">
+                                        {{ $orderProducts[4] }}</div>
+                                @endif
+                            </form>
+                        </div>
+                        @if (!$loop->last)
+                            <hr class="order__vendor__separator">
+                        @endif
+                    @endforeach
+                </article>
+            @endforeach
+            <hr>
+            <h3>Pedidos como vendedor</h3>
+            @foreach ($sellerOrders as $sellerOrder)
+                <article class="order">
+                    <b>Fecha:</b>
+                    <span>{{ $sellerOrder[0] }}</span>
+                    @foreach ($sellerOrder[1] as $sellerOrderProducts)
+                        <div class="order__vendor">
+                            <div>
+                                @foreach ($sellerOrderProducts[0] as $sellerOrderProduct)
+                                    <div class="order__vendor__product">
+                                        <div>
+                                            <img src="{{ $sellerOrderProduct['image'] }}"
+                                                class="order__vendor__product-image">
+                                        </div>
+                                        <div>
+                                            <span>{{ $sellerOrderProduct['name'] }}</span>
+                                            <br>
+                                            <span>{{ $sellerOrderProduct['price'] }} €</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <form method="GET" action="{{ route('pages.chat') }}">
+                                @csrf
+                                <input type="hidden" name="userType" value="S">
+                                <input type="hidden" name="orderId" value="{{ $sellerOrderProducts[2] }}">
+                                <input class="editor__save editor__password-save" type="submit" value="Chat">
+                            </form>
+                        </div>
+                        @if (!$loop->last)
+                            <hr class="order__vendor__separator">
+                        @endif
+                    @endforeach
+                </article>
+            @endforeach
         </section>
-
         <form action="{{ route('pages.createStore') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <section class="editor__shop">
                 <h2 class="editor__shop-title">Tienda</h2>
 
                 @if ($storeExists)
-                    <a class="editor__save editor__shop-save" href="{{ route('pages.manageStore', ['id' => $storeName]) }}">Administrar productos</a>
                 @else
-                <div storeExists="editor__shop-content">
-                    <label class="shop-content__label">Nombre tienda</label>
-                    <label class="shop-content__label">Logo tienda</label>
-                    <input class="editor__input" type="text" name="name">
-                    <input type="file" class="editor__input" name="image" id="file-logoShop">
-                    <label class="editor__data__logo-upload-label" for="file-logoShop">Seleccionar imagen</label>
-                    <button class="editor__save editor__shop-save">Crear</button>
-                </div>
+                    <div storeExists="editor__shop-content">
+                        <label class="shop-content__label">Nombre tienda</label>
+                        <label class="shop-content__label">Logo tienda</label>
+                        <input class="editor__input" type="text" name="name">
+                        <input type="file" class="editor__input" name="image" id="file-logoShop">
+                        <label class="editor__data__logo-upload-label" for="file-logoShop">Seleccionar imagen</label>
+                        <button class="editor__save editor__shop-save">Crear</button>
+                    </div>
                 @endif
-
-
-
             </section>
         </form>
     </main>

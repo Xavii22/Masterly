@@ -55,9 +55,10 @@
     border-radius: 25px;
     height: 40px;
     padding: 20px;
-    // background-image: url("/images/search.png");
-    // background-repeat: no-repeat;
-    // background-size: 5%;
+
+    @media screen and (max-width: 600px) {
+        width: 170px;
+    }
 }
 
 .item-link {
@@ -65,11 +66,23 @@
     align-items: center;
     height: 100%;
 
-    &--hidden {
-        display: none;
+    &__notification {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        width: 15px;
+        height: 15px;
+        background-color: $incorrect-color;
+        position: relative;
+        left: -10px;
+        top: -10px;
+        font-size: 0.7rem;
+        color: $primary-color;
 
-        @media screen and (max-width: 900px) {
-            display: flex;
+        &--profile {
+            left: 122px;
+            top: -57px;
         }
     }
 }
@@ -82,11 +95,11 @@
     border-radius: 100%;
     width: 15px;
     height: 15px;
-    
+
     position: relative;
     right: 30px;
     bottom: 10px;
-    
+
     &__number {
         color: $primary-color;
         font-size: 0.7rem;
