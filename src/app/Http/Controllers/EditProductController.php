@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 
 class EditProductController extends Controller
 {
@@ -93,7 +95,9 @@ class EditProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('pages.manageStore');
+        $storeName = Store::where('user_id', Auth::id())->value('name');
+
+        return redirect()->route('pages.manageStore', ['id' => $storeName]);
     }
 
     public function deleteProduct(Request $request)
