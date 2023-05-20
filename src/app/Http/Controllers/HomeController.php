@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -97,50 +98,33 @@ class HomeController extends Controller
 
     public function getMainImage($productId)
     {
-        $cacheKey = 'product_main_image_' . $productId;
+        $client = new Client();
+        $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
+        $data = json_decode($productImages->getBody(), true);
 
-        $mainImage = Cache::get($cacheKey);
-
-        if (!$mainImage) {
-            $client = new Client();
-            $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
-            $data = json_decode($productImages->getBody(), true);
-
-            foreach ($data['data'] as $image) {
-                if ($image['main'] == 1) {
-                    $mainImage = $image['path'];
-                    break;
-                }
+        foreach ($data['data'] as $image) {
+            if ($image['main'] == 1) {
+                return $image['path'];
             }
-
-            Cache::put($cacheKey, $mainImage, 15768000);
         }
-
-        return $mainImage;
     }
 
     public function getImages($productId)
     {
-        $cacheKey = 'product_images_' . $productId;
+        $client = new Client();
+        $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
+        $data = json_decode($productImages->getBody(), true);
 
-        $images = Cache::get($cacheKey);
-
-        if (!$images) {
-            $client = new Client();
-            $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
-            $data = json_decode($productImages->getBody(), true);
-
-            $paths = array();
-            foreach ($data['data'] as $image) {
-                $paths[] = $image['path'];
-            }
-
-            $images = $paths;
-
-            Cache::put($cacheKey, $images, 15768000);
+        $paths = array();
+        foreach ($data['data'] as $image) {
+            $paths[] = $image['path'];
         }
 
-        return $images;
+        $cacheDuration = 15768000;
+
+        header('Cache-Control: public, max-age=' . $cacheDuration);
+
+        return $paths;
     }
 
     private function setSortProducts($sort, $order): string

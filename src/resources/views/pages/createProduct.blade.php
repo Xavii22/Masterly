@@ -16,15 +16,20 @@
                     <label for="form-price">Precio</label>
                     <input class="creator__input" type="text" id="form-name" name="name">
                     <textarea class="creator__input" rows="4" cols="20" id="form-description" name="description"></textarea>
-                    <input class="creator__input" type="number" id="form-price" min="1" max="10000"
-                        name="price">
+                    <input class="creator__input" type="number" id="form-price" min="1"
+                        max="10000"name="price">
                 </div>
             </section>
             <section>
                 <h2>Imágenes</h2>
-                <input type="file" class="creator__data__logo-input" name="image" id="file-logoProfile">
-                {{-- <img src="{{ asset(Auth::user()->pfp) }}" class="creator__data__logo-image"> --}}
-                <label class="creator__data__logo-upload-label" for="file-logoProfile">Seleccionar imagen</label>
+                <input type="file" name="image1" multiple>
+                <input type="file" name="image2" multiple>
+                <input type="file" name="image3" multiple>
+                <input type="file" name="image4" multiple>
+                {{-- <input type="file" class="editor__data__logo-input" name="image" id="file-image" multiple>
+                <div class="image-preview"></div>
+                <label class="creator__data__logo-upload-label" for="file-image">Seleccionar imagen</label>
+                <span class="error-message"></span> --}}
             </section>
             <section>
                 <div>
@@ -34,7 +39,6 @@
                             id="{{ $subcategory->name }}" checked>
                         <label for="{{ $subcategory->name }}">{{ $subcategory->name }}</label>
                     @endforeach
-                    <input type="submit" value="GUARDAR" class="creator__save creator__data-save">
                 </div>
             </section>
             <section>
@@ -57,5 +61,5 @@
     </main>
     @include('layouts.footer')
 
-    <script src="{{ asset('js/profileManager.js') }}"></script>
+    {{-- <script src="{{ asset('js/createProductManager.js') }}"></script> --}}
 @endsection

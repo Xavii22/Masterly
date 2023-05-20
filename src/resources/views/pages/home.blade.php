@@ -126,7 +126,7 @@
                         @php
                             $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
                         @endphp
-
+                        
                         <article class="product-element">
                             <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $mainImage }}">
