@@ -76,7 +76,8 @@ class HomeController extends Controller
                 $currentStoreId = $currentStore->id;
 
                 if (Route::currentRouteName() == 'pages.manageStore' && Auth::id() != $currentStore->user_id) {
-                    dd('NO TIENES ACCESO');
+                    Log::error('The user does not have acces to this manageStore page.');
+                    return redirect()->route('pages.home');
                 }
 
                 $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);

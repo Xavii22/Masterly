@@ -1,15 +1,37 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/bullseye64"
-  config.vm.hostname = "javamariadb"
-  config.vm.define "javamariadb"
-  config.vm.network "private_network", ip: "172.16.0.100"
-  config.vm.provision "shell", path: "bootstrap.sh"
-  config.vm.provider "virtualbox" do |vb|
-	vb.name = "masterly" 
-    vb.memory = "512"
-    vb.cpus = 1
-  end
+  config.vm.box = "laravel/homestead"
+  config.vm.network "private_network", ip: "172.16.50.50"
+
+  config.vm.synced_folder "../apache", "/etc/apache2/sites-available", create: true
+  config.vm.synced_folder "..", "/var/www/masterly"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    mysql -uroot -psecret -e "CREATE DATABASE IF NOT EXISTS masterly CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+    sudo mkdir -p /etc/apache2/ssl
+    sudo chown -R www-data:www-data /etc/apache2/ssl
+    sudo chmod 700 /etc/apache2/ssl
+    mkdir -p /var/www/masterly
+    cd /var/www/masterly
+    cp vagrant/botiga.crt /etc/apache2/ssl/
+    cp vagrant/botiga.key /etc/apache2/ssl/
+    cp /etc/apache2/sites-available/botiga.conf /etc/apache2/sites-enabled/
+    cd src
+    php artisan key:generate
+    php artisan migrate
+    systemctl restart apache2
+    export COMPOSER_ALLOW_SUPERUSER=1
+    composer install
+    cd ..
+    mkdir -p storage/ssl
+    cp vagrant/botiga.crt storage/ssl/
+    cp vagrant/botiga.key storage/ssl/
+    sudo systemctl restart apache2
+    cd src
+    php artisan serve --port=8000
+  SHELL
+
+  config.vm.boot_timeout = 600
+
+  config.ssh.forward_agent = false
 end

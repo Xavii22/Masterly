@@ -43,6 +43,7 @@
     width: 40px;
     border: none;
     margin-left: 20px;
+    cursor: pointer;
 
     &__image {
         position: relative;
@@ -50,5 +51,6 @@
         left: 31px;
         height: 20px;
         width: 20px;
+        cursor: pointer;
     }
 }

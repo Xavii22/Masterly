@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Store;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -15,6 +16,7 @@ class OrderController extends Controller
     private function checkIfUserIsNotLoggedIn()
     {
         if (!Auth::check()) {
+            Log::error('The user needs to be logged in order to make an order.');
             return redirect()->route('pages.login');
         }
     }
@@ -29,7 +31,8 @@ class OrderController extends Controller
     {
         foreach ($cartProducts as $cartProduct) {
             if ($cartProduct->sold == true) {
-                dd('ESTE PRODUCTO YA ESTÁ VENDIDO!!');
+                Log::error('The product the user is trying to buy is already sold.');
+                return redirect()->route('pages.home');
             }
         }
     }
@@ -94,5 +97,7 @@ class OrderController extends Controller
         $this->checkIfCartProductsAreSold($this->getCartProducts());
         $this->createOrderRegisters($this->getCartProducts());
         $this->deleteProductsFromCart();
+
+        return redirect()->route('pages.home');
     }
 }

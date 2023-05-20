@@ -9,13 +9,12 @@
             <div class="confirm__background">
                 <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar el cual contiene los
                     siguientes productos.</p>
-                
-                <form method="GET" action="{{ route('pages.profile') }}">
-                    @csrf
-                    <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][1] }}">
-                    <input type="submit" value="Aceptar" class="editor__save editor__save--accept editor__data-save">
-                    <input type="submit" value="Denegar" class="editor__save editor__save--deny editor__data-save">
-                </form>
+                    <form method="GET" action="{{ route('pages.profile') }}">
+                        @csrf
+                        <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][2] }}">
+                        <input type="submit" name="accept" value="Aceptar" class="editor__save editor__save--accept editor__data-save">
+                        <input type="submit" name="deny" value="Denegar" class="editor__save editor__save--deny editor__data-save">
+                    </form>
             </div>
         </dialog>
     @endif
@@ -136,6 +135,10 @@
                                 <input type="hidden" name="userType" value="S">
                                 <input type="hidden" name="orderId" value="{{ $sellerOrderProducts[2] }}">
                                 <input class="editor__save editor__password-save" type="submit" value="Chat">
+                                @if ($sellerOrderProducts[4] > 0)
+                                    <div class="item-link__notification  item-link__notification--profile">
+                                        {{ $sellerOrderProducts[4] }}</div>
+                                @endif
                             </form>
                         </div>
                         @if (!$loop->last)

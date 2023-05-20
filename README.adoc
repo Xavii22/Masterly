@@ -2,7 +2,6 @@
 
 === Miembros del equipo
 
-* Samuel Garcia Dominguez
 * Oscar Alonso Camenforte
 * Xavi Carné Plandolit
 

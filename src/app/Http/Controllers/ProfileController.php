@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -64,19 +65,44 @@ class ProfileController extends Controller
         return $pendingOrders;
     }
 
-    private function acceptOrder()
+    private function acceptOrder($orderId)
     {
-        //order id to accepted
-        //ChatController::createMessage(env('INTRODUCTION_MESSAGE'), 'S', $order->id);
+        $order = Order::find($orderId);
+        $order->accepted = true;
+        $order->save();
+
+        ChatController::createMessage(env('CONFIRM_MESSAGE'), 'S', $orderId);
+
+        Log::info('The order with id: ' . $orderId , ' has been accepted.');
     }
 
-    private function denyOrder()
+    private function denyOrder($orderId)
     {
-        //product to not sold
+        $order = Order::find($orderId);
+        $products = $order->products;
+
+        foreach($products as $product)
+        {
+            $product->sold = false;
+            $product->enabled = true;
+            $product->save();
+            $order->products()->detach($product->id);
+        }
+
+        $order->chats()->delete();
+        $order->delete();
+
+        Log::info('The order with id: ' . $orderId , ' has been denied.');
     }
 
-    public function profile()
+    public function profile(Request $request)
     {
+        if ($request->has('accept')) {
+            $this->acceptOrder($request->input('pendingOrder'));
+        } elseif ($request->has('deny')) {
+            $this->denyOrder($request->input('pendingOrder'));
+        }
+
         $storeExists = $this->checkUserHasStore(Auth::id());
         $orders = $this->getOrderHistory('buyer_id');
         $sellerOrders = $this->getOrderHistory('seller_id');

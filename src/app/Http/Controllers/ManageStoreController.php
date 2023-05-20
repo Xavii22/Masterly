@@ -21,5 +21,4 @@ class ManageStoreController extends Controller
         Log::error('Url not setted correctly');
         return null;
     }
-
 }

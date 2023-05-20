@@ -580,6 +580,7 @@ footer {
   width: 40px;
   border: none;
   margin-left: 20px;
+  cursor: pointer;
 }
 .chat-button__image {
   position: relative;
@@ -587,6 +588,7 @@ footer {
   left: 31px;
   height: 20px;
   width: 20px;
+  cursor: pointer;
 }
 
 .pagination {
@@ -805,7 +807,12 @@ input:focus + .slider {
 }
 
 .tag {
-  margin: 50px 50px 0px 50px;
+  margin: 100px 50px 0px 50px;
+}
+@media screen and (max-width: 700px) {
+  .tag {
+    margin: 50px 5px 0px 5px;
+  }
 }
 .tag__title-container {
   margin-bottom: 10px;
@@ -817,10 +824,17 @@ input:focus + .slider {
 }
 .tag__products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
-  justify-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+  gap: 50px;
   align-items: center;
 }
+@media screen and (max-width: 700px) {
+  .tag__products {
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
 .product-landing {
   cursor: pointer;
   position: relative;
