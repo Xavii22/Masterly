@@ -7,6 +7,8 @@ use App\Models\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Mockery;
+
 
 class ChatControllerTest extends TestCase
 {
