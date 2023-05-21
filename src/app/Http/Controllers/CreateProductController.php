@@ -49,6 +49,10 @@ class CreateProductController extends Controller
             ]);
             $main = false;
         }
-        return view('pages.manageStore');
+        
+        $storeName = Store::where('user_id', Auth::id())->value('name');
+        $storeName = str_replace(' ', '-', strtolower($storeName));
+
+        return redirect()->route('pages.manageStore', ['id' => $storeName]);
     }
 }

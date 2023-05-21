@@ -64,7 +64,7 @@
                     <form method="GET" action="{{ route('pages.pdf') }}">
                         @csrf
                         <input type="hidden" name="pdfId" value="{{ $key }}">
-                        <input class="editor__save editor__password-save" type="submit"   value="Descargar PDF">
+                        <input class="editor__save editor__password-save" type="submit" value="Descargar PDF">
                     </form>
 
                     @foreach ($order[1] as $orderProducts)
@@ -110,8 +110,9 @@
                     @endforeach
                 </article>
             @endforeach
-            <hr>
-            <h3>Pedidos como vendedor</h3>
+        </section>
+        <section>
+            <h2>Histórico de ventas</h2>
             @foreach ($sellerOrders as $sellerOrder)
                 <article class="order">
                     <b>Fecha:</b>
@@ -125,8 +126,7 @@
                                     @endphp
                                     <div class="order__vendor__product">
                                         <div>
-                                            <img src="{{ $sellerMainImage }}"
-                                                class="order__vendor__product-image">
+                                            <img src="{{ $sellerMainImage }}" class="order__vendor__product-image">
                                         </div>
                                         <div>
                                             <span>{{ $sellerOrderProduct['name'] }}</span>
@@ -154,6 +154,7 @@
                 </article>
             @endforeach
         </section>
+
 
         @if ($storeExists)
             <section class="editor__shop">

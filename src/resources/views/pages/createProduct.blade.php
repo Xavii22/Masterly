@@ -44,8 +44,8 @@
                 </div>
             </section>
             <section>
-                <div>
-                    <h2>Estado</h2>
+                <h2>Estado</h2>
+                <div class="editor__state-content">
                     <label class="editor__state-item">Destacar</label>
                     <label class="editor__state-item editor__state-enable">Habilitar</label>
                     <label class="switch editor__state-item">
