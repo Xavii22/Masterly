@@ -19,7 +19,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $name = fake()->name;
-        $username = str_replace(' ', '.', strtolower($name)) . '@example.com';
+        $username = str_replace(['.', ' '], '', strtolower($name)) . '@example.com';
 
         return [
             'name' => $name,

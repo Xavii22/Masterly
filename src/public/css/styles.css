@@ -544,6 +544,7 @@ footer {
   background-color: #2D3339;
   display: grid;
   align-items: center;
+  justify-items: center;
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -790,18 +791,36 @@ input:focus + .slider {
   background-color: rgba(255, 255, 255, 0.5);
   background-position: center center;
 }
+@media screen and (max-width: 700px) {
+  .introduction {
+    padding: 50px;
+  }
+}
 .introduction__title {
   align-self: center;
   color: #FFFFFF;
-  font-size: 6rem;
-  background-color: rgb(0, 0, 0);
+  font-size: 8rem;
   border-radius: 10px;
   padding: 0px 10px;
-  color: #2596BE;
+}
+@media screen and (max-width: 700px) {
+  .introduction__title {
+    font-size: 4rem;
+  }
+}
+.introduction__container {
+  display: flex;
+  justify-content: center;
+  min-width: 50%;
 }
 .introduction__text {
   color: #FFFFFF;
   font-size: 1.5rem;
+}
+@media screen and (max-width: 700px) {
+  .introduction__text {
+    font-size: 1rem;
+  }
 }
 .introduction__button {
   width: fit-content;
@@ -837,7 +856,7 @@ input:focus + .slider {
 }
 @media screen and (max-width: 700px) {
   .tag__products {
-    gap: 10px;
+    gap: 2px;
     justify-content: center;
   }
 }
@@ -1004,7 +1023,12 @@ input:focus + .slider {
 }
 
 .form-login-register {
-  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  gap: 25px;
 }
 
 .title-login-register {
@@ -1013,14 +1037,26 @@ input:focus + .slider {
   font-size: 40px;
 }
 
-p {
+.input-login-register {
+  height: 40px;
+  font-size: 13px;
+  width: 35%;
+  min-width: 300px;
+  outline-color: #2596BE;
+}
+
+.login-register-link {
   text-align: center;
+  color: #2596BE !important;
 }
 
 .login-register-link {
   text-decoration: none;
   color: #2596BE;
-  font-weight: 600;
+}
+
+.button-login-register {
+  width: 300px;
 }
 
 .buttons {
@@ -1060,59 +1096,68 @@ p {
 }
 .details__description {
   font-size: 15px;
+  word-wrap: break-word;
+  word-break: break-all;
   color: #828282;
+}
+@media screen and (max-width: 1000px) {
+  .details {
+    grid-column: 1;
+  }
 }
 
 .image {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   grid-row: 1/span 2;
 }
-.image img {
-  display: block;
-  width: 650px;
-  height: 600px;
-  object-fit: cover;
-  transition: 0.2s;
-}
-.image img__slider {
-  position: sticky;
-  top: 40px;
-}
-.image img__slider-image {
-  width: 650px;
+.image__slider-image {
+  width: 500px;
   height: 500px;
   object-fit: cover;
   transition: 0.2s;
 }
-.image img__slider-left, .image img__slider-right {
+.image__slider {
+  position: sticky;
+  top: 40px;
+}
+.image__slider-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.image__slider-left, .image__slider-right {
   padding: 5px;
-  position: relative;
-  top: 290px;
   border-radius: 100%;
   cursor: pointer;
 }
-.image img__slider-left:hover, .image img__slider-right:hover {
+.image__slider-left:hover, .image__slider-right:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.image img__slider-right {
-  left: 590px;
-}
-.image img__slider-left {
+.image__slider-left {
   transform: rotate(180deg);
-  left: 0px;
+}
+@media screen and (max-width: 1000px) {
+  .image {
+    grid-row: 1/span 1;
+    grid-column: 1/span 2;
+  }
 }
 
 .product {
   display: grid;
-  grid-template-columns: 5fr 4fr;
-  grid-template-rows: repeat(2, auto-fit);
-  flex: 1;
-  column-gap: 20px;
+  grid-template-columns: 4fr 5fr;
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 40px;
   row-gap: 80px;
   padding: 0 9%;
   margin-top: 40px;
+}
+@media screen and (max-width: 1000px) {
+  .product {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cart {
@@ -1412,7 +1457,7 @@ p {
 .editor__save {
   margin: 10px 0px;
   padding: 10px;
-  width: 130px;
+  min-width: 130px;
   height: 40px;
   justify-self: end;
   border: none;
@@ -1440,10 +1485,6 @@ p {
 .editor__save:hover {
   background-color: #2596BE;
   color: white;
-}
-
-input[type=file] {
-  display: none;
 }
 
 .order {

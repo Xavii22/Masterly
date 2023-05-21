@@ -124,6 +124,7 @@
                     @endif
                     @foreach ($products as $product)
                         @php
+                            $productSubcategory = $product->categories()->value('name');
                             $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
                         @endphp
                         
@@ -134,7 +135,7 @@
                             <div class="product-element__info">
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>
                                 <span class="product-element__info-price">{{ $product->price }} €</span>
-                                <span class="product-element__info-category">{{ $product->name }}</span>
+                                <span class="product-element__info-category">{{ $productSubcategory }}</span>
                                 <img class="product-element__cart cart-listener" id="{{ $product->id }}"
                                     src="{{ asset('images/cart.png') }}">
                             </div>

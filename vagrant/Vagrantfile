@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
     mkdir -p storage/ssl
     cp vagrant/botiga.crt storage/ssl/
     cp vagrant/botiga.key storage/ssl/
+    echo "172.16.50.60 apibotiga.com" | sudo tee -a /etc/hosts >/dev/null
     sudo systemctl restart apache2
     cd src
     php artisan serve --port=8000

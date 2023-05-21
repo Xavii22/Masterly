@@ -29,11 +29,13 @@ class CreateProductController extends Controller
         $categoryId = Category::where('name', $request->input('subcategory'))->value('id');
         $product->categories()->attach($categoryId);
 
-        $client = new Client();
+        $client = new Client([
+            'verify' => false,
+        ]);
 
         $main = true;
         foreach ($request->file() as $image) {
-            $client->post('http://localhost:8080/api/store', [
+            $client->post(env('API_URL') . '/api/store', [
                 'json' => [
                     'image' => base64_encode(file_get_contents($image->path())),
                     'main' => $main,

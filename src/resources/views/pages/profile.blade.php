@@ -148,7 +148,7 @@
         @if ($storeExists)
             <section class="editor__shop">
                 <h2 class="editor__shop-title">Tienda</h2>
-                <a type="submit" class="editor__save editor__shop-save">Administrar tienda</a>
+                <a href="" type="submit" class="editor__save editor__shop-save">Administrar tienda</a>
             @else
                 <form action="{{ route('pages.createStore') }}" method="POST" enctype="multipart/form-data">
                     @csrf

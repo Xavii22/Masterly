@@ -4,7 +4,7 @@
 
 == 1. Introducción
 
-Este trabajo está elaborado por los alumnos de segundo año de DAW del instituto Nicolau Copèrnic Xavier Carné, Oscar Alonso y Samuel García. 
+Este trabajo está elaborado por los alumnos de segundo año de DAW del instituto Nicolau Copèrnic Xavi Carné y Oscar Alonso. 
 
 Nuestra aplicación se llama "Masterly" será elaborada en lo que queda del curso de DAW2T. El propósito central de nuestro proyecto es la creación de una página web que sirva para comprar productos artesanales.
 
@@ -63,7 +63,6 @@ Esta semana, al haber dispuesto de únicamente 2 días de trabajo, no ha sido po
 * Enviación email de verificación (Samuel | 3h previstas &Rightarrow; 5h reales)
 * Implementación medidas rem (Oscar y Xavi | 1h prevista &Rightarrow; 1h real)
 
-
 === Semana 6
 
 * Relación productos aleatorios y tags (Xavi | 5h previstas &Rightarrow; 4h reales)
@@ -85,12 +84,14 @@ Esta semana, al haber dispuesto de únicamente 2 días de trabajo, no ha sido po
 
 == 6. Manual de instalación/distribución
 
+Dispones de dos maneras con las que poder utilizar la aplicación, mediante tu máquina local o mediante la utilización de entornos Vagrant.
+
 == 7. Manual de usuario
 
 == 8. Conclusiones
 
 == 9. Líneas futuras
 
- - Realizar un Register dónde se le pida al usuario los mínimos datos posibles (únicamente nombre de usuario) y implementar en nuestra página una función para pedirle más datos (correo electrónico y contraseña)
+feedback al usuario, diseño con js
 
 == 10. Glosario

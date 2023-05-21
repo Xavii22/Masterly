@@ -6,7 +6,9 @@
     @include('layouts.header')
     <section class="introduction">
         <h1 class="introduction__title">MASTERLY</h1>
-        <p class="introduction__text">Mensaje inspirador que Oscar se encargará de poner</p>
+        <div class="introduction__container">
+            <p class="introduction__text">Los mejores productos artesanales</p>
+        </div>
         <a class="button button--blue introduction__button" href="{{ route('pages.home') }}">COMPRA AHORA</a>
     </section>
     @foreach ($tags as $tag)

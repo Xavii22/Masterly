@@ -120,7 +120,7 @@ class EditProductControllerTest extends TestCase
     public function testImageManager()
     {
         $clientMock = Mockery::mock(Client::class);
-        $clientMock->shouldReceive('get')->with('http://localhost:8080/api/test-endpoint')->once()->andReturnSelf();
+        $clientMock->shouldReceive('get')->with(env('API_URL') . '/api/test-endpoint')->once()->andReturnSelf();
         $clientMock->shouldReceive('getBody')->once()->andReturn(json_encode(['image1', 'image2']));
         $this->app->instance(Client::class, $clientMock);
 

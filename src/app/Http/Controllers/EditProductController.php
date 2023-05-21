@@ -108,8 +108,10 @@ class EditProductController extends Controller
 
     public function imageManager(Request $endpoint)
     {
-        $client = new Client();
-        $response = $client->get('http://localhost:8080/api/' . $endpoint);
+        $client = new Client([
+            'verify' => false,
+        ]);
+        $response = $client->get(env('API_URL') . '/api/' . $endpoint);
         $images = json_decode($response->getBody());
         
     }
