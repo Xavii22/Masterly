@@ -85,7 +85,7 @@ class HomeController extends Controller
 
                 $currentStoreName = $currentStore->name;
             } catch (Exception $e) {
-                return view('errors.storeNotFound');
+                return ErrorController::storeNotFound();
             }
 
             $storeLogo = Store::getLogo($currentStoreId);
@@ -187,7 +187,7 @@ class HomeController extends Controller
         try {
             $product = Product::findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            ErrorController::productNotFound();
+            return ErrorController::productNotFound();
         }
         $subCategoryName = $product->categories()->where('product_id', $product->id)->pluck('name')[0];
         $subCategoryParentId = Category::where('name', $subCategoryName)->value('parent_id');

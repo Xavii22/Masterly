@@ -37,6 +37,18 @@ class OrderController extends Controller
         }
     }
 
+    private function checkIfUserOwnsAnyProduct($cartProducts)
+    {
+        $currentUserStoreId = Store::where('user_id', Auth::id())->value('id');
+
+        foreach ($cartProducts as $cartProduct) {
+            if ($cartProduct->store_id == $currentUserStoreId) {
+                Log::error('The product the user is trying to buy is from his own store.');
+                return redirect()->route('pages.home');
+            }
+        }
+    }
+
     private function getOrderNumber()
     {
         $orders = Order::all();
@@ -94,6 +106,7 @@ class OrderController extends Controller
             return $redirectResponse;
         }
 
+        $this->checkIfUserOwnsAnyProduct($this->getCartProducts());
         $this->checkIfCartProductsAreSold($this->getCartProducts());
         $this->createOrderRegisters($this->getCartProducts());
         $this->deleteProductsFromCart();

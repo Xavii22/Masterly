@@ -9,13 +9,14 @@ class ErrorController extends Controller
 {
     public static function productNotFound()
     {
-        $products = Product::inRandomOrder()->limit(8)->get();
+        $products = Product::inRandomOrder()->limit(10)->get();
         return view('errors.productNotFound', compact('products'));
     }
 
-    public function storeNotFound()
+    public static function storeNotFound()
     {
-        return view('errors.storeNotFound');
+        $products = Product::inRandomOrder()->limit(10)->get();
+        return view('errors.storeNotFound', compact('products'));
     }
 
     public function defaultError()

@@ -7,6 +7,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     mysql -uroot -psecret -e "CREATE DATABASE IF NOT EXISTS masterly CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    mysql -uroot -psecret -e "UPDATE mysql.user SET Host='%' WHERE Host='localhost' AND User='root';"
+    mysql -uroot -psecret -e "FLUSH PRIVILEGES;"
 
     sudo mkdir -p /etc/apache2/ssl
     sudo chown -R www-data:www-data /etc/apache2/ssl
