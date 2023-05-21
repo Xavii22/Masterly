@@ -22,14 +22,16 @@
             <section>
                 <h2>Imágenes</h2>
                 @for ($i = 1; $i <= env('MAX_IMAGES'); $i++)
+                    @if ($i == 1)
+                        <h4>Imagen Principal</h4>
+                    @elseif ($i == 2)
+                        <h4>Imagenes Secundarias</h4>
+                    @endif
+
                     <input type="file" name="image_{{ $i }}" id="image_{{ $i }}"
                         onchange="validateImage(event, {{ $i }})">
                     <span id="error_{{ $i }}" style="color: red;"></span>
                 @endfor
-                {{-- <input type="file" class="editor__data__logo-input" name="image" id="file-image" multiple>
-                <div class="image-preview"></div>
-                <label class="editor__data__logo-upload-label" for="file-image">Seleccionar imagen</label>
-                <span class="error-message"></span> --}}
             </section>
             <section>
                 <div>
