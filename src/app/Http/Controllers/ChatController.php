@@ -21,10 +21,10 @@ class ChatController extends Controller
     public function getMessageValues(Request $request)
     {
         $this->createMessage($request->input('message'), $request->input('type'), $request->input('orderId'));
-
+        
         $orderId = $request->input('orderId');
         $userType = $request->input('type');
-
+        
         session(['orderId' => $orderId, 'userType' => $userType]);
 
         return redirect()->route('pages.chat');

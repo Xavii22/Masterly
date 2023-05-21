@@ -14,20 +14,38 @@
     background-image: url("../images/landing-background.png");
     background-position: center center;
 
+    @media screen and (max-width: 700px) {
+        padding: 50px;
+    }
+
     &__title {
         align-self: center;
+        color: $primary-color;
         font-size: 6rem;
-        background-color: $secondary-color;
         border-radius: 10px;
         padding: 0px 10px;
-        color: $primary-color;
+		background-color: $secondary-color;
+
+        @media screen and (max-width: 700px) {
+            font-size: 4rem;
+        }
+    }
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        min-width: 50%;
     }
 
     &__text {
         align-self: center;
         color: $primary-color;
         font-size: 1.5rem;
-        font-weight: bold;
+		font-weight: bold;
+
+        @media screen and (max-width: 700px) {
+            font-size: 1rem;
+        }
     }
 
     &__button {

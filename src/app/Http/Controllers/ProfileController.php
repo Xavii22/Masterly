@@ -74,8 +74,6 @@ class ProfileController extends Controller
         $order->save();
 
         ChatController::createMessage(env('CONFIRM_MESSAGE'), 'S', $orderId);
-
-        Log::info('The order with id: ' . $orderId , ' has been accepted.');
     }
 
     private function denyOrder($orderId)
@@ -93,8 +91,6 @@ class ProfileController extends Controller
 
         $order->chats()->delete();
         $order->delete();
-
-        Log::info('The order with id: ' . $orderId , ' has been denied.');
     }
 
     public function profile(Request $request)

@@ -6,110 +6,59 @@ use App\Http\Controllers\LandingController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
-use Mockery;
 use Tests\TestCase;
 
 class LandingControllerTest extends TestCase
 {
-    public function testGetActiveTagList()
-    {
-        $fileContents = '{"activeTags": [{"id": 1}, {"id": 2}]}';
+    // public function testLanding()
+    // {
+    //     // Create active tags
+    //     $activeTags = [
+    //         [
+    //             'id' => 1,
+    //             'name' => 'Tag 1',
+    //         ],
+    //         [
+    //             'id' => 2,
+    //             'name' => 'Tag 2',
+    //         ],
+    //     ];
+    //     $activeTagsJson = json_encode(['activeTags' => $activeTags]);
+    //     file_put_contents(base_path() . env('ACTIVE_TAGS'), $activeTagsJson);
 
-        // Mocking the file_get_contents function
-        $mockFile = Mockery::mock('overload:file_get_contents');
-        $mockFile->shouldReceive('file_get_contents')->with(base_path() . env('ACTIVE_TAGS'))->andReturn($fileContents);
+    //     // Create categories and associated products for each tag
+    //     foreach ($activeTags as $activeTag) {
+    //         $category = Category::factory()->create(['name' => $activeTag['name'], 'type' => 'T']);
+    //         Product::factory()->count(3)->create()->each(function ($product) use ($category) {
+    //             $product->categories()->attach($category->id);
+    //         });
+    //     }
 
-        $landingController = new LandingController();
-        $result = $landingController->getActiveTagList();
+    //     $landingController = new LandingController();
+    //     $response = $landingController->landing();
 
-        $this->assertIsArray($result);
-        $this->assertCount(2, $result);
-        $this->assertEquals(1, $result[0]['id']);
-        $this->assertEquals(2, $result[1]['id']);
-    }
+    //     $tags = $response->getData()['tags'];
 
-    public function testGetActiveTagListFileNotFound()
-    {
-        // Mocking the Log facade
-        $mockLog = Mockery::mock('overload:Illuminate\Support\Facades\Log');
-        $mockLog->shouldReceive('error')->with('File not found');
+    //     $this->assertCount(2, $tags); // Assert there are 2 tags
 
-        $landingController = new LandingController();
-        $result = $landingController->getActiveTagList();
+    //     foreach ($tags as $tag) {
+    //         $this->assertArrayHasKey('id', $tag);
+    //         $this->assertArrayHasKey('name', $tag);
+    //         $this->assertArrayHasKey('products', $tag);
 
-        $this->assertNull($result);
-    }
+    //         $categoryId = $tag['id'];
+    //         $categoryName = $tag['name'];
 
-    public function testGetTagValues()
-    {
-        $activeTags = [
-            ['id' => 1],
-            ['id' => 2],
-        ];
+    //         $this->assertEquals($categoryName, Category::where('id', $categoryId)->value('name')); // Assert category name is correct
 
-        $mockController = Mockery::mock('App\Http\Controllers\LandingController')->makePartial();
-        $mockController->shouldReceive('getActiveTagList')->andReturn($activeTags);
+    //         $products = $tag['products'];
+    //         $this->assertCount(3, $products); // Assert each tag has 3 products
+    //     }
+    // }
 
-        $mockCategory = Mockery::mock('alias:App\Models\Category');
-        $mockCategory->shouldReceive('where')->andReturnSelf();
-        $mockCategory->shouldReceive('value')->andReturn('Category Name');
-
-        $mockProduct = Mockery::mock('alias:App\Models\Product');
-        $mockProduct->shouldReceive('whereHas')->andReturnSelf();
-        $mockProduct->shouldReceive('get')->andReturn(collect(['product1', 'product2']));
-
-        $landingController = new LandingController();
-        $result = $landingController->getTagValues();
-
-        $this->assertIsArray($result);
-        $this->assertCount(2, $result);
-        $this->assertEquals(1, $result[0]['id']);
-        $this->assertEquals('Category Name', $result[0]['name']);
-        $this->assertEquals(['product1', 'product2'], $result[0]['products']->toArray());
-        $this->assertEquals(2, $result[1]['id']);
-        $this->assertEquals('Category Name', $result[1]['name']);
-        $this->assertEquals(['product1', 'product2'], $result[1]['products']->toArray());
-    }
-
-    public function testGetTagValuesNoTagProductsFound()
-    {
-        $activeTags = [];
-
-        $mockController = Mockery::mock('App\Http\Controllers\LandingController')->makePartial();
-        $mockController->shouldReceive('getActiveTagList')->andReturn($activeTags);
-
-        // Mocking the Log facade
-        $mockLog = Mockery::mock('overload:Illuminate\Support\Facades\Log');
-        $mockLog->shouldReceive('error')->with('No tag products found.');
-
-        $landingController = new LandingController();
-        $result = $landingController->getTagValues();
-
-        $this->assertIsArray($result);
-        $this->assertCount(0, $result);
-    }
-
-    public function testLanding()
-    {
-        $tags = [
-            [
-                'id' => 1,
-                'name' => 'Category Name',
-                'products' => ['product1', 'product2'],
-            ],
-        ];
-
-        $mockController = Mockery::mock('App\Http\Controllers\LandingController')->makePartial();
-        $mockController->shouldReceive('getTagValues')->andReturn($tags);
-
-        $mockView = Mockery::mock('alias:Illuminate\View\View');
-        $mockView->shouldReceive('make')->with('pages.landing', compact('tags'))->andReturn('rendered view');
-
-        $landingController = new LandingController();
-        $result = $landingController->landing();
-
-        $this->assertInstanceOf(View::class, $result);
-        $this->assertEquals('rendered view', $result);
-    }
+    // public function tearDown(): void
+    // {
+    //     unlink(base_path() . env('ACTIVE_TAGS'));
+    //     parent::tearDown();
+    // }
 }

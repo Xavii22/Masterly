@@ -16,9 +16,12 @@
             </div>
             <div class="products">
                 @foreach ($products as $product)
+                    @php
+                        $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
+                    @endphp
                     <article class="product-element">
                         <a href="{{ route('pages.product', [$product->id]) }}">
-                            <img class="product-element__image" src="{{ $product->image }}">
+                            <img class="product-element__image" src="{{ $mainImage }}">
                         </a>
                         <div class="product-element__info">
                             <h3 class="product-element__info-name">{{ $product->name }}</h3>

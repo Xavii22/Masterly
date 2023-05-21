@@ -1,69 +1,101 @@
 <?php
 
-namespace Tests\Unit\Controllers;
+namespace Tests\Feature\Controllers;
 
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\OrderController;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
-use Mockery;
-
 
 class OrderControllerTest extends TestCase
 {
-    public function testOrderWithUserNotLoggedIn()
+    public function testOrderMethodWhenUserIsNotLoggedIn()
     {
-        $mockAuth = $this->mock(Auth::class);
-        $mockAuth->shouldReceive('check')->once()->andReturn(false);
-
-        $mockLog = $this->mock(Log::class);
-        $mockLog->shouldReceive('error')->once()->with('The user needs to be logged in order to make an order.');
-
-        $mockRedirect = $this->mock(Redirect::class);
-        $mockRedirect->shouldReceive('route')->once()->with('pages.login')->andReturn('redirect response');
-
-        $orderController = new OrderController();
-        $result = $orderController->order();
-
-        $this->assertEquals('redirect response', $result);
+        $response = $this->get('/order');
+        
+        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertRedirect('/login');
     }
 
-    public function testOrderWithCartProductsSold()
+    public function testOrderMethodWhenCartHasSoldProducts()
     {
-        $mockAuth = $this->mock(Auth::class);
-        $mockAuth->shouldReceive('check')->once()->andReturn(true);
-        $mockAuth->shouldReceive('id')->once()->andReturn(1);
+        $user = User::factory()->create();
+        $cart = Cart::factory()->create(['user_id' => $user->id]);
+        $product = Product::factory()->create(['sold' => true]);
 
-        $mockProduct1 = $this->mock(Product::class);
-        $mockProduct2 = $this->mock(Product::class);
+        $this->actingAs($user);
 
-        $mockProduct1->sold = false;
-        $mockProduct2->sold = true;
+        $response = $this->post('/order');
 
-        $mockCart = $this->mock(Cart::class);
-        $mockCart->shouldReceive('where')->once()->with('user_id', 1)->andReturnSelf();
-        $mockCart->shouldReceive('value')->once()->with('id')->andReturn(1);
+        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertRedirect('/home');
+    }
 
-        $mockProductList = collect([$mockProduct1, $mockProduct2]);
-        $mockProduct = $this->mock(Product::class);
-        $mockProduct->shouldReceive('getProductListFromSpecificCart')->once()->with(1)->andReturn($mockProductList);
+    public function testOrderMethodWhenUserOwnsProduct()
+    {
+        $user = User::factory()->create();
+        $cart = Cart::factory()->create(['user_id' => $user->id]);
+        $store = Store::factory()->create(['user_id' => $user->id]);
+        $product = Product::factory()->create(['store_id' => $store->id]);
 
-        $mockLog = $this->mock(Log::class);
-        $mockLog->shouldReceive('error')->once()->with('The product the user is trying to buy is already sold.');
+        $this->actingAs($user);
 
-        $mockRedirect = $this->mock(Redirect::class);
-        $mockRedirect->shouldReceive('route')->once()->with('pages.home')->andReturn('redirect response');
+        $response = $this->post('/order');
 
-        $orderController = new OrderController();
-        $result = $orderController->order();
+        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertRedirect('/home');
+    }
 
-        $this->assertEquals('redirect response', $result);
+    public function testOrderMethodWhenCartIsValid()
+    {
+        $user = User::factory()->create();
+        $cart = Cart::factory()->create(['user_id' => $user->id]);
+        $store = Store::factory()->create(['user_id' => 999]); // Different user ID
+        $product = Product::factory()->create(['store_id' => $store->id]);
+        $orderNumber = Order::count() + 1;
+
+        $this->actingAs($user);
+
+        $response = $this->post('/order');
+
+        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertRedirect('/home');
+
+        $this->assertDatabaseHas('orders', [
+            'number' => $orderNumber,
+            'buyer_id' => $user->id,
+            'seller_id' => $store->user_id,
+        ]);
+
+        $this->assertDatabaseHas('order_product', [
+            'order_id' => Order::where('number', $orderNumber)->first()->id,
+            'product_id' => $product->id,
+        ]);
+
+        $this->assertDatabaseHas('products', [
+            'id' => $product->id,
+            'enabled' => false,
+            'sold' => true,
+        ]);
+
+        $this->assertDatabaseMissing('cart_product', [
+            'cart_id' => $cart->id,
+            'product_id' => $product->id,
+        ]);
+    }
+
+    // Add more test cases for other methods in the OrderController
+
+    // ...
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Perform any additional setup required for the tests
     }
 }

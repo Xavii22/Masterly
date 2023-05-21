@@ -17,7 +17,7 @@ class StoreSeeder extends Seeder
 
         do {
             $storeName = fake()->company();
-        } while (Str::contains($storeName, '-') || Str::contains($storeName, ','));
+        } while (Str::contains($storeName, '-') || Str::contains($storeName, ',') || Str::contains($storeName, '.'));
 
         return $storeName;
     }

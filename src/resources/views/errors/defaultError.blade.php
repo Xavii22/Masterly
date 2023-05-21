@@ -7,10 +7,13 @@
         @include('layouts.header')
         <section>
             <div>
-                <img src="{{ asset('images/error.png') }}">
+                <img class="error__image" src="{{ asset('images/error.png') }}">
             </div>
-            <div>
-                <h1>Ups, parece que ha habido un error en la página</h1>
+            <div class="error__container">
+                <div class="error__message">
+                    <h1>Ups, parece que ha habido un error en la página</h1>
+                </div>
+                <a class="button button--blue introduction__button" href="{{ route('pages.landing') }}">VOLVER AL INICIO</a>
             </div>
         </section>
         @include('layouts.footer')

@@ -1,38 +1,34 @@
 <?php
 
-namespace Tests\Unit\Controllers;
+namespace Tests\Feature\Controllers;
 
-use App\Http\Controllers\ChatController;
+use Tests\TestCase;
 use App\Models\Chat;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use Mockery;
-
+use App\Http\Controllers\ChatController;
 
 class ChatControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testCreateMessage()
     {
         $message = 'Test message';
-        $type = 'info';
+        $type = 'S';
         $orderId = 1;
 
-        ChatController::createMessage($message, $type, $orderId);
+        $controller = new ChatController();
+        $controller->createMessage($message, $type, $orderId);
 
-        $chat = Chat::latest()->first();
-
-        $this->assertEquals($message, $chat->message);
-        $this->assertEquals($type, $chat->type);
-        $this->assertEquals($orderId, $chat->order_id);
+        $this->assertDatabaseHas('chats', [
+            'message' => $message,
+            'type' => $type,
+            'order_id' => $orderId,
+        ]);
     }
 
     public function testGetMessageValues()
     {
         $message = 'Test message';
-        $type = 'info';
+        $type = 'S';
         $orderId = 1;
 
         $request = Request::create('/path', 'POST', [
@@ -40,11 +36,11 @@ class ChatControllerTest extends TestCase
             'type' => $type,
             'orderId' => $orderId,
         ]);
+        
+        $controller = new ChatController();
+        $response = $controller->getMessageValues($request);
 
-        $chatController = new ChatController();
-        $response = $chatController->getMessageValues($request);
-
-        $this->assertEquals(302, $response->getStatusCode()); // Check redirect status code
-        $this->assertEquals('pages.chat', $response->getTargetUrl()); // Check redirect route
+        $this->assertEquals($orderId, session('orderId'));
+        $this->assertEquals($type, session('userType'));
     }
 }

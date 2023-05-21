@@ -63,6 +63,16 @@ class Product extends Model
             ->withQueryString();
     }
 
+    public static function getProductListSpecificStoreForManagement($storeId, $sortBy, $sortOrder, $important)
+    {
+        return Product::where('store_id', $storeId)
+            ->where('sold', false)
+            ->where('important', $important)
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate(env('PAGINATE_NUMBER'))
+            ->withQueryString();
+    }
+
     public static function getProductListFromSpecificCart($cartId)
     {
         return Product::whereHas('carts', function ($query) use ($cartId) {

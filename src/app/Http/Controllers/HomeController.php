@@ -84,8 +84,14 @@ class HomeController extends Controller
                     return redirect()->route('pages.home');
                 }
 
-                $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);
-                $importantProducts = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, true);
+                if (Route::currentRouteName() == 'pages.manageStore') {
+                    $products = Product::getProductListSpecificStoreForManagement($currentStoreId, $sortBy, $sortOrder, false);
+                    $importantProducts = Product::getProductListSpecificStoreForManagement($currentStoreId, $sortBy, $sortOrder, true);
+                } else {
+                    $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);
+                    $importantProducts = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, true);
+                }
+
 
                 $currentStoreName = $currentStore->name;
             } catch (Exception $e) {
@@ -102,10 +108,11 @@ class HomeController extends Controller
 
     public function getMainImage($productId)
     {
-        $client = new Client();
-        $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
+        $client = new Client([
+            'verify' => false,
+        ]);
+        $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
         $data = json_decode($productImages->getBody(), true);
-
         foreach ($data['data'] as $image) {
             if ($image['main'] == 1) {
                 return $image['path'];
@@ -115,8 +122,10 @@ class HomeController extends Controller
 
     public function getImages($productId)
     {
-        $client = new Client();
-        $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
+        $client = new Client([
+            'verify' => false,
+        ]);
+        $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
         $data = json_decode($productImages->getBody(), true);
 
         $paths = array();

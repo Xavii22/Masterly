@@ -6,54 +6,6 @@
     @include('layouts.header')
     <main>
         <div class="home">
-            <aside class="categories">
-                <div class="categories__path">
-                    @if ($category != null && $childCategoryName == '')
-                        <a href="{{ route('pages.store', ['id' => $id]) }}">Inicio</a>
-                        <span>/</span>
-                        <a
-                            href="{{ route('pages.store', ['id' => $id, 'query' => $query, 'category' => $category]) }}">{{ $parentCategoryName }}</a>
-                    @elseif ($childCategoryName != '')
-                        <a href="{{ route('pages.store', ['id' => $id]) }}">Inicio</a>
-                        <span>/</span>
-                        <a
-                            href="{{ route('pages.store', ['id' => $id, 'query' => $query, 'category' => $parentCategory]) }}">{{ $parentCategoryName }}</a>
-                        <span>/</span>
-                        <a
-                            href="{{ route('pages.store', ['id' => $id, 'query' => $query, 'category' => $category]) }}">{{ $childCategoryName }}</a>
-                    @endif
-                </div>
-                <div class="categories__content">
-                    <div class="categories__title">
-                        @if ($childCategories != '')
-                            <h2>Subcategorias</h2>
-                        @else
-                            <h2>Categorias</h2>
-                        @endif
-                    </div>
-                    <div class="categories__list">
-                        @if ($childCategories != '')
-                            @foreach ($childCategories as $childCategory)
-                                <div class="category">
-                                    <a class="category__content category__text"
-                                        href="{{ route('pages.store', ['id' => $id, 'query' => $query, 'sort' => 'recent', 'category' => $childCategory]) }}">{{ $childCategory->name }}</a>
-                                    <img class="categories__icon category__content"
-                                        src="{{ asset('images/right-arrow.png') }}">
-                                </div>
-                            @endforeach
-                        @else
-                            @foreach ($parentCategories as $parentCategory)
-                                <div class="category">
-                                    <a class="category__content category__text"
-                                        href="{{ route('pages.store', ['id' => $id, 'query' => $query, 'sort' => 'recent', 'category' => $parentCategory]) }}">{{ $parentCategory->name }}</a>
-                                    <img class="categories__icon category__content"
-                                        src="{{ asset('images/right-arrow.png') }}">
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-            </aside>
             <section class="products-parent">
                 @if ($products->total() > 0 || $importantProducts->total() > 0)
                     <div class="products-title">
@@ -133,7 +85,7 @@
                     </div> --}}
                 </div>
                 @if ($products->total() <= 0 && $importantProducts->total() <= 0)
-                    <h2>Ningún artículo corresponde a tu búsqueda</h2>
+                    <h2>Esta tienda no tiene ningún producto</h2>
                 @endif
                 @if ($importantProducts->total() > 0)
                     <h2 class="product-featured">Artículos destacados</h2>
@@ -141,7 +93,7 @@
                         @foreach ($importantProducts as $importantProduct)
                             <article class="product-element">
                                 @if (Route::currentRouteName() == 'pages.manageStore')
-                                    <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}">editar</a>
+                                    <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}"><img class="product-element__cart" src="{{ asset('images/edit.png') }}"></a>
                                 @endif
                                 @php
                                     $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($importantProduct->id);
@@ -167,10 +119,11 @@
                     @foreach ($products as $product)
                         <article class="product-element">
                             @if (Route::currentRouteName() == 'pages.manageStore')
-                                <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}">editar</a>
+                                <a href="{{ route('pages.editProduct', [$product->id]) }}"><img class="product-element__cart" src="{{ asset('images/edit.png') }}"></a>
                             @endif
                             @php
                                 $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
+                                $productSubcategory = $product->categories()->value('name');
                             @endphp
                             <a href="{{ route('pages.product', [$product->id]) }}">
                                 <img class="product-element__image" src="{{ $mainImage }}">
@@ -178,7 +131,7 @@
                             <div class="product-element__info">
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>
                                 <span class="product-element__info-price">{{ $product->price }} €</span>
-                                <span class="product-element__info-category">{{ $product->name }}</span>
+                                <span class="product-element__info-category">{{ $productSubcategory }}</span>
                                 @if (Route::currentRouteName() != 'pages.manageStore')
                                     <img class="product-element__cart cart-listener" id="{{ $product->id }}"
                                         src="{{ asset('images/cart.png') }}">

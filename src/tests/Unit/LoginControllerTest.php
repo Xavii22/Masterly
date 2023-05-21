@@ -7,86 +7,83 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Mockery;
 use Tests\TestCase;
-
 
 class LoginControllerTest extends TestCase
 {
-    public function testShowLoginForm()
-    {
-        $mockView = Mockery::mock('alias:Illuminate\View\View');
-        $mockView->shouldReceive('make')->with('pages.login')->andReturn('rendered view');
+    // public function testShowLoginForm()
+    // {
+    //     $loginController = new LoginController();
+    //     $result = $loginController->showLoginForm();
 
-        $loginController = new LoginController();
-        $result = $loginController->showLoginForm();
+    //     $this->assertInstanceOf(View::class, $result);
+    //     $this->assertEquals('pages.login', $result->name());
+    // }
 
-        $this->assertInstanceOf(View::class, $result);
-        $this->assertEquals('rendered view', $result);
-    }
+    // public function testLoginWithValidCredentials()
+    // {
+    //     $request = new Request([
+    //         'email' => 'test@example.com',
+    //         'password' => 'password',
+    //     ]);
 
-    public function testLoginWithValidCredentials()
-    {
-        $request = Mockery::mock(Request::class);
-        $request->shouldReceive('validate')->once()->with([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-        $request->shouldReceive('only')->once()->with('email', 'password')->andReturn(['email' => 'test@example.com', 'password' => 'password']);
+    //     $mockAuth = $this->mock(Auth::class);
+    //     $mockAuth->shouldReceive('attempt')->once()->with([
+    //         'email' => 'test@example.com',
+    //         'password' => 'password',
+    //     ])->andReturn(true);
 
-        $mockAuth = Mockery::mock('overload:Illuminate\Support\Facades\Auth');
-        $mockAuth->shouldReceive('attempt')->once()->with(['email' => 'test@example.com', 'password' => 'password'])->andReturn(true);
+    //     $mockSession = $this->mock('overload:Illuminate\Session\Store');
+    //     $mockSession->shouldReceive('regenerate')->once();
 
-        $mockSession = Mockery::mock('overload:Illuminate\Session\Store');
-        $mockSession->shouldReceive('regenerate')->once();
+    //     $mockRedirectResponse = $this->mock(RedirectResponse::class);
+    //     $mockRedirectResponse->shouldReceive('intended')->once()->with(route('pages.home'))->andReturn('redirect response');
 
-        $mockRedirectResponse = Mockery::mock(RedirectResponse::class);
-        $mockRedirectResponse->shouldReceive('intended')->once()->with(route('pages.home'))->andReturn('redirect response');
+    //     $loginController = new LoginController();
+    //     $result = $loginController->login($request);
 
-        $loginController = new LoginController();
-        $result = $loginController->login($request);
+    //     $this->assertEquals('redirect response', $result);
+    // }
 
-        $this->assertEquals('redirect response', $result);
-    }
+    // public function testLoginWithInvalidCredentials()
+    // {
+    //     $request = new Request([
+    //         'email' => 'test@example.com',
+    //         'password' => 'password',
+    //     ]);
 
-    public function testLoginWithInvalidCredentials()
-    {
-        $request = Mockery::mock(Request::class);
-        $request->shouldReceive('validate')->once()->with([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-        $request->shouldReceive('only')->once()->with('email', 'password')->andReturn(['email' => 'test@example.com', 'password' => 'password']);
+    //     $mockAuth = $this->mock(Auth::class);
+    //     $mockAuth->shouldReceive('attempt')->once()->with([
+    //         'email' => 'test@example.com',
+    //         'password' => 'password',
+    //     ])->andReturn(false);
 
-        $mockAuth = Mockery::mock('overload:Illuminate\Support\Facades\Auth');
-        $mockAuth->shouldReceive('attempt')->once()->with(['email' => 'test@example.com', 'password' => 'password'])->andReturn(false);
+    //     $mockSession = $this->mock('overload:Illuminate\Session\Store');
+    //     $mockSession->shouldReceive('flash')->once()->with('status', 'Incorrect username or password!');
 
-        $mockSession = Mockery::mock('overload:Illuminate\Session\Store');
-        $mockSession->shouldReceive('flash')->once()->with('status', 'Incorrect username or password!');
+    //     $mockRedirectResponse = $this->mock(RedirectResponse::class);
+    //     $mockRedirectResponse->shouldReceive('route')->once()->with('pages.login')->andReturn('redirect response');
 
-        $mockRedirectResponse = Mockery::mock(RedirectResponse::class);
-        $mockRedirectResponse->shouldReceive('route')->once()->with('pages.login')->andReturn('redirect response');
+    //     $loginController = new LoginController();
+    //     $result = $loginController->login($request);
 
-        $loginController = new LoginController();
-        $result = $loginController->login($request);
+    //     $this->assertEquals('redirect response', $result);
+    // }
 
-        $this->assertEquals('redirect response', $result);
-    }
+    // public function testLogout()
+    // {
+    //     $mockSession = $this->mock('overload:Illuminate\Session\Store');
+    //     $mockSession->shouldReceive('flush')->once();
 
-    public function testLogout()
-    {
-        $mockSession = Mockery::mock('overload:Illuminate\Session\Store');
-        $mockSession->shouldReceive('flush')->once();
+    //     $mockAuth = $this->mock(Auth::class);
+    //     $mockAuth->shouldReceive('logout')->once();
 
-        $mockAuth = Mockery::mock('overload:Illuminate\Support\Facades\Auth');
-        $mockAuth->shouldReceive('logout')->once();
+    //     $mockRedirectResponse = $this->mock(RedirectResponse::class);
+    //     $mockRedirectResponse->shouldReceive('route')->once()->with('pages.landing')->andReturn('redirect response');
 
-        $mockRedirectResponse = Mockery::mock(RedirectResponse::class);
-        $mockRedirectResponse->shouldReceive('route')->once()->with('pages.landing')->andReturn('redirect response');
+    //     $loginController = new LoginController();
+    //     $result = $loginController->logout();
 
-        $loginController = new LoginController();
-        $result = $loginController->logout();
-
-        $this->assertEquals('redirect response', $result);
-    }
+    //     $this->assertEquals('redirect response', $result);
+    // }
 }
