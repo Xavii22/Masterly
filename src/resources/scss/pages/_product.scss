@@ -47,65 +47,71 @@
 
     &__description {
         font-size: 15px;
+        word-wrap: break-word;
+        word-break: break-all;
         color: $tertiary-color;
+    }
+
+    @media screen and (max-width: 1000px) {
+        grid-column: 1;
     }
 }
 
 .image {
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
     grid-row: 1 / span 2;
 
-    img {
-        display: block;
-        width: 650px;
-        height: 600px;
+    &__slider-image {
+        width: 500px;
+        height: 400px;
         object-fit: cover;
         transition: 0.2s;
-        &__slider {
-            position: sticky;
-            top: 40px;
+    }
 
-            &-image {
-                width: 650px;
-                height: 500px;
-                object-fit: cover;
-                transition: 0.2s;
-            }
+    &__slider {
+        position: sticky;
+        top: 40px;
 
-            &-left,
-            &-right {
-                padding: 5px;
-                position: relative;
-                top: 290px;
-                border-radius: 100%;
-                cursor: pointer;
+        &-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
 
-                &:hover {
-                    background-color: rgba(0, 0, 0, 0.1);
-                }
-            }
+        &-left,
+        &-right {
+            padding: 5px;
+            border-radius: 100%;
+            cursor: pointer;
 
-            &-right {
-                left: 590px;
-            }
-
-            &-left {
-                transform: rotate(180deg);
-                left: 0px;
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
             }
         }
+
+        &-left {
+            transform: rotate(180deg);
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 2;
     }
 }
 
 .product {
     display: grid;
-    grid-template-columns: 5fr 4fr;
-    grid-template-rows: repeat(2, auto-fit);
-    flex: 1;
-    column-gap: 20px;
+    grid-template-columns: 4fr 5fr;
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 40px;
     row-gap: 80px;
     padding: 0 9%;
     margin-top: 40px;
+
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: 1fr;
+    }
 }

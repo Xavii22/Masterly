@@ -143,8 +143,11 @@
                                 @if (Route::currentRouteName() == 'pages.manageStore')
                                     <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}">editar</a>
                                 @endif
+                                @php
+                                    $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($importantProduct->id);
+                                @endphp
                                 <a href="{{ route('pages.product', [$importantProduct->id]) }}">
-                                    <img class="product-element__image" src="{{ $importantProduct->image }}">
+                                    <img class="product-element__image" src="{{ $mainImage }}">
                                 </a>
                                 <div class="product-element__info">
                                     <h3 class="product-element__info-name">{{ $importantProduct->name }}</h3>
@@ -164,8 +167,11 @@
                             @if (Route::currentRouteName() == 'pages.manageStore')
                                 <a href="{{ route('pages.editProduct', [$importantProduct->id]) }}">editar</a>
                             @endif
+                            @php
+                                $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($product->id);
+                            @endphp
                             <a href="{{ route('pages.product', [$product->id]) }}">
-                                <img class="product-element__image" src="{{ $product->image }}">
+                                <img class="product-element__image" src="{{ $mainImage }}">
                             </a>
                             <div class="product-element__info">
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>

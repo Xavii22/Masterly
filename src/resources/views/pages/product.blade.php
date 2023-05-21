@@ -11,11 +11,15 @@
                     @php
                         $images = app('App\Http\Controllers\HomeController')->getImages($product->id);
                     @endphp
-                        <img class="image__slider-right" src="{{ asset('images/arrow_image.png') }}" draggable="false" onclick="plusDivs(-1)">
-                        <img class="image__slider-left" src="{{ asset('images/arrow_image.png') }}" draggable="false" onclick="plusDivs(+1)">
-                        @foreach ($images as $image)
-                            <img src="{{ $image }}" class="image__slider-image">
-                        @endforeach
+                    @foreach ($images as $image)
+                        <img src="{{ $image }}" class="image__slider-image">
+                    @endforeach
+                    <div class="image__slider-buttons">
+                        <img class="image__slider-left" src="{{ asset('images/arrow_image.png') }}" draggable="false"
+                            onclick="plusDivs(+1)">
+                        <img class="image__slider-right" src="{{ asset('images/arrow_image.png') }}" draggable="false"
+                            onclick="plusDivs(-1)">
+                    </div>
                 </div>
 
             </section>

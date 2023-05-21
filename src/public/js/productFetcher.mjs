@@ -63,11 +63,11 @@ function createHeading(className, text) {
     return heading;
 }
 
-function createParagraph(className, text) {
-    const span = document.createElement("span");
-    span.classList.add(className);
-    span.textContent = text;
-    return span;
+function createPrice(className, text) {
+    const h3 = document.createElement("h3");
+    h3.classList.add(className);
+    h3.textContent = `${text}€`;
+    return h3;
 }
 
 function addEventListenerTrash(trash, products) {
@@ -89,7 +89,7 @@ async function createProductArticle(item, products) {
     const imageUrl = await fetchProductImage(item.id);
     const imgLink = createLink(`/product/${item.id}`, createImage(imageUrl, "product"));
     const nameLink = createLink(`/product/${item.id}`, createHeading("product-item__name", item.name));
-    const price = createParagraph("product-item__price", item.price);
+    const price = createPrice("product-item__price", item.price);
     const trash = createImage("../images/trash.png", "trash");
     addEventListenerTrash(trash, products);
   

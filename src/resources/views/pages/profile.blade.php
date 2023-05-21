@@ -37,10 +37,6 @@
                     @else
                         {!! userCircle(Auth::user()->name) !!}
                     @endif
-                    <div class="editor__data__logo-upload">
-                        <img class="editor__data__logo-upload-image" src="{{ asset('images/upload.png') }}" alt="">
-                        <label class="editor__data__logo-upload-label" for="file-logoeditor">Seleccionar imagen</label>
-                    </div>
                 </div>
                 <button type="submit" class="editor__save editor__data-save">Guardar</button>
 
@@ -148,24 +144,27 @@
                 </article>
             @endforeach
         </section>
-        <form action="{{ route('pages.createStore') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+
+        @if ($storeExists)
             <section class="editor__shop">
                 <h2 class="editor__shop-title">Tienda</h2>
+                <a type="submit" class="editor__save editor__shop-save">Administrar tienda</a>
+            @else
+                <form action="{{ route('pages.createStore') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <section class="editor__shop">
+                        <h2 class="editor__shop-title">Tienda</h2>
 
-                @if ($storeExists)
-                @else
-                    <div storeExists="editor__shop-content">
-                        <label class="shop-content__label">Nombre tienda</label>
-                        <label class="shop-content__label">Logo tienda</label>
-                        <input class="editor__input" type="text" name="name">
-                        <input type="file" class="editor__input" name="image" id="file-logoShop">
-                        <label class="editor__data__logo-upload-label" for="file-logoShop">Seleccionar imagen</label>
-                        <button class="editor__save editor__shop-save">Crear</button>
-                    </div>
-                @endif
-            </section>
-        </form>
+                        <div storeExists="editor__shop-content">
+                            <label class="shop-content__label">Nombre tienda</label>
+                            <label class="shop-content__label">Logo tienda</label>
+                            <input class="editor__input" type="text" name="name">
+                            <input type="file" class="editor__input" name="image" id="file-logoShop">
+                            <button class="editor__save editor__shop-save">Crear</button>
+                        </div>
+                </form>
+        @endif
+        </section>
     </main>
     @include('layouts.footer')
 

@@ -1,22 +1,40 @@
 // -----------------------------------------------------------------------------
 // This file contains styles that are specific to the login page.
 // -----------------------------------------------------------------------------
-.form-login-register{
-    margin-top: 150px;
+.form-login-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    gap: 25px;
 }
 
-.title-login-register{
+.title-login-register {
     text-align: center;
     color: $secondary-color;
     font-size: 40px;
 }
 
-p{
-    text-align: center;
+.input-login-register {
+    height: 40px;
+    font-size: 13px;
+    width: 35%;
+    min-width: 300px;
+    outline-color: $secondary-color;
 }
 
-.login-register-link{
+.login-register-link {
+    text-align: center;
+    color: $secondary-color !important;
+}
+
+.login-register-link {
     text-decoration: none;
     color: $secondary-color;
-    font-weight: 600;
 }
+
+.button-login-register {
+    width: 300px;
+}
+
