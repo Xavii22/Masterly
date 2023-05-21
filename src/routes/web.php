@@ -14,12 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CreateProductController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HeaderController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Str;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +49,9 @@ Route::get('/profile', [ProfileController::class, 'profile'])->name('pages.profi
 Route::post('/upload', [ProfileController::class, 'upload'])->name('pages.upload');
 Route::post('/changePassword', [ProfileController::class, 'changePassword'])->name('pages.changePassword');
 Route::post('/createStore', [ProfileController::class, 'createStore'])->name('pages.createStore');
+
+Route::get('/pdf', [PDFController::class, 'pdf'])->name('pages.pdf');
+
 
 Route::get('/chat', [ChatController::class, 'enterChat'])->name('pages.chat');
 Route::post('/chat', [ChatController::class, 'getMessageValues'])->name('pages.chat');

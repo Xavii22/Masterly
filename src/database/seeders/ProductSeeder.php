@@ -39,7 +39,6 @@ class ProductSeeder extends Seeder
                         'product_id' => $product->id
                     ]
                 ]);
-
                 $main = false;
             }
         })->create();

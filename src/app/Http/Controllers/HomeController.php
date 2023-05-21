@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -130,9 +133,27 @@ class HomeController extends Controller
             $paths[] = $image['path'];
         }
 
-        $cacheDuration = 15768000;
+        return $paths;
+    }
 
-        header('Cache-Control: public, max-age=' . $cacheDuration);
+    public function getEditImages($productId)
+    {
+        $client = new Client();
+        $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
+        $data = json_decode($productImages->getBody(), true);
+
+        $paths = array();
+        foreach ($data['data'] as $image) {
+            $filename = pathinfo($image['path'], PATHINFO_FILENAME);
+
+            $stream = fopen($image['path'], 'r');
+
+            $fileContents = new Stream($stream);
+            
+            $file = new UploadedFile($fileContents, $filename, 200);
+            dd($file);
+            $paths[] = $fileContents;
+        }
 
         return $paths;
     }

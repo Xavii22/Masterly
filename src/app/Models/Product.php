@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Http;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'category', 'price', 'store_id'];
+    protected $fillable = ['name', 'description', 'category', 'price', 'store_id', 'enabled', 'important'];
     use HasFactory;
 
     public static function getProductList($query, $sortBy, $sortOrder)

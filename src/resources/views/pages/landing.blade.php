@@ -6,9 +6,7 @@
     @include('layouts.header')
     <section class="introduction">
         <h1 class="introduction__title">MASTERLY</h1>
-        <div class="introduction__container">
-            <p class="introduction__text">Los mejores productos artesanales</p>
-        </div>
+        <p class="introduction__text">Descubre la magia de la artesania</p>
         <a class="button button--blue introduction__button" href="{{ route('pages.home') }}">COMPRA AHORA</a>
     </section>
     @foreach ($tags as $tag)
@@ -41,4 +39,6 @@
         </section>
     @endforeach
     @include('layouts.footer')
+
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
 @endsection

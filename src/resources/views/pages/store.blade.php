@@ -88,7 +88,7 @@
                     <h2>Esta tienda no tiene ningún producto</h2>
                 @endif
                 @if ($importantProducts->total() > 0)
-                    <h2>Artículos destacados</h2>
+                    <h2 class="product-featured">Artículos destacados</h2>
                     <div class="products">
                         @foreach ($importantProducts as $importantProduct)
                             <article class="product-element">
@@ -105,8 +105,10 @@
                                     <h3 class="product-element__info-name">{{ $importantProduct->name }}</h3>
                                     <span class="product-element__info-price">{{ $importantProduct->price }} €</span>
                                     <span class="product-element__info-category">{{ $importantProduct->name }}</span>
-                                    <img class="product-element__cart cart-listener" id="{{ $importantProduct->id }}"
-                                        src="{{ asset('images/cart.png') }}">
+                                    @if (Route::currentRouteName() != 'pages.manageStore')
+                                        <img class="product-element__cart cart-listener" id="{{ $importantProduct->id }}"
+                                            src="{{ asset('images/cart.png') }}">
+                                    @endif
                                 </div>
                             </article>
                         @endforeach
@@ -130,14 +132,21 @@
                                 <h3 class="product-element__info-name">{{ $product->name }}</h3>
                                 <span class="product-element__info-price">{{ $product->price }} €</span>
                                 <span class="product-element__info-category">{{ $productSubcategory }}</span>
-                                <img class="product-element__cart cart-listener" id="{{ $product->id }}"
-                                    src="{{ asset('images/cart.png') }}">
+                                @if (Route::currentRouteName() != 'pages.manageStore')
+                                    <img class="product-element__cart cart-listener" id="{{ $product->id }}"
+                                        src="{{ asset('images/cart.png') }}">
+                                @endif
                             </div>
                         </article>
                     @endforeach
                 </div>
                 {{ $products->appends(['query' => $query, 'sort' => $sort])->links('vendor.pagination.default') }}
             </section>
+            @if (Route::currentRouteName() == 'pages.manageStore')
+                <a class="add-product" href="{{ route('pages.createProduct') }}">
+                    <img class="add_product" src="{{ asset('images/add_product.png') }}">
+                </a>
+            @endif
         </div>
     </main>
     @include('layouts.footer')

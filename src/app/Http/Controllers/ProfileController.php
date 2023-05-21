@@ -34,7 +34,7 @@ class ProfileController extends Controller
         return $notificationCounter;
     }
 
-    private function getOrderHistory($actor)
+    public function getOrderHistory($actor)
     {
         $orderProducts = array();
         $orders = Order::where($actor, Auth::id())->get()->groupBy('number');
