@@ -108,29 +108,49 @@ class HomeController extends Controller
 
     public function getMainImage($productId)
     {
-        $client = new Client([
-            'verify' => false,
-        ]);
-        $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
-        $data = json_decode($productImages->getBody(), true);
-        foreach ($data['data'] as $image) {
-            if ($image['main'] == 1) {
-                return $image['path'];
+        $cacheKey = 'product_main_image_' . $productId;
+
+        $mainImage = Cache::get($cacheKey);
+
+        if (!$mainImage) {
+            $client = new Client([
+                'verify' => false,
+            ]);
+            $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
+            $data = json_decode($productImages->getBody(), true);
+
+            foreach ($data['data'] as $image) {
+                if ($image['main'] == 1) {
+                    $mainImage = $image['path'];
+                    break;
+                }
             }
+
+            Cache::put($cacheKey, $mainImage, 15768000);
         }
+
+        return $mainImage;
     }
 
     public function getImages($productId)
     {
-        $client = new Client([
-            'verify' => false,
-        ]);
-        $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
-        $data = json_decode($productImages->getBody(), true);
+        $cacheKey = 'product_images_' . $productId;
 
-        $paths = array();
-        foreach ($data['data'] as $image) {
-            $paths[] = $image['path'];
+        $images = Cache::get($cacheKey);
+
+        if (!$images) {
+            $client = new Client([
+                'verify' => false,
+            ]);
+            $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
+            $data = json_decode($productImages->getBody(), true);
+
+            $paths = array();
+            foreach ($data['data'] as $image) {
+                $paths[] = $image['path'];
+            }
+
+            Cache::put($cacheKey, $images, 15768000);
         }
 
         return $paths;
@@ -149,7 +169,7 @@ class HomeController extends Controller
             $stream = fopen($image['path'], 'r');
 
             $fileContents = new Stream($stream);
-            
+
             $file = new UploadedFile($fileContents, $filename, 200);
             dd($file);
             $paths[] = $fileContents;

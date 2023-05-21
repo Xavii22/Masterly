@@ -7,6 +7,8 @@ use App\Models\Chat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ChatController;
 
+// ES NECESARIO QUE SE HAYA HECHO COMO MÍNIMO UN ORDER
+
 class ChatControllerTest extends TestCase
 {
     public function testCreateMessage()
