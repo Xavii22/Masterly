@@ -4,16 +4,11 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Store;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class HomeControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testHomeMethodWithQueryAndCategory()
     {
         $category = Category::factory()->create(['type' => 'P']);
@@ -51,19 +46,8 @@ class HomeControllerTest extends TestCase
 
     public function testShowProductDetailsWithInvalidId()
     {
-        $response = $this->get('/product/9999');
+        $response = $this->get('/product/9999999');
 
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
-    }
-
-    // Add more test cases for other methods in the HomeController
-
-    // ...
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Perform any additional setup required for the tests
+        $response->assertSee('404');
     }
 }

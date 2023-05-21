@@ -27,12 +27,12 @@ class OrderController extends Controller
         return Product::getProductListFromSpecificCart($cartId);
     }
 
-    private function checkIfCartProductsAreSold($cartProducts)
+    private function checkIfCartProductsAreSoldOrDisabled($cartProducts)
     {
         foreach ($cartProducts as $cartProduct) {
-            if ($cartProduct->sold == true) {
-                Log::error('The product the user is trying to buy is already sold.');
-                return redirect()->route('pages.home');
+            if ($cartProduct->sold == true || $cartProduct->enabled == false) {
+                Log::error('The product the user is trying to buy is already sold or disabled.');
+                return redirect()->route('errors.default');
             }
         }
     }
@@ -40,11 +40,11 @@ class OrderController extends Controller
     private function checkIfUserOwnsAnyProduct($cartProducts)
     {
         $currentUserStoreId = Store::where('user_id', Auth::id())->value('id');
-
+        
         foreach ($cartProducts as $cartProduct) {
             if ($cartProduct->store_id == $currentUserStoreId) {
                 Log::error('The product the user is trying to buy is from his own store.');
-                return redirect()->route('pages.home');
+                return redirect()->route('errors.default');
             }
         }
     }
@@ -101,13 +101,20 @@ class OrderController extends Controller
     public function order()
     {
         $redirectResponse = $this->checkIfUserIsNotLoggedIn();
-
         if ($redirectResponse) {
             return $redirectResponse;
         }
 
-        $this->checkIfUserOwnsAnyProduct($this->getCartProducts());
-        $this->checkIfCartProductsAreSold($this->getCartProducts());
+        $userOwnsAProduct = $this->checkIfUserOwnsAnyProduct($this->getCartProducts());
+        if ($userOwnsAProduct) {
+            return $userOwnsAProduct;
+        }
+        
+        $productIsSoldOrDisabled = $this->checkIfCartProductsAreSoldOrDisabled($this->getCartProducts());
+        if ($productIsSoldOrDisabled) {
+            return $productIsSoldOrDisabled;
+        }
+
         $this->createOrderRegisters($this->getCartProducts());
         $this->deleteProductsFromCart();
 

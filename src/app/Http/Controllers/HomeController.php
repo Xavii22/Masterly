@@ -81,8 +81,14 @@ class HomeController extends Controller
                     return redirect()->route('pages.home');
                 }
 
-                $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);
-                $importantProducts = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, true);
+                if (Route::currentRouteName() == 'pages.manageStore') {
+                    $products = Product::getProductListSpecificStoreForManagement($currentStoreId, $sortBy, $sortOrder, false);
+                    $importantProducts = Product::getProductListSpecificStoreForManagement($currentStoreId, $sortBy, $sortOrder, true);
+                } else {
+                    $products = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, false);
+                    $importantProducts = Product::getProductListSpecificStore($currentStoreId, $sortBy, $sortOrder, true);
+                }
+
 
                 $currentStoreName = $currentStore->name;
             } catch (Exception $e) {

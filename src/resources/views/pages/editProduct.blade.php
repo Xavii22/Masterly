@@ -26,7 +26,7 @@
         </section>
         <section>
             <h2>Imágenes</h2>
-             <form action="{{ route('pages.upload') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pages.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" class="editor__data__logo-input" name="image" id="file-logoProfile">
                 <img src="{{ asset(Auth::user()->pfp) }}" class="editor__data__logo-image">
@@ -94,11 +94,8 @@
                 <input type="hidden" name="id" value="{{ $product['id'] }}">
                 <input type="submit" value="ELIMINAR PRODUCTO" class="editor__data-logout">
             </form>
-
-
         </section>
     </main>
     @include('layouts.footer')
-
     <script src="{{ asset('js/profileManager.js') }}"></script>
 @endsection

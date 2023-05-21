@@ -32,16 +32,16 @@ class EditProductController extends Controller
 
         switch ($form) {
             case 'productDetails':
-                $this->editProductDetails($request);
+                return $this->editProductDetails($request);
                 break;
             case 'productImages':
-                $this->editProductImages($request);
+                return $this->editProductImages($request);
                 break;
             case 'productSubcategory':
-                $this->editProductSubcategory($request);
+                return $this->editProductSubcategory($request);
                 break;
             case 'productState':
-                $this->editProductState($request);
+                return $this->editProductState($request);
                 break;
         }
     }
@@ -56,9 +56,10 @@ class EditProductController extends Controller
 
         $product->save();
 
-        $xavisl = 'smith-group';
+        $storeName = Store::where('user_id', Auth::id())->value('name');
+        $storeName = str_replace(' ', '-', strtolower($storeName));
 
-        return redirect()->route('pages.manageStore', ['id' => $xavisl]);
+        return redirect()->route('pages.manageStore', ['id' => $storeName]);
     }
 
     public function editProductImages(Request $request)
@@ -74,7 +75,10 @@ class EditProductController extends Controller
 
         $product->categories()->updateExistingPivot($oldCategoryId, ['category_id' => $newCategoryId]);
 
-        return redirect()->route('pages.landing');
+        $storeName = Store::where('user_id', Auth::id())->value('name');
+        $storeName = str_replace(' ', '-', strtolower($storeName));
+
+        return redirect()->route('pages.manageStore', ['id' => $storeName]);
     }
 
     public function editProductState(Request $request)
@@ -96,6 +100,7 @@ class EditProductController extends Controller
         $product->save();
 
         $storeName = Store::where('user_id', Auth::id())->value('name');
+        $storeName = str_replace(' ', '-', strtolower($storeName));
 
         return redirect()->route('pages.manageStore', ['id' => $storeName]);
     }
@@ -104,6 +109,11 @@ class EditProductController extends Controller
     {
         $productToDelete = Product::find($request->input('id'));
         $productToDelete->delete();
+
+        $storeName = Store::where('user_id', Auth::id())->value('name');
+        $storeName = str_replace(' ', '-', strtolower($storeName));
+
+        return redirect()->route('pages.manageStore', ['id' => $storeName]);
     }
 
     public function imageManager(Request $endpoint)

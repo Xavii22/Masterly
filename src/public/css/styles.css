@@ -592,7 +592,7 @@ footer {
 }
 .chat-button__image {
   position: relative;
-  top: -30px;
+  top: -36px;
   left: 31px;
   height: 20px;
   width: 20px;
@@ -1267,6 +1267,23 @@ input:focus + .slider {
   margin-bottom: 0px;
   color: #d9d9d9;
 }
+.error__image {
+  position: relative;
+  width: 100%;
+  z-index: -1;
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+.error__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 100px;
+}
+.error__message {
+  display: flex;
+  justify-content: center;
+}
 
 .suggested {
   display: flex;
@@ -1332,8 +1349,8 @@ input:focus + .slider {
 }
 .editor__password-content {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(25px, 1fr));
+  grid-template-rows: repeat(3, minmax(25px, 1fr));
   grid-column-gap: 20px;
 }
 .editor__password-save {
@@ -1368,6 +1385,11 @@ input:focus + .slider {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: min-content 1fr min-content;
   grid-column-gap: 15%;
+}
+@media screen and (max-width: 700px) {
+  .editor__data {
+    display: block;
+  }
 }
 .editor__data-logout {
   display: flex;

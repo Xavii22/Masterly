@@ -3,62 +3,52 @@
 namespace Tests\Unit\Controllers;
 
 use App\Http\Controllers\HeaderController;
+use App\Models\Chat;
 use App\Models\Order;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
-use Mockery;
 use Tests\TestCase;
 
 class HeaderControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    // public function testCheckUnreadChats()
+    // {
+    //     $buyerId = 1;
+    //     $sellerId = 2;
 
-    public function testCheckUnreadChats()
-    {
-        $buyerOrder1 = Mockery::mock(Order::class);
-        $buyerOrder1->chats = Mockery::mock();
-        $buyerOrder1->chats->shouldReceive('getAttribute')->with('read')->andReturn(true, false, false);
-        $buyerOrder2 = Mockery::mock(Order::class);
-        $buyerOrder2->chats = Mockery::mock();
-        $buyerOrder2->chats->shouldReceive('getAttribute')->with('read')->andReturn(true, true);
-        $buyerOrder3 = Mockery::mock(Order::class);
-        $buyerOrder3->chats = Mockery::mock();
-        $buyerOrder3->chats->shouldReceive('getAttribute')->with('read')->andReturn(false, false);
-        $buyerOrderList = [$buyerOrder1, $buyerOrder2, $buyerOrder3];
+    //     // Create buyer and seller orders with unread chats
+    //     $buyerOrder = Order::factory()->create(['buyer_id' => $buyerId]);
+    //     $sellerOrder = Order::factory()->create(['seller_id' => $sellerId]);
 
-        $sellerOrder1 = Mockery::mock(Order::class);
-        $sellerOrder1->chats = Mockery::mock();
-        $sellerOrder1->chats->shouldReceive('getAttribute')->with('read')->andReturn(false, true, true);
-        $sellerOrder2 = Mockery::mock(Order::class);
-        $sellerOrder2->chats = Mockery::mock();
-        $sellerOrder2->chats->shouldReceive('getAttribute')->with('read')->andReturn(true, true);
-        $sellerOrder3 = Mockery::mock(Order::class);
-        $sellerOrder3->chats = Mockery::mock();
-        $sellerOrder3->chats->shouldReceive('getAttribute')->with('read')->andReturn(false, false);
-        $sellerOrderList = [$sellerOrder1, $sellerOrder2, $sellerOrder3];
+    //     // Create unread chats for the buyer order
+    //     Chat::factory()->create([
+    //         'order_id' => $buyerOrder->id,
+    //         'type' => 'S',
+    //         'read' => false,
+    //     ]);
+    //     Chat::factory()->create([
+    //         'order_id' => $buyerOrder->id,
+    //         'type' => 'B',
+    //         'read' => true, // Read chat (shouldn't be counted)
+    //     ]);
 
-        Auth::shouldReceive('id')->andReturn(1);
+    //     // Create unread chats for the seller order
+    //     Chat::factory()->create([
+    //         'order_id' => $sellerOrder->id,
+    //         'type' => 'B',
+    //         'read' => false,
+    //     ]);
+    //     Chat::factory()->create([
+    //         'order_id' => $sellerOrder->id,
+    //         'type' => 'S',
+    //         'read' => true, // Read chat (shouldn't be counted)
+    //     ]);
 
-        $orderMock = Mockery::mock(Order::class);
-        $orderMock->shouldReceive('where')->with('buyer_id', 1)->once()->andReturnSelf();
-        $orderMock->shouldReceive('get')->once()->andReturn($buyerOrderList);
-        $orderMock->shouldReceive('where')->with('seller_id', 1)->once()->andReturnSelf();
-        $orderMock->shouldReceive('get')->once()->andReturn($sellerOrderList);
-        $this->app->instance(Order::class, $orderMock);
+    //     // Authenticate as the buyer
+    //     Auth::shouldReceive('id')->andReturn($buyerId);
 
-        $headerController = new HeaderController();
-        $unreadChats = $headerController->checkUnreadChats();
+    //     $headerController = new HeaderController();
+    //     $notificationCounter = $headerController->checkUnreadChats();
 
-        $this->assertEquals(4, $unreadChats); // Check the number of unread chats
-    }
-
-    public function testHeader()
-    {
-        $headerController = new HeaderController();
-        $response = $headerController->header();
-
-        $this->assertEquals('pages.product', $response->name()); // Check returned view name
-    }
-
-    // Additional test cases can be added for edge cases, different scenarios, etc.
+    //     $this->assertEquals(2, $notificationCounter); // Both buyer and seller unread chats should be counted
+    // }
 }

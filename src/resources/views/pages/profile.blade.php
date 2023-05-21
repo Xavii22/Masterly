@@ -9,12 +9,14 @@
             <div class="confirm__background">
                 <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar el cual contiene los
                     siguientes productos.</p>
-                    <form method="GET" action="{{ route('pages.profile') }}">
-                        @csrf
-                        <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][2] }}">
-                        <input type="submit" name="accept" value="Aceptar" class="editor__save editor__save--accept editor__data-save">
-                        <input type="submit" name="deny" value="Denegar" class="editor__save editor__save--deny editor__data-save">
-                    </form>
+                <form method="GET" action="{{ route('pages.profile') }}">
+                    @csrf
+                    <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][2] }}">
+                    <input type="submit" name="accept" value="Aceptar"
+                        class="editor__save editor__save--accept editor__data-save">
+                    <input type="submit" name="deny" value="Denegar"
+                        class="editor__save editor__save--deny editor__data-save">
+                </form>
             </div>
         </dialog>
     @endif
@@ -74,9 +76,12 @@
                                     <br>
                                 @endif
                                 @foreach ($orderProducts[0] as $orderProduct)
+                                    @php
+                                        $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($orderProduct['id']);
+                                    @endphp
                                     <div class="order__vendor__product">
                                         <div>
-                                            <img src="{{ $orderProduct['image'] }}" class="order__vendor__product-image">
+                                            <img src="{{ $mainImage }}" class="order__vendor__product-image">
                                         </div>
                                         <div>
                                             <span>{{ $orderProduct['name'] }}</span>
@@ -113,9 +118,12 @@
                         <div class="order__vendor">
                             <div>
                                 @foreach ($sellerOrderProducts[0] as $sellerOrderProduct)
+                                    @php
+                                        $sellerMainImage = app('App\Http\Controllers\HomeController')->getMainImage($sellerOrderProduct['id']);
+                                    @endphp
                                     <div class="order__vendor__product">
                                         <div>
-                                            <img src="{{ $sellerOrderProduct['image'] }}"
+                                            <img src="{{ $sellerMainImage }}"
                                                 class="order__vendor__product-image">
                                         </div>
                                         <div>
@@ -148,7 +156,12 @@
         @if ($storeExists)
             <section class="editor__shop">
                 <h2 class="editor__shop-title">Tienda</h2>
-                <a href="" type="submit" class="editor__save editor__shop-save">Administrar tienda</a>
+                @php
+                    $storeName = App\Models\Store::where('user_id', Auth::id())->value('name');
+                    $storeName = str_replace(' ', '-', strtolower($storeName));
+                @endphp
+                <a href="{{ route('pages.manageStore', ['id' => $storeName]) }}" type="submit"
+                    class="editor__save editor__shop-save">Administrar tienda</a>
             @else
                 <form action="{{ route('pages.createStore') }}" method="POST" enctype="multipart/form-data">
                     @csrf

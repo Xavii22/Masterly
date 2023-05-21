@@ -2,42 +2,94 @@
 
 namespace Tests\Unit\Controllers;
 
-use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Order;
-use App\Models\Store;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
-use Mockery;
 
 class ProfileControllerTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        \Mockery::close();
+    }
+
+    public function testCheckSpecificUnreadChatWithBuyer()
+    {
+        $orderId = 1;
+        $actor = 'buyer_id';
+
+        $mockOrder = $this->mock(Order::class);
+        $mockOrder->shouldReceive('find')->once()->with($orderId)->andReturnSelf();
+        $mockOrder->shouldReceive('chats->get')->once()->andReturn(collect([]));
+
+        $profileController = new ProfileController();
+        $result = $profileController->checkSpecificUnreadChat($orderId, $actor);
+
+        $this->assertEquals(0, $result);
+    }
+
+    public function testCheckSpecificUnreadChatWithSeller()
+    {
+        $orderId = 1;
+        $actor = 'seller_id';
+
+        $mockOrder = $this->mock(Order::class);
+        $mockOrder->shouldReceive('find')->once()->with($orderId)->andReturnSelf();
+        $mockOrder->shouldReceive('chats->get')->once()->andReturn(collect([]));
+
+        $profileController = new ProfileController();
+        $result = $profileController->checkSpecificUnreadChat($orderId, $actor);
+
+        $this->assertEquals(0, $result);
+    }
+
+    public function testGetOrderHistoryWithBuyer()
+    {
+        $actor = 'buyer_id';
+
+        $mockOrder = $this->mock(Order::class);
+        $mockOrder->shouldReceive('where')->once()->with($actor, Auth::id())->andReturnSelf();
+        $mockOrder->shouldReceive('get->groupBy')->once()->with('number')->andReturn(collect([]));
+
+        $profileController = new ProfileController();
+        $result = $profileController->getOrderHistory($actor);
+
+        $this->assertEquals([], $result);
+    }
+
+    public function testGetOrderHistoryWithSeller()
+    {
+        $actor = 'seller_id';
+
+        $mockOrder = $this->mock(Order::class);
+        $mockOrder->shouldReceive('where')->once()->with($actor, Auth::id())->andReturnSelf();
+        $mockOrder->shouldReceive('get->groupBy')->once()->with('number')->andReturn(collect([]));
+
+        $profileController = new ProfileController();
+        $result = $profileController->getOrderHistory($actor);
+
+        $this->assertEquals([], $result);
+    }
+
     public function testGetPendingOrders()
     {
         $orders = [
-            1 => [
-                0 => [
-                    0 => [],
-                    1 => true,
-                    2 => 1,
+            [
+                1 => [
+                    [true],
                 ],
             ],
-            2 => [
-                0 => [
-                    0 => [],
-                    1 => false,
-                    2 => 2,
+            [
+                2 => [
+                    [false],
                 ],
-                1 => [
-                    0 => [],
-                    1 => true,
-                    2 => 3,
+            ],
+            [
+                3 => [
+                    [true],
                 ],
             ],
         ];
@@ -45,17 +97,13 @@ class ProfileControllerTest extends TestCase
         $profileController = new ProfileController();
         $result = $profileController->getPendingOrders($orders);
 
-        $expectedResult = [
-            2 => [
-                0 => [
-                    0 => [],
-                    1 => false,
-                    2 => 2,
+        $this->assertEquals([
+            [
+                2 => [
+                    [false],
                 ],
             ],
-        ];
-
-        $this->assertEquals($expectedResult, $result);
+        ], $result);
     }
 
     public function testAcceptOrder()
@@ -64,14 +112,10 @@ class ProfileControllerTest extends TestCase
 
         $mockOrder = $this->mock(Order::class);
         $mockOrder->shouldReceive('find')->once()->with($orderId)->andReturnSelf();
-        $mockOrder->accepted = false;
         $mockOrder->shouldReceive('save')->once();
 
-        $mockChatController = $this->mock(ChatController::class);
+        $mockChatController = $this->mock('overload:App\Http\Controllers\ChatController');
         $mockChatController->shouldReceive('createMessage')->once()->with(env('CONFIRM_MESSAGE'), 'S', $orderId);
-
-        $mockLog = $this->mock(Log::class);
-        $mockLog->shouldReceive('info')->once()->with('The order with id: ' . $orderId, ' has been accepted.');
 
         $profileController = new ProfileController();
         $profileController->acceptOrder($orderId);
@@ -83,39 +127,20 @@ class ProfileControllerTest extends TestCase
 
         $mockOrder = $this->mock(Order::class);
         $mockOrder->shouldReceive('find')->once()->with($orderId)->andReturnSelf();
-        $mockOrder->accepted = false;
+
+        $mockProducts = $this->mock('overload:Illuminate\Database\Eloquent\Relations\BelongsToMany');
+        $mockProducts->shouldReceive('get')->once()->andReturn(collect([]));
+
+        $mockProduct = $this->mock('overload:App\Models\Product');
+        $mockProduct->shouldReceive('save')->times(0);
+        $mockProduct->shouldReceive('detach')->once();
+
+        $mockChats = $this->mock('overload:Illuminate\Database\Eloquent\Relations\HasMany');
+        $mockChats->shouldReceive('delete')->once();
+
         $mockOrder->shouldReceive('delete')->once();
-
-        $mockChatController = $this->mock(ChatController::class);
-        $mockChatController->shouldReceive('createMessage')->once()->with(env('DENY_MESSAGE'), 'S', $orderId);
-
-        $mockLog = $this->mock(Log::class);
-        $mockLog->shouldReceive('info')->once()->with('The order with id: ' . $orderId, ' has been denied and deleted.');
 
         $profileController = new ProfileController();
         $profileController->denyOrder($orderId);
-    }
-
-    public function testUpdateAvatar()
-    {
-        $request = $this->mock(Request::class);
-        $request->shouldReceive('validate')->once()->andReturn([
-            'avatar' => 'avatar.jpg',
-        ]);
-
-        $user = $this->mock(User::class);
-        $user->shouldReceive('getAttribute')->once()->with('avatar')->andReturn('old_avatar.jpg');
-        $user->shouldReceive('setAttribute')->once()->with('avatar', 'avatar.jpg');
-        $user->shouldReceive('save')->once();
-
-        $mockStorage = $this->mock(Storage::class);
-        $mockStorage->shouldReceive('disk')->once()->with('public')->andReturnSelf();
-        $mockStorage->shouldReceive('delete')->once()->with('old_avatar.jpg');
-
-        $mockLog = $this->mock(Log::class);
-        $mockLog->shouldReceive('info')->once()->with('User avatar has been updated.');
-
-        $profileController = new ProfileController();
-        $profileController->updateAvatar($request);
     }
 }

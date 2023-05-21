@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/productNotFound', [ErrorController::class, 'productNotFound'])->name('errors.productNotFound');
 Route::get('/storeNotFound', [ErrorController::class, 'storeNotFound'])->name('errors.storeNotFound');
 
-// Route::get('/defaultError', [ErrorController::class, 'defaultError'])->name('errors.defaultError');
+Route::get('/defaultError', [ErrorController::class, 'defaultError'])->name('errors.defaultError');
 
 // Route::fallback(function () {
 //     abort(404);
