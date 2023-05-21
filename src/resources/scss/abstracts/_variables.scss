@@ -73,6 +73,10 @@ $overlay-color: rgba(0, 0, 0, 0.5) !default;
 /// @type Filter
 $primary-filter: invert(46%) sepia(100%) saturate(365%) hue-rotate(149deg) brightness(91%) contrast(91%) !default;
 
+/// Hover Filter
+/// @type Filter
+$hover-filter: invert(23%) sepia(80%) saturate(2139%) hue-rotate(175deg) brightness(91%) contrast(92%) !default;
+
 /// Incorrect Filter
 /// @type Filter
 $incorrect-filter: invert(22%) sepia(97%) saturate(5193%) hue-rotate(355deg) brightness(104%) contrast(132%) !default;

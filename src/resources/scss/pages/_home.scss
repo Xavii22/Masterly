@@ -169,3 +169,22 @@
         font-size: 0.9rem;
     }
 }
+
+.add-product {
+    bottom: 20px;
+    right: 30px;
+    position: fixed;
+    
+    img {
+        filter: $primary-filter;
+        width: 60px;
+
+        &:hover {
+            filter: $hover-filter;
+        }
+    }
+}
+
+.product-featured {
+    margin-left: 20px;
+}

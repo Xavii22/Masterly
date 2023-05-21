@@ -19,11 +19,16 @@ class CreateProductController extends Controller
 
     public function createProduct(Request $request)
     {
+        $enabled = $request->input('enabled') == 'on' ? true : false;
+        $important = $request->input('important') == 'on' ? true : false;
+        
         $product = Product::create([
             'name' => $request['name'],
             'description' => $request['description'],
             'price' => $request['price'],
-            'store_id' => Store::where('user_id', Auth::id())->value('id')
+            'store_id' => Store::where('user_id', Auth::id())->value('id'),
+            'enabled' => $enabled,
+            'important' => $important
         ]);
 
         $categoryId = Category::where('name', $request->input('subcategory'))->value('id');

@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->delete();
-        Product::factory()->count(500)->afterCreating(function (Product $product) {
+        Product::factory()->count(20)->afterCreating(function (Product $product) {
             $client = new Client();
 
             $data = file_get_contents(base_path() . '/database/products/images.json');
@@ -30,14 +30,13 @@ class ProductSeeder extends Seeder
 
             $main = true;
             foreach ($images as $image) {
-                $client->post('http://localhost:8080/api/store', [
+                $response = $client->post('http://localhost:8080/api/store', [
                     'json' => [
                         'path' => $image,
                         'main' => $main,
                         'product_id' => $product->id
                     ]
                 ]);
-
                 $main = false;
             }
         })->create();

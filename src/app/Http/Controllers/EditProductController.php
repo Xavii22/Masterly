@@ -58,7 +58,7 @@ class EditProductController extends Controller
 
         $xavisl = 'smith-group';
 
-        return redirect()->route('pages.manageStore', ['id' => $xavisl]);
+        return redirect()->back()->withInput();
     }
 
     public function editProductImages(Request $request)
@@ -74,7 +74,7 @@ class EditProductController extends Controller
 
         $product->categories()->updateExistingPivot($oldCategoryId, ['category_id' => $newCategoryId]);
 
-        return redirect()->route('pages.landing');
+        return redirect()->back()->withInput();
     }
 
     public function editProductState(Request $request)
@@ -95,15 +95,15 @@ class EditProductController extends Controller
 
         $product->save();
 
-        $storeName = Store::where('user_id', Auth::id())->value('name');
-
-        return redirect()->route('pages.manageStore', ['id' => $storeName]);
+        return redirect()->back()->withInput();
     }
 
     public function deleteProduct(Request $request)
     {
         $productToDelete = Product::find($request->input('id'));
         $productToDelete->delete();
+
+        return redirect()->back();
     }
 
     public function imageManager(Request $endpoint)

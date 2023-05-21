@@ -9,12 +9,14 @@
             <div class="confirm__background">
                 <p>Tienes un pedido con id {{ $pendingOrders[0][1][0][2] }} pendiente de confirmar el cual contiene los
                     siguientes productos.</p>
-                    <form method="GET" action="{{ route('pages.profile') }}">
-                        @csrf
-                        <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][2] }}">
-                        <input type="submit" name="accept" value="Aceptar" class="editor__save editor__save--accept editor__data-save">
-                        <input type="submit" name="deny" value="Denegar" class="editor__save editor__save--deny editor__data-save">
-                    </form>
+                <form method="GET" action="{{ route('pages.profile') }}">
+                    @csrf
+                    <input type="hidden" name="pendingOrder" value="{{ $pendingOrders[0][1][0][2] }}">
+                    <input type="submit" name="accept" value="Aceptar"
+                        class="editor__save editor__save--accept editor__data-save">
+                    <input type="submit" name="deny" value="Denegar"
+                        class="editor__save editor__save--deny editor__data-save">
+                </form>
             </div>
         </dialog>
     @endif
@@ -31,12 +33,7 @@
                 </div>
                 <div class="editor__data__logo">
                     <label class="editor__data__logo-label">Logo</label>
-                    <input type="file" class="editor__data__logo-input" name="image" id="file-logoeditor">
-                    @if (DB::table('users')->where('id', Auth::id())->value('pfp'))
-                        <img src="{{ asset(Auth::user()->pfp) }}" class="editor__data__logo-image">
-                    @else
-                        {!! userCircle(Auth::user()->name) !!}
-                    @endif
+                    <input type="file" class="editor__input" name="image">
                 </div>
                 <button type="submit" class="editor__save editor__data-save">Guardar</button>
 
@@ -59,10 +56,17 @@
         </form>
         <section class="editor__historical">
             <h2 class="editor__historical-title">Histórico de pedidos</h2>
-            @foreach ($orders as $order)
+            @foreach ($orders as $key => $order)
                 <article class="order">
                     <b>Fecha:</b>
                     <span>{{ $order[0] }}</span>
+
+                    <form method="GET" action="{{ route('pages.pdf') }}">
+                        @csrf
+                        <input type="hidden" name="pdfId" value="{{ $key }}">
+                        <input class="editor__save editor__password-save" type="submit"   value="Descargar PDF">
+                    </form>
+
                     @foreach ($order[1] as $orderProducts)
                         <div class="order__vendor">
                             <div>
@@ -155,7 +159,7 @@
                     <section class="editor__shop">
                         <h2 class="editor__shop-title">Tienda</h2>
 
-                        <div storeExists="editor__shop-content">
+                        <div class="editor__shop-content">
                             <label class="shop-content__label">Nombre tienda</label>
                             <label class="shop-content__label">Logo tienda</label>
                             <input class="editor__input" type="text" name="name">
@@ -168,5 +172,6 @@
     </main>
     @include('layouts.footer')
 
+    <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
     <script src="{{ asset('js/profileManager.js') }}"></script>
 @endsection

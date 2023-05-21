@@ -8,26 +8,26 @@
     align-content: center;
     flex-direction: column;
     padding: 100px;
-    background-color: lightblue !important;
-    
+
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-image: url("../images/landing-background.png");
     background-position: center center;
 
     &__title {
         align-self: center;
-        color: $primary-color;
         font-size: 6rem;
-        background-color: rgba(0, 0, 0, 1);
+        background-color: $secondary-color;
         border-radius: 10px;
         padding: 0px 10px;
-        color: $secondary-color;
+        color: $primary-color;
     }
 
     &__text {
+        align-self: center;
         color: $primary-color;
         font-size: 1.5rem;
+        font-weight: bold;
     }
 
     &__button {
@@ -42,11 +42,7 @@
 }
 
 .tag {
-    margin: 100px 50px 0px 50px;
-
-    @media screen and (max-width: 700px) {
-        margin: 50px 5px 0px 5px;
-    }
+    margin: 100px 25px 25px 50px;
 
     &__title-container {
         margin-bottom: 10px;
@@ -59,14 +55,34 @@
     }
 
     &__products {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+        display: flex;
+        overflow-x: scroll;
         gap: 50px;
         align-items: center;
 
-        @media screen and (max-width: 700px) {
-            gap: 10px;
-            justify-content: center;
+        &::-webkit-scrollbar {
+            height: 7px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #f4f4f4;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        &::-webkit-scrollbar-thumb:active {
+            background-color: #333;
+        }
+
+        &::-webkit-scrollbar-corner {
+            background-color: #f4f4f4;
         }
     }
 }
