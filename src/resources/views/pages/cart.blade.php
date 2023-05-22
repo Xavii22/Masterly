@@ -36,4 +36,7 @@
     </div>
     <script src="{{ asset('js/storageListener.mjs') }}" type="module"></script>
     <script src="{{ asset('js/productFetcher.mjs') }}" type="module"></script>
+    <script>
+        const apiBaseUrl = "{{ env('API_URL') }}";
+    </script>
 @endsection

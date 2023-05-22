@@ -108,28 +108,17 @@ class HomeController extends Controller
 
     public function getMainImage($productId)
     {
-        $cacheKey = 'product_main_image_' . $productId;
+        $client = new Client([
+            'verify' => false,
+        ]);
+        $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
+        $data = json_decode($productImages->getBody(), true);
 
-        $mainImage = Cache::get($cacheKey);
-
-        if (!$mainImage) {
-            $client = new Client([
-                'verify' => false,
-            ]);
-            $productImages = $client->get(env('API_URL') . '/api/products/' . $productId . '/images');
-            $data = json_decode($productImages->getBody(), true);
-
-            foreach ($data['data'] as $image) {
-                if ($image['main'] == 1) {
-                    $mainImage = $image['path'];
-                    break;
-                }
+        foreach ($data['data'] as $image) {
+            if ($image['main'] == 1) {
+                return $image['path'];
             }
-
-            Cache::put($cacheKey, $mainImage, 15768000);
         }
-
-        return $mainImage;
     }
 
     public function getImages($productId)
@@ -151,28 +140,6 @@ class HomeController extends Controller
             }
 
             Cache::put($cacheKey, $images, 15768000);
-        }
-
-        return $paths;
-    }
-
-    public function getEditImages($productId)
-    {
-        $client = new Client();
-        $productImages = $client->get('http://localhost:8080/api/products/' . $productId . '/images');
-        $data = json_decode($productImages->getBody(), true);
-
-        $paths = array();
-        foreach ($data['data'] as $image) {
-            $filename = pathinfo($image['path'], PATHINFO_FILENAME);
-
-            $stream = fopen($image['path'], 'r');
-
-            $fileContents = new Stream($stream);
-
-            $file = new UploadedFile($fileContents, $filename, 200);
-            dd($file);
-            $paths[] = $fileContents;
         }
 
         return $paths;
