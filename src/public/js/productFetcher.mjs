@@ -40,12 +40,12 @@ function findMainImage(images) {
 async function fetchProductImage(productId) {
     try {
         const response = await fetch(
-            `${apiBaseUrl}/api/products/${productId}/images`,
+            `http://localhost:8080/api/products/${productId}/images`,
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                }
+                },
             }
         );
         const images = await response.json();
