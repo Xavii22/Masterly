@@ -97,6 +97,7 @@
                                 @endif
                                 @php
                                     $mainImage = app('App\Http\Controllers\HomeController')->getMainImage($importantProduct->id);
+                                    $importantProductSubcategory = $importantProduct->categories()->value('name');
                                 @endphp
                                 <a href="{{ route('pages.product', [$importantProduct->id]) }}">
                                     <img class="product-element__image" src="{{ $mainImage }}">
@@ -104,7 +105,7 @@
                                 <div class="product-element__info">
                                     <h3 class="product-element__info-name">{{ $importantProduct->name }}</h3>
                                     <span class="product-element__info-price">{{ $importantProduct->price }} €</span>
-                                    <span class="product-element__info-category">{{ $importantProduct->name }}</span>
+                                    <span class="product-element__info-category">{{ $importantProductSubcategory }}</span>
                                     @if (Route::currentRouteName() != 'pages.manageStore')
                                         <img class="product-element__cart cart-listener" id="{{ $importantProduct->id }}"
                                             src="{{ asset('images/cart.png') }}">

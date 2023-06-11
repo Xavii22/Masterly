@@ -33,6 +33,16 @@ class HeaderController extends Controller
         return $notificationCounter;
     }
 
+    public static function userCircle($username)
+    {
+        $colorCode = ord(strtoupper(substr($username, 0, 1)));
+        $red = ($colorCode * 17) % 255;
+        $green = ($colorCode * 13) % 255;
+        $blue = ($colorCode * 19) % 255;
+        $color = sprintf('#%02x%02x%02x', $red, $green, $blue);
+        return '<div style="background-color:' . $color . '; display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 35px; height: 35px; text-align: center; font-size: 18px; color: white; line-height: 50px;">' . strtoupper(substr($username, 0, 1)) . '</div>';
+    }
+
     public function header()
     {
         return view('pages.product');

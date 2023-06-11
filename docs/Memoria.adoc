@@ -199,18 +199,21 @@ image::images/dbconf.png[width=200, align=center, alt=env]
 
 5 . Cuando haya acabado la ejecución del comando anterior, ejecuta los seeders del proyecto Masterly. Para hacer eso, desde una terminal y asegurándote que ambas aplicaciones, dirígete al directorio /vagrant del proyecto Masterly y ejecuta el siguiente comando.
 
-`vagrant ssh -c "cd /var/www/masterly/src && php artisan db:seed"`
+`vagrant ssh -c "cd /var/www/html/masterly/src && php artisan db:seed"`
 
-6 . Finalmente, con el fin de poder utilizar la página desde el navegador de tu máquina local Windows, deberás de dirigirte al siguiente archivo "C:\Windows\System32\drivers\etc\hosts". Una vez dentro del archivo, introduce la dirección IP y dominio utilizados en ambos proyectos de la siguiente manera.
+6 . A continuación, ejecuta el siguiente comando en el directorio /vagrant de ambos proyectos.
+
+`vagrant ssh -c "cd /var/www/html/masterly/src && sudo php artisan storage:link"`
+
+7 . Finalmente, con el fin de poder utilizar la página desde el navegador de tu máquina local Windows, deberás de dirigirte al siguiente archivo "C:\Windows\System32\drivers\etc\hosts". Una vez dentro del archivo, introduce la dirección IP y dominio utilizados en ambos proyectos de la siguiente manera.
 
 image::images/hosts.png[width=200, align=center, alt=Hosts]
 
-7 . Una vez realizados estos pasos, al introducir la url "botiga.com" en un navegador, deberia de mostrarse la aplicación Masterly.
+8 . Una vez realizados estos pasos, al introducir la url "botiga.com" en un navegador, deberia de mostrarse la aplicación Masterly.
 
 == 7. Manual de usuario
 
 Manual de Usuario - Marketplace "Masterly"
-
 
 Introducción y Descripción General:
 El Marketplace "Masterly" es una plataforma en línea que te permite descubrir y comprar una amplia variedad de productos artesanales. La página principal cuenta con una landing page donde se muestran productos agrupados por tags, los cuales pueden dependiendo de la época del año.

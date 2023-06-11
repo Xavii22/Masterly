@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Los mejores productes artesanales')
+@section('title', 'Descubre la magia de la artesania')
 
 @section('content')
     @include('layouts.header')

@@ -1,13 +1,5 @@
 <?php
-function userCircle($username)
-{
-    $colorCode = ord(strtoupper(substr($username, 0, 1)));
-    $red = ($colorCode * 17) % 255;
-    $green = ($colorCode * 13) % 255;
-    $blue = ($colorCode * 19) % 255;
-    $color = sprintf('#%02x%02x%02x', $red, $green, $blue);
-    return '<div style="background-color:' . $color . '; display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 35px; height: 35px; text-align: center; font-size: 18px; color: white; line-height: 50px;">' . strtoupper(substr($username, 0, 1)) . '</div>';
-}
+
 ?>
 <header class="header">
     <a class="item-link" href="{{ route('pages.landing') }}">
@@ -39,7 +31,7 @@ function userCircle($username)
             @if (DB::table('users')->where('id', Auth::id())->value('pfp'))
                 <img class="item" src="{{ asset(Auth::user()->pfp) }}" alt="User">
             @else
-                {!! userCircle(Auth::user()->name) !!}
+                {!! \App\Http\Controllers\HeaderController::userCircle(Auth::user()->name) !!}
             @endif
             @if ($notificationNumber > 0)
                 <div class="item-link__notification">{{ $notificationNumber }}</div>
