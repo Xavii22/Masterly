@@ -40,15 +40,12 @@ function findMainImage(images) {
 async function fetchProductImage(productId) {
     try {
         const response = await fetch(
-            `https://apibotiga.com/api/products/${productId}/images`,
+            `http://localhost:8080/api/products/${productId}/images`,
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                agent: new https.Agent({
-                    rejectUnauthorized: false,
-                }),
             }
         );
         const images = await response.json();
