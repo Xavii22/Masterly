@@ -2,26 +2,35 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Models\Order;
 use App\Models\Chat;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Response;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class ChatControllerTest extends TestCase
 {
-    /** @test */
-    public function it_can_create_message()
-    {
-        $chat = new Chat();
 
+    use DatabaseTransactions;
+
+    /** @test */
+    public function test_can_create_message()
+    {
         $message = 'Test message';
         $type = 'B';
         $orderId = 1;
 
+        $this->assertDatabaseMissing('chats', [
+            'message' => $message,
+            'type' => $type,
+            'order_id' => $orderId,
+        ]);
+
+        $chat = new Chat();
         $chat->message = $message;
         $chat->type = $type;
         $chat->order_id = $orderId;
-
         $chat->save();
 
         $this->assertDatabaseHas('chats', [

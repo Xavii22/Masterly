@@ -3,15 +3,14 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Category;
+use App\Http\Controllers\LandingController;
 use App\Models\Product;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class LandingControllerTest extends TestCase
 {
-    use RefreshDatabase;
 
     /**
      * Test the landing method of the LandingController.
@@ -66,10 +65,9 @@ class LandingControllerTest extends TestCase
             ->once();
 
         // Send a GET request to the landing endpoint
-        $response = $this->get('/landing');
+        $response = $this->get('/');
 
-        // Assert that the response has a successful status code
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     /**

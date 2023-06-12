@@ -201,7 +201,7 @@ image::images/dbconf.png[width=200, align=center, alt=env]
 
 `vagrant ssh -c "cd /var/www/html/masterly/src && php artisan db:seed"`
 
-6 . A continuación, ejecuta el siguiente comando en el directorio /vagrant de ambos proyectos.
+6 . A continuación, ejecuta el siguiente comando en el directorio /vagrant de ambos proyectos. La ejecución de este comando tiene el fin de mostrar las imágenes guardadas en el storage. En caso de que las imágenes no se muestren y, al ejecutar el comando te diga que el link ya está creado, tienes que borrar rl mismo en la máquina de vagrant, el cual se encuentra en src/public/storage.
 
 `vagrant ssh -c "cd /var/www/html/masterly/src && sudo php artisan storage:link"`
 
@@ -211,7 +211,17 @@ image::images/hosts.png[width=200, align=center, alt=Hosts]
 
 8 . Una vez realizados estos pasos, al introducir la url "botiga.com" en un navegador, deberia de mostrarse la aplicación Masterly.
 
-== 7. Manual de usuario
+== 7. Ejecución tests
+
+Antes de probar los tests, es necesario ejecutar el seeder del proyecto de la siguiente manera. Solo hacerlo en caso de no haberlo hecho ya.
+
+`vagrant ssh -c "cd /var/www/html/masterly/src && php artisan db:seed"`
+
+Una vez ejecutado el seeder, introduce el siguiente comando con el fin de ejecutar los tests.
+
+`vagrant ssh -c "cd /var/www/html/masterly/src && php artisan test --testsuite=Feature"`
+
+== 8. Manual de usuario
 
 Manual de Usuario - Marketplace "Masterly"
 
@@ -276,7 +286,7 @@ Una vez que hayas creado el producto, se te redirigirá automáticamente a la pa
 
 image::images/democreateproducts.png[width=800, align=center, alt=CreacionProductos]
 
-== 8. Conclusiones
+== 9. Conclusiones
 
 Tras 3 meses dedicados a la creación del proyecto Masterly, estas son las conclusiones que hemos sacado del mismo:
 
@@ -290,7 +300,7 @@ Tras 3 meses dedicados a la creación del proyecto Masterly, estas son las concl
 
 En resumen, el proyecto Masterly ha logrado implementar con éxito una plataforma robusta y escalable utilizando Laravel, SCSS y JavaScript. La integración de una API adicional ha permitido una gestión eficiente de las imágenes de los productos, mientras que el enfoque en la seguridad han mejorado la calidad general del Marketplace.
 
-== 9. Líneas futuras
+== 10. Líneas futuras
 
 Líneas futuras para el proyecto Marketplace "Masterly":
 

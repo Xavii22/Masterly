@@ -8,9 +8,12 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Response;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CartControllerTest extends TestCase
 {
+
+    //use DatabaseTransactions;
 
     /** @test */
     public function it_can_display_cart_page()
@@ -21,18 +24,21 @@ class CartControllerTest extends TestCase
     }
 
     /** @test */
-    // public function it_can_query_products_from_cart_when_authenticated()
-    // {
-    //     $this->actingAs($user = User::factory()->create());
-    //     $cart = Cart::factory()->create(['user_id' => $user->id]);
-    //     $products = Product::factory(3)->create();
+    public function it_can_query_products_from_cart_when_authenticated()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
 
-    //     $cart->products()->attach($products);
+        $cart = new Cart();
+        $cart->user_id = $user->id;
+        $products = Product::factory(1)->create();
+        
+        $cart->products()->attach($products);
+        
+        $response = $this->post('/queryProducts');
 
-    //     $response = $this->post('/query-products');
-
-    //     $response->assertJson($products->toArray());
-    // }
+        $response->assertJson($products->toArray());
+    }
 
     // /** @test */
     // public function it_can_query_products_from_cart_when_not_authenticated()

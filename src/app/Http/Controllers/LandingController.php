@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class LandingController extends Controller
 {
 
-    private function getActiveTagList()
+    public function getActiveTagList()
     {
         $tags = file_get_contents(base_path() . env('ACTIVE_TAGS'));
         $tags = json_decode($tags, true);
@@ -23,7 +23,7 @@ class LandingController extends Controller
         return $tags['activeTags'];
     }
 
-    private function getTagValues()
+    public function getTagValues()
     {
         $activeTags = $this->getActiveTagList();
         $tagProducts = array();
