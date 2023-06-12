@@ -1,1 +1,16 @@
-{"activeTags":[{"id":1},{"id":2}]}
+{
+    "activeTags": [
+        {
+            "id": 12,
+            "amount": 4
+        },
+        {
+            "id": 13,
+            "amount": 3
+        },
+        {
+            "id": 14,
+            "amount": 20
+        }
+    ]
+}

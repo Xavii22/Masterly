@@ -26,20 +26,20 @@ class HeaderControllerTest extends TestCase
         $user = User::factory()->create();
 
         // Create buyer order with unread chat
-        $buyerOrder = Order::factory()->create(['buyer_id' => $user->id]);
-        $buyerChat = Chat::factory()->create(['order_id' => $buyerOrder->id, 'read' => false, 'type' => 'S']);
+        $buyerOrder = Order::create(['number' => 1, 'buyer_id' => $user->id]);
+        $buyerChat = Chat::create(['order_id' => $buyerOrder->id, 'read' => false, 'type' => 'S']);
 
         // Create seller order with unread chat
-        $sellerOrder = Order::factory()->create(['seller_id' => $user->id]);
-        $sellerChat = Chat::factory()->create(['order_id' => $sellerOrder->id, 'read' => false, 'type' => 'B']);
+        $sellerOrder = Order::create(['number' => 2, 'seller_id' => $user->id]);
+        $sellerChat = Chat::create(['order_id' => $sellerOrder->id, 'read' => false, 'type' => 'B']);
 
         // Create buyer order with read chat
-        $buyerOrder2 = Order::factory()->create(['buyer_id' => $user->id]);
-        $buyerChat2 = Chat::factory()->create(['order_id' => $buyerOrder2->id, 'read' => true, 'type' => 'S']);
+        $buyerOrder2 = Order::create(['number' => 3, 'buyer_id' => $user->id]);
+        $buyerChat2 = Chat::create(['order_id' => $buyerOrder2->id, 'read' => true, 'type' => 'S']);
 
         // Create seller order with read chat
-        $sellerOrder2 = Order::factory()->create(['seller_id' => $user->id]);
-        $sellerChat2 = Chat::factory()->create(['order_id' => $sellerOrder2->id, 'read' => true, 'type' => 'B']);
+        $sellerOrder2 = Order::create(['number' => 4, 'seller_id' => $user->id]);
+        $sellerChat2 = Chat::create(['order_id' => $sellerOrder2->id, 'read' => true, 'type' => 'B']);
 
         // Authenticate the user
         Auth::login($user);
@@ -61,7 +61,7 @@ class HeaderControllerTest extends TestCase
         // Authenticate the user
         $user = User::factory()->create();
         Auth::login($user);
-        
+
         $product = User::factory()->create();
         // Call the header method
         $response = $this->get(route('pages.product', [$product->id]));

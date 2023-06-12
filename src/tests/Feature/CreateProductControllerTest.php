@@ -9,9 +9,13 @@ use App\Models\Store;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateProductControllerTest extends TestCase
 {
+
+    use DatabaseTransactions;
+
     /**
      * Test the creator method of the CreateProductController.
      *
@@ -19,11 +23,11 @@ class CreateProductControllerTest extends TestCase
      */
     public function testCreator()
     {
-        // Create some categories
-        $categories = Category::factory()->count(3)->create(['type' => 'C']);
+        // Get all the subcategories
+        $categories = Category::where('type', 'C')->get();
 
-        // Call the creator method
-        $response = $this->get(route('creator'));
+        // Call the create method
+        $response = $this->get(route('pages.createProduct'));
 
         // Assert the response
         $response->assertViewIs('pages.createProduct');
