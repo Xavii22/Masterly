@@ -20,15 +20,16 @@ class HomeControllerTest extends TestCase
         $response->assertViewHas('products');
     }
 
-    // /** @test */
-    // public function it_can_display_home_page_with_category_parameter()
-    // {
-    //     $category = Category::inRandomOrder()->first();
+    /** @test */
+    public function it_can_display_home_page_with_category_parameter()
+    {
+        $category = Category::inRandomOrder()->first();
 
-    //     $response = $this->get('&category=' . $category->id);
+        $response = $this->get('/home?category=' . $category->id);
 
-    //     $response->assertViewHas('category', $category->id);
-    // }
+        $response->assertViewIs('pages.home');
+        $response->assertViewHas('category', $category->id);
+    }
 
     /** @test */
     public function it_can_display_product_details_page()
@@ -41,40 +42,15 @@ class HomeControllerTest extends TestCase
         $response->assertViewHas('product');
     }
 
-    // /** @test */
-    // public function it_can_toggle_product_from_cart_when_authenticated()
-    // {
-    //     $this->actingAs($user = User::factory()->create());
+    /** @test */
+    public function it_cannot_toggle_product_from_cart_when_not_authenticated()
+    {
+        $product = Product::factory()->create();
 
-    //     $product = Product::factory()->create();
+        $this->post('/home', ['0' => $product->id]);
 
-    //     $response = $this->post('/toggle-cart', ['0' => $product->id]);
-
-    //     $this->assertDatabaseHas('cart_product', [
-    //         'cart_id' => $user->cart->id,
-    //         'product_id' => $product->id,
-    //     ]);
-    // }
-
-    // /** @test */
-    // public function it_cannot_toggle_product_from_cart_when_not_authenticated()
-    // {
-    //     $product = Product::factory()->create();
-
-    //     $response = $this->post('/toggle-cart', ['0' => $product->id]);
-
-    //     $this->assertDatabaseMissing('cart_product', [
-    //         'product_id' => $product->id,
-    //     ]);
-    // }
-
-    // /** @test */
-    // public function it_can_get_products_from_cart_when_authenticated()
-    // {
-    //     $this->actingAs($user = User::factory()->create());
-
-    //     $response = $this->get('/get-cart-products');
-
-    //     $response->assertJson($user->cart->products->pluck('id')->toArray());
-    // }
+        $this->assertDatabaseMissing('cart_product', [
+            'product_id' => $product->id,
+        ]);
+    }
 }

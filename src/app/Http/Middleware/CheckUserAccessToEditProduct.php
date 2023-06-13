@@ -37,7 +37,6 @@ class CheckUserAccessToEditProduct
             return $next($request);
         }
 
-        dd('no');
         return redirect()->route('home')->with('error', 'You are not authorized to access this page.');
     }
 }

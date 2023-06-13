@@ -2,69 +2,56 @@
 
 namespace Tests\Feature\Controllers;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
-use App\Models\Product;
 use App\Models\Order;
-use App\Models\User;
+use App\Models\Product;
 use App\Models\Store;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class OrderControllerTest extends TestCase
 {
-    /**
-     * Test the order method of the OrderController.
-     *
-     * @return void
-     */
-    public function testOrder()
+    use DatabaseTransactions;
+
+
+    public function test_order_user_not_logged_in()
     {
-        // Create a fake authenticated user
+        // Make a GET request to the order endpoint without authentication
+        $response = $this->get('/order');
+
+        // Assert that the response is a redirect to the login page
+        $response->assertRedirect(route('pages.login'));
+    }
+
+    public function test_order_user_owns_product()
+    {
+        // Create a user and authenticate
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        // Mock the dependencies
-        $cartMock = $this->mock(Cart::class);
-        $cartMock->shouldReceive('where')->once()->with('user_id', $user->id)->andReturnSelf();
-        $cartMock->shouldReceive('first')->once()->andReturnSelf();
-        $cartMock->shouldReceive('products')->once()->andReturnSelf();
-        $cartMock->shouldReceive('wherePivot')->once()->with('cart_id', 1)->andReturnSelf();
-        $cartMock->shouldReceive('detach')->once();
+        // Create a store and associate it with the user
+        $store = Store::create([
+            'name' => 'Your Store Name',
+            'logo' => 'your-logo-path.png',
+            'user_id' => $user->id,
+        ]);
 
-        $productMock = $this->mock(Product::class);
-        $productMock->shouldReceive('getProductListFromSpecificCart')->once()->with(1)->andReturn([]);
+        // Create a product that belongs to the user's store
+        $product = Product::factory()->create([
+            'store_id' => $store->id,
+        ]);
 
-        $storeMock = $this->mock(Store::class);
-        $storeMock->shouldReceive('where')->once()->with('user_id', $user->id)->andReturnSelf();
-        $storeMock->shouldReceive('value')->once()->with('id')->andReturn(1);
+        // Add the product to the user's cart
+        $cart = Cart::create([
+            'user_id' => $user->id,
+        ]);
+        $cart->products()->attach($product->id);
 
-        $orderMock = $this->mock(Order::class);
-        $orderMock->shouldReceive('all')->once()->andReturn([]);
-        $orderMock->shouldReceive('orderBy')->once()->with('updated_at', 'DESC')->andReturnSelf();
-        $orderMock->shouldReceive('first')->once()->andReturn((object) ['number' => 1]);
-        $orderMock->shouldReceive('attach')->once();
-        $orderMock->shouldReceive('save')->once();
+        // Make a POST request to the order endpoint
+        $response = $this->post('/order');
 
-        $chatControllerMock = $this->mock(\App\Http\Controllers\ChatController::class);
-        $chatControllerMock->shouldReceive('createMessage')->once();
-
-        $logMock = $this->partialMock(Log::class);
-        $logMock->shouldReceive('error')->twice();
-
-        // Mock the Auth facade
-        Auth::shouldReceive('check')->once()->andReturn(true);
-
-        // Register routes to be able to test redirects
-        Route::get('/login', fn () => 'Login')->name('pages.login');
-        Route::get('/errors/default', fn () => 'Default Error')->name('errors.default');
-        Route::get('/home', fn () => 'Home')->name('pages.home');
-
-        // Send a GET request to the order endpoint
-        $response = $this->get('/order');
-
-        // Assert that the response is a redirect to the home route
-        $response->assertRedirect('/home');
+        // Assert that the response is a redirect to the error page
+        $response->assertRedirect(route('errors.defaultError'));
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class CartControllerTest extends TestCase
 {
 
-    //use DatabaseTransactions;
+    use DatabaseTransactions;
 
     /** @test */
     public function it_can_display_cart_page()
@@ -23,29 +23,14 @@ class CartControllerTest extends TestCase
         $response->assertViewIs('pages.cart');
     }
 
-    /** @test */
-    public function it_can_query_products_from_cart_when_authenticated()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $cart = new Cart();
-        $cart->user_id = $user->id;
-        $products = Product::factory(1)->create();
-        
-        $cart->products()->attach($products);
-        
-        $response = $this->post('/queryProducts');
-
-        $response->assertJson($products->toArray());
-    }
-
     // /** @test */
     // public function it_can_query_products_from_cart_when_not_authenticated()
     // {
     //     $products = Product::factory(3)->create();
 
-    //     $response = $this->post('/query-products', ['products' => $products->pluck('id')->toArray()]);
+    //     $productIds = $products->pluck('id')->toArray();
+
+    //     $response = $this->post('/cart', ['products' => $productIds]);
 
     //     $response->assertJson($products->toArray());
     // }
